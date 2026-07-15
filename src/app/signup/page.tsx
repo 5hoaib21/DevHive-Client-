@@ -1,31 +1,23 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
-import {
-  Button,
-  Description,
-  FieldError,
-  Fieldset,
-  Form,
-  Input,
-  Label,
-  Surface,
-  ListBox,
-  Select,
-  TextField,
-} from "@heroui/react";
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import React from "react";
-import toast from "react-hot-toast";
-
 import { Icon } from "@iconify/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { Terminal, Eye, EyeOff, Loader2, Compass, Package } from "lucide-react";
 
 export default function SignUpPage() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("explorer");
+  const [showPassword, setShowPassword] = useState(false);
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData(e.currentTarget);
 
-    const selectedRole = formData.get('role') as string;
     const allowedRoles = ['explorer', 'publisher'];
     const role = allowedRoles.includes(selectedRole) ? selectedRole : 'explorer';
 
@@ -33,99 +25,104 @@ export default function SignUpPage() {
       email: formData.get('email') as string,
       name: formData.get('name') as string,
       password: formData.get('password') as string,
-      image: formData.get('image') as string || undefined,
       role,
     } as any);
-    toast.success('welcome')
-
-    redirect('/')
+    toast.success('Account created successfully!');
+    router.push('/');
+    setLoading(false);
   };
 
   const handleGoogleSignin = async () => {
-      const data = await authClient.signIn.social({
-        provider: 'google',
-      }) 
-    }
+    await authClient.signIn.social({ provider: 'google' });
+  };
 
   return (
-    <div className="flex items-center justify-center rounded-3xl bg-surface p-6 max-w-2xl mx-auto border mt-30">
-      <Surface className="w-full">
-        <Form onSubmit={onSubmit}>
-          <Fieldset className="w-full">
-            <Fieldset.Legend>Signup</Fieldset.Legend>
-            <Description>Create your account</Description>
-            <Fieldset.Group>
-              <TextField isRequired name="name">
-                <Label>Name</Label>
-                <Input placeholder="John Doe" variant="secondary" />
-                <FieldError />
-              </TextField>
-
-              <TextField name="image" type="url">
-                <Label>Image URL</Label>
-                <Input placeholder="Image URL" variant="secondary" />
-                <FieldError />
-              </TextField>
-              <TextField isRequired name="email" type="email">
-                <Label>Email</Label>
-                <Input placeholder="john@example.com" variant="secondary" />
-                <FieldError />
-              </TextField>
-
-              <TextField isRequired name="password" type="password">
-                <Label>Password</Label>
-                <Input placeholder="Password" variant="secondary" />
-                <FieldError />
-              </TextField>
-
-              <Select isRequired name="role" placeholder="Select one">
-                <Label>Signup As</Label>
-                <Select.Trigger>
-                  <Select.Value />
-                  <Select.Indicator />
-                </Select.Trigger>
-                <Select.Popover>
-                  <ListBox>
-                    <ListBox.Item id="publisher" textValue="publisher">
-                      publisher
-                      <ListBox.ItemIndicator />
-                    </ListBox.Item>
-                    <ListBox.Item id="explorer" textValue="explorer">
-                      explorer
-                      <ListBox.ItemIndicator />
-                    </ListBox.Item>
-                  </ListBox>
-                </Select.Popover>
-              </Select>
-            </Fieldset.Group>
-
-            <Button type="submit" className={"w-full"}>
-              Signup
-            </Button>
-          </Fieldset>
-        </Form>
-      <div className="flex justify-center my-3">
-        <h2>Already have an Account? <Link href={'/signin'}><span className="text-blue-400 hover:underline">signin instead</span></Link></h2>
+    <div className="min-h-screen flex">
+      {/* Left Panel - Brand */}
+      <div className="hidden lg:flex lg:w-2/5 bg-[#1A1D26] flex-col items-center justify-center p-12 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03]"
+          style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, white 2px, white 4px), repeating-linear-gradient(90deg, transparent, transparent 2px, white 2px, white 4px)', backgroundSize: '40px 40px' }}
+        />
+        <div className="relative z-10 text-center">
+          <div className="w-16 h-16 rounded-xl bg-dh-teal/20 flex items-center justify-center mx-auto mb-6">
+            <Terminal className="w-8 h-8 text-dh-teal" />
+          </div>
+          <h1 className="text-3xl font-bold text-white mb-2">DevHive</h1>
+          <p className="text-gray-400 text-sm max-w-xs">The developer resource platform</p>
+        </div>
       </div>
 
-      <div className="flex flex-col gap-3">
-                <Button
-                onClick={handleGoogleSignin} 
-                className="w-full" 
-                variant="tertiary">
-                  <Icon icon="devicon:google" />
-                  Sign in with Google
-                </Button>
-                <Button isDisabled className="w-full" variant="tertiary">
-                  <Icon icon="mdi:github" />
-                  Sign in with GitHub
-                </Button>
-                <Button isDisabled className="w-full" variant="tertiary">
-                  <Icon icon="ion:logo-apple" />
-                  Sign in with Apple
-                </Button>
+      {/* Right Panel - Form */}
+      <div className="flex-1 bg-dh-surface flex items-center justify-center p-6">
+        <div className="w-full max-w-md">
+          <div className="mb-8">
+            <h1 className="text-2xl font-bold text-gray-900">Create your account</h1>
+            <p className="text-sm text-gray-500 mt-1">Join the DevHive community</p>
+          </div>
+
+          <form onSubmit={onSubmit} className="space-y-4">
+            {/* Role Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">I want to join as</label>
+              <div className="grid grid-cols-2 gap-3">
+                <button type="button" onClick={() => setSelectedRole("explorer")}
+                  className={'dh-card p-4 text-center cursor-pointer transition-all ' + (selectedRole === "explorer" ? 'border-dh-teal bg-[#E8F5F3]' : '')}>
+                  <Compass className="w-6 h-6 mx-auto mb-1.5 text-dh-teal" />
+                  <span className="text-sm font-semibold text-gray-900">Explorer</span>
+                  <span className="text-xs text-gray-500 block mt-0.5">Discover resources</span>
+                </button>
+                <button type="button" onClick={() => setSelectedRole("publisher")}
+                  className={'dh-card p-4 text-center cursor-pointer transition-all ' + (selectedRole === "publisher" ? 'border-dh-teal bg-[#E8F5F3]' : '')}>
+                  <Package className="w-6 h-6 mx-auto mb-1.5 text-dh-indigo" />
+                  <span className="text-sm font-semibold text-gray-900">Publisher</span>
+                  <span className="text-xs text-gray-500 block mt-0.5">Share resources</span>
+                </button>
               </div>
-      </Surface>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Name</label>
+              <input name="name" type="text" required placeholder="John Doe" className="dh-input" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
+              <input name="email" type="email" required placeholder="john@example.com" className="dh-input" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
+              <div className="relative">
+                <input name="password" type={showPassword ? 'text' : 'password'} required placeholder="Create a password" className="dh-input pr-10" />
+                <button type="button" onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
+            </div>
+            <button type="submit" disabled={loading} className="dh-btn dh-btn-primary w-full justify-center">
+              {loading ? <Loader2 size={16} className="animate-spin" /> : null}
+              Create Account
+            </button>
+          </form>
+
+          <p className="text-sm text-gray-500 text-center mt-4">
+            Already have an account?{' '}
+            <Link href="/signin" className="text-dh-teal hover:text-dh-teal-dark font-semibold">
+              Sign in
+            </Link>
+          </p>
+
+          <div className="mt-6 pt-6 border-t border-dh-border">
+            <button
+              type="button"
+              onClick={handleGoogleSignin}
+              className="dh-btn dh-btn-secondary w-full justify-center gap-2"
+            >
+              <Icon icon="devicon:google" className="text-lg" />
+              Sign up with Google
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

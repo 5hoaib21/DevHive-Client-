@@ -1,123 +1,47 @@
-import React from "react";
+import React from 'react';
+import { Copy, Bookmark, ArrowRight, Package, Plus } from 'lucide-react';
+import Link from 'next/link';
+import { getPublisherAnalytics } from '@/lib/api/prompts';
+import PublisherChart from '@/components/dashboard/PublisherChart';
 
-import {
-  Sparkles,
-  Terminal,
-  Copy,
-  Bookmark,
-  TrendingUp,
-  BarChart3,
-  ArrowUpRight,
-  AlertCircle
-} from "lucide-react";
-import { getPublisherAnalytics } from "@/lib/api/prompts";
-import PublisherChart from "@/components/dashboard/PublisherChart";
-
-
-export default async function CreatorDashboardHomePage() {
-  
-  // ১. সরাসরি সার্ভার সাইড থেকেই ডাটা ফেচ করা হচ্ছে (কোনো useEffect বা useState লাগবে না)
+export default async function PublisherDashboardHomePage() {
   const result = await getPublisherAnalytics();
   const analytics = result?.analytics || { totalResources: 0, totalUsage: 0, totalBookmarks: 0 };
-  const error = result?.success ? null : (result?.error || "Failed to load insights");
-
-  // 📊 ডাইনামিক ডেটা অ্যারে ম্যাপ
-  const analyticsSummary = [
-    {
-      title: "Total Resources",
-      value: analytics.totalResources.toLocaleString(),
-      change: "Live from store",
-      icon: <Terminal size={20} className="text-blue-600" />,
-      bgIcon: "bg-blue-50/70 border-blue-100/50",
-    },
-    {
-      title: "Total Usage",
-      value: analytics.totalUsage.toLocaleString(),
-      change: "Market interactions",
-      icon: <Copy size={20} className="text-violet-600" />,
-      bgIcon: "bg-violet-50/70 border-violet-100/50",
-    },
-    {
-      title: "Total Bookmarks",
-      value: analytics.totalBookmarks.toLocaleString(),
-      change: "Community saves",
-      icon: <Bookmark size={20} className="text-emerald-600" />,
-      bgIcon: "bg-emerald-50/70 border-emerald-100/50",
-    },
-  ];
-
 
   return (
-    <div className="bg-white text-zinc-900 py-6 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto space-y-8">
-        
-        {/* Error Notification Alert */}
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl flex items-center gap-2 text-sm">
-            <AlertCircle size={18} /> {error}
-          </div>
-        )}
-
-        {/* 👋 Welcome Header Module */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-zinc-100 pb-6">
-          <div className="space-y-1">
-            <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-zinc-950 flex items-center gap-2">
-              Welcome back, Publisher!
-              <span className="inline-block animate-bounce origin-bottom">
-                👋
-              </span>
-            </h2>
-            <p className="text-sm text-zinc-500">
-              Monitor performance benchmarks, asset interactions, and user usage insights.
-            </p>
-          </div>
-
-          {/* Pro Account Status Chip */}
-          <div className="flex items-center gap-2 bg-zinc-50 border border-zinc-200/60 rounded-xl px-3 py-1.5 text-xs font-semibold text-zinc-700 w-fit">
-            <Sparkles size={14} className="text-amber-500 fill-amber-400" />
-            Verified Publisher
-          </div>
-        </div>
-
-        {/* 📊 Analytics Dashboard Grid System */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {analyticsSummary.map((item, index) => (
-            <div
-              key={index}
-              className="bg-white border border-zinc-200/60 hover:border-zinc-300 rounded-2xl p-6 transition-all duration-300 hover:shadow-md group relative overflow-hidden"
-            >
-              <div className="flex items-start justify-between">
-                <div className="space-y-3">
-                  <p className="text-xs font-bold uppercase tracking-wider text-zinc-400">
-                    {item.title}
-                  </p>
-                  <h3 className="text-3xl font-black tracking-tight text-zinc-950 transition-transform group-hover:scale-[1.01] duration-200">
-                    {item.value}
-                  </h3>
-                </div>
-
-                <div className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-transform duration-300 group-hover:rotate-6 ${item.bgIcon}`}>
-                  {item.icon}
-                </div>
-              </div>
-
-              <div className="mt-5 pt-4 border-t border-zinc-50 flex items-center justify-between text-xs">
-                <span className="font-semibold text-zinc-500 flex items-center gap-1">
-                  <TrendingUp size={12} className="text-emerald-500" />
-                  {item.change}
-                </span>
-                <span className="text-zinc-400 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5">
-                  Insights <ArrowUpRight size={12} />
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* 📈 Monthly Submissions Chart */}
-        <PublisherChart />
-
+    <div>
+      <div className="mb-6">
+        <h1 className="text-xl font-bold text-gray-900">Publisher Dashboard</h1>
+        <p className="text-sm text-gray-500 mt-0.5">Monitor your resource performance and submissions</p>
       </div>
+
+      <div className="flex gap-5 mb-8">
+        <div>
+          <div className="text-3xl font-black text-gray-900">{analytics.totalResources.toLocaleString()}</div>
+          <p className="text-xs text-gray-500 mt-0.5">Total Resources</p>
+        </div>
+        <div className="w-px bg-dh-border self-stretch" />
+        <div>
+          <div className="text-3xl font-black text-gray-900">{analytics.totalUsage.toLocaleString()}</div>
+          <p className="text-xs text-gray-500 mt-0.5">Total Usage</p>
+        </div>
+        <div className="w-px bg-dh-border self-stretch" />
+        <div>
+          <div className="text-3xl font-black text-gray-900">{analytics.totalBookmarks.toLocaleString()}</div>
+          <p className="text-xs text-gray-500 mt-0.5">Bookmarks</p>
+        </div>
+      </div>
+
+      <div className="flex gap-3 mb-8">
+        <Link href="/dashboard/publisher/add-resource" className="dh-btn dh-btn-primary gap-2">
+          <Plus size={16} /> Add New Resource
+        </Link>
+        <Link href="/dashboard/publisher/my-resources" className="dh-btn dh-btn-secondary gap-2">
+          <Package size={16} /> My Resources
+        </Link>
+      </div>
+
+      <PublisherChart />
     </div>
   );
 }

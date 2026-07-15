@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Table, Chip, Select, ListBox, Button, AlertDialog } from "@heroui/react";
-import { Trash2 } from "lucide-react";
+import { Trash2, Shield } from "lucide-react";
 import toast from "react-hot-toast";
 import { deleteUserAction, updateUserRoleAction } from "@/lib/actions/users";
 import { getIdString, MongoId } from "@/types";
@@ -21,197 +20,88 @@ interface AdminUserTableProps {
 
 export default function AdminUserTable({ initialUsers }: AdminUserTableProps) {
   const [users, setUsers] = useState<User[]>(initialUsers);
+  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
 
-  const handleRoleChange = async (userId: string, key: unknown) => {
-    const newRole = typeof key === "object" && key !== null ? Array.from(key as Set<string>)[0] : (key as string);
-    if (!newRole) return;
-
+  const handleRoleChange = async (userId: string, newRole: string) => {
     const rolePromise = updateUserRoleAction(userId, newRole).then((res) => {
       if (res.success) {
-        setUsers((prev) =>
-          prev.map((u) =>
-            getIdString(u._id) === userId ? { ...u, role: newRole as "explorer" | "publisher" | "admin" } : u
-          )
-        );
-        return res.message || `Role updated to ${newRole}!`;
-      } else {
-        throw new Error(res.message || "Failed to update role");
-      }
+        setUsers((prev) => prev.map((u) => getIdString(u._id) === userId ? { ...u, role: newRole as "explorer" | "publisher" | "admin" } : u));
+        return res.message || "Role updated!";
+      } else throw new Error(res.message || "Failed to update role");
     });
-
-    toast.promise(rolePromise, {
-      loading: "Updating user role...",
-      success: (msg) => msg,
-      error: (err) => err.message,
-    });
+    toast.promise(rolePromise, { loading: "Updating role...", success: (msg) => msg, error: (err) => err.message });
   };
 
   const handleDeleteUser = async (user: User) => {
     const userId = getIdString(user._id);
-
     const deletePromise = deleteUserAction(userId).then((res) => {
       if (res.success) {
         setUsers((prev) => prev.filter((u) => getIdString(u._id) !== userId));
-        return res.message || "User deleted permanently.";
-      } else {
-        throw new Error(res.message || "Failed to delete user");
-      }
+        setDeleteConfirm(null);
+        return res.message || "User deleted.";
+      } else throw new Error(res.message || "Failed to delete");
     });
+    toast.promise(deletePromise, { loading: "Deleting user...", success: (msg) => msg, error: (err) => err.message });
+  };
 
-    toast.promise(deletePromise, {
-      loading: "Deleting user account...",
-      success: (msg) => msg,
-      error: (err) => err.message,
-    });
+  const roleColors: Record<string, string> = {
+    explorer: "text-dh-teal",
+    publisher: "text-dh-indigo",
+    admin: "text-dh-orange",
   };
 
   return (
-    <Table aria-label="User Management Table" className="bg-white text-zinc-800 shadow-none">
-      <Table.ResizableContainer>
-        <Table.Content aria-label="Table with resizable columns" className="min-w-[750px]">
-          <Table.Header>
-            <Table.Column
-              isRowHeader
-              defaultWidth="1.5fr"
-              id="profile"
-              minWidth={220}
-              className="text-zinc-700 font-bold bg-zinc-50 border-b border-zinc-200"
-            >
-              PROFILE DETAILS <Table.ColumnResizer />
-            </Table.Column>
-            <Table.Column
-              defaultWidth="1.5fr"
-              id="email"
-              minWidth={220}
-              className="text-zinc-700 font-bold bg-zinc-50 border-b border-zinc-200"
-            >
-              EMAIL ADDRESS <Table.ColumnResizer />
-            </Table.Column>
-            <Table.Column
-              defaultWidth="1.2fr"
-              id="role"
-              minWidth={160}
-              className="text-zinc-700 font-bold bg-zinc-50 border-b border-zinc-200"
-            >
-              ROLE LEVEL <Table.ColumnResizer />
-            </Table.Column>
-            <Table.Column
-              defaultWidth="0.6fr"
-              id="actions"
-              minWidth={80}
-              className="text-right pr-6 text-zinc-700 font-bold bg-zinc-50 border-b border-zinc-200"
-            >
-              ACTIONS
-            </Table.Column>
-          </Table.Header>
-
-          <Table.Body>
-            {users.map((user, index) => {
+    <div className="bg-white border border-dh-border rounded-lg overflow-hidden">
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="bg-[#F1F3F9] border-b border-dh-border">
+              <th className="text-left py-3 px-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Profile</th>
+              <th className="text-left py-3 px-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Email</th>
+              <th className="text-left py-3 px-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Role</th>
+              <th className="text-right py-3 px-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => {
               const userId = getIdString(user._id);
-
+              const defaultAvatar = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
               return (
-                <Table.Row key={userId} className="border-b border-zinc-100 hover:bg-zinc-50/80 transition-colors">
-                  <Table.Cell>
+                <tr key={userId} className="border-b border-dh-border last:border-b-0 hover:bg-[#FAFBFF] transition-colors">
+                  <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
-                      <img
-                        src={user?.image || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
-                        alt={user?.name}
-                        className="w-8 h-8 rounded-full object-cover border border-zinc-200"
-                        onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                          e.currentTarget.src = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
-                        }}
-                      />
-                      <span className="font-semibold text-zinc-900 text-sm">
-                        {user?.name || "User"}
-                      </span>
+                      <img src={user?.image || defaultAvatar} alt={user?.name} className="w-8 h-8 rounded-full object-cover border border-dh-border"
+                        onError={(e) => { (e.target as HTMLImageElement).src = defaultAvatar; }} />
+                      <span className="font-medium text-gray-900">{user?.name || "User"}</span>
                     </div>
-                  </Table.Cell>
-
-                  <Table.Cell>
-                    <span className="text-zinc-600 text-sm">{user?.email || "N/A"}</span>
-                  </Table.Cell>
-
-                  <Table.Cell>
-                    <Select
-                      className="w-full max-w-[130px]"
-                      placeholder="Select role"
-                      selectedKey={user?.role || "explorer"}
-                      onSelectionChange={(key) => handleRoleChange(userId, key)}
-                    >
-                      <Select.Trigger className="h-8 min-h-8 bg-zinc-50 border border-zinc-200 rounded-lg text-zinc-700 text-xs font-medium">
-                        <Select.Value />
-                        <Select.Indicator />
-                      </Select.Trigger>
-                      <Select.Popover className="bg-white border border-zinc-200 rounded-xl shadow-lg">
-                        <ListBox>
-                          <ListBox.Item
-                            id="explorer"
-                            textValue="Explorer"
-                            className="text-xs text-zinc-700 hover:bg-zinc-50 rounded-md"
-                          >
-                            Explorer
-                          </ListBox.Item>
-                          <ListBox.Item
-                            id="publisher"
-                            textValue="Publisher"
-                            className="text-xs text-zinc-700 hover:bg-zinc-50 rounded-md"
-                          >
-                            Publisher
-                          </ListBox.Item>
-                          <ListBox.Item
-                            id="admin"
-                            textValue="Admin"
-                            className="text-xs text-zinc-700 hover:bg-zinc-50 rounded-md"
-                          >
-                            Admin
-                          </ListBox.Item>
-                        </ListBox>
-                      </Select.Popover>
-                    </Select>
-                  </Table.Cell>
-
-                  <Table.Cell className="text-right pr-6">
-                    <AlertDialog>
-                      <Button variant="danger-soft">
+                  </td>
+                  <td className="py-3 px-4 text-gray-500">{user?.email || "N/A"}</td>
+                  <td className="py-3 px-4">
+                    <select value={user?.role || "explorer"} onChange={(e) => handleRoleChange(userId, e.target.value)}
+                      className={'dh-input w-auto text-xs font-semibold ' + (roleColors[user?.role] || '')}>
+                      <option value="explorer">Explorer</option>
+                      <option value="publisher">Publisher</option>
+                      <option value="admin">Admin</option>
+                    </select>
+                  </td>
+                  <td className="py-3 px-4 text-right">
+                    {deleteConfirm === userId ? (
+                      <div className="flex items-center justify-end gap-1">
+                        <button onClick={() => handleDeleteUser(user)} className="dh-btn dh-btn-danger text-xs px-2 py-1">Confirm</button>
+                        <button onClick={() => setDeleteConfirm(null)} className="dh-btn dh-btn-ghost text-xs px-2 py-1">Cancel</button>
+                      </div>
+                    ) : (
+                      <button onClick={() => setDeleteConfirm(userId)} className="dh-btn dh-btn-ghost p-1.5 text-gray-400 hover:text-dh-danger">
                         <Trash2 size={14} />
-                      </Button>
-                      <AlertDialog.Backdrop>
-                        <AlertDialog.Container>
-                          <AlertDialog.Dialog className="sm:max-w-[400px]">
-                            <AlertDialog.CloseTrigger />
-                            <AlertDialog.Header>
-                              <AlertDialog.Icon status="danger" />
-                              <AlertDialog.Heading>Delete user permanently?</AlertDialog.Heading>
-                            </AlertDialog.Header>
-                            <AlertDialog.Body>
-                              <p>
-                                This will permanently delete <strong>{user?.name}</strong> and all of its
-                                data. This action cannot be undone.
-                              </p>
-                            </AlertDialog.Body>
-                            <AlertDialog.Footer>
-                              <Button slot="close" variant="tertiary">
-                                Cancel
-                              </Button>
-                              <Button
-                                slot="close"
-                                variant="danger"
-                                onClick={() => handleDeleteUser(user)}
-                              >
-                                Delete User
-                              </Button>
-                            </AlertDialog.Footer>
-                          </AlertDialog.Dialog>
-                        </AlertDialog.Container>
-                      </AlertDialog.Backdrop>
-                    </AlertDialog>
-                  </Table.Cell>
-                </Table.Row>
+                      </button>
+                    )}
+                  </td>
+                </tr>
               );
             })}
-          </Table.Body>
-        </Table.Content>
-      </Table.ResizableContainer>
-    </Table>
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
