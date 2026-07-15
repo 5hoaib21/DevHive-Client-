@@ -3,19 +3,19 @@
 import { deleteResource } from "@/lib/actions/prompts";
 import { AlertDialog, Button } from "@heroui/react";
 import { Delete } from "lucide-react";
-import { useRouter } from "next/navigation"; // রিফ্রেশ করার জন্য ইম্পোর্ট করলাম
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-export function DeletePrompt({ promptId }: { promptId: string }) {
+export function DeleteResource({ promptId }: { promptId: string }) {
   const router = useRouter();
 
   const handleDelete = async () => {
     const response: any = await deleteResource(promptId);
     if (response.success) {
-      toast.success("সফলভাবে ডিলিট হয়েছে!");
-      router.refresh(); // এটি সার্ভার কম্পোনেন্টকে বলবে নতুন ডাটা নিয়ে রিফ্রেশ হতে!
+      toast.success("Successfully deleted!");
+      router.refresh();
     } else {
-      toast.error("ডিলিট করা যায়নি: " + response.error);
+      toast.error("Could not delete: " + response.error);
     }
   };
 
@@ -45,7 +45,6 @@ export function DeletePrompt({ promptId }: { promptId: string }) {
               <Button slot="close" variant="tertiary">
                 Cancel
               </Button>
-              {/* এখানে onClick-এ handleDelete জুড়ে দেওয়া হলো */}
               <Button slot="close" variant="danger" onClick={handleDelete}>
                 Delete Resource
               </Button>

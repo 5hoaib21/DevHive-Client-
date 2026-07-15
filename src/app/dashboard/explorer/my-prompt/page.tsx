@@ -1,6 +1,6 @@
 import { getMyResources as getPrompts } from "@/lib/api/prompts";
 import React from "react";
-import MyPromptTable from "../../creator/my-prompt/PromptTable";
+import MyPromptTable from "./PromptTable";
 import { EmptyState } from "@/components/ui/EmptyState";
 
 interface SearchParams {

@@ -31,7 +31,7 @@ import {
   TextField,
 } from "@heroui/react";
 
-export default function PromptInteractions({
+export default function ResourceInteractions({
   promptId,
   promptContent,
   rating: initialRating,
@@ -180,7 +180,7 @@ export default function PromptInteractions({
 
   return (
     <div className="space-y-6">
-      {/* 🚀 Action Buttons Grid */}
+      {/* Action Buttons Grid */}
       <div className="flex flex-wrap gap-3">
         <button
           onClick={handleCopy}
@@ -217,7 +217,7 @@ export default function PromptInteractions({
         </button>
       </div>
 
-      {/* 🚀 NEW HEROUI REPORT MODAL */}
+      {/* HEROUI REPORT MODAL */}
       <Modal isOpen={isModalOpen} onOpenChange={setIsModalOpen}>
         <Modal.Backdrop>
           <Modal.Container placement="center">
@@ -303,7 +303,7 @@ export default function PromptInteractions({
         </Modal.Backdrop>
       </Modal>
 
-      {/* 💬 Community Reviews Layout Container */}
+      {/* Community Reviews Layout Container */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">

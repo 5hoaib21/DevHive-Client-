@@ -14,12 +14,12 @@ import {
   Eye,
   Flame
 } from 'lucide-react';
-import { getFeaturedResources as getFeaturedPrompts } from '@/lib/api/prompts';
+import { getFeaturedResources } from '@/lib/api/prompts';
 
-const FeaturedPrompt = async () => {
-    const data = await getFeaturedPrompts();
+const FeaturedResources = async () => {
+    const data = await getFeaturedResources();
     
-    // ✅ চেক করা data টি array কিনা
+    // চেক করা data টি array কিনা
     const prompts = Array.isArray(data) ? data : data?.prompts || [];
     
 
@@ -69,7 +69,7 @@ const FeaturedPrompt = async () => {
                 </div>
 
                 {/* ফিচার্ড প্রম্পট গ্রিড */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {prompts.map((prompt: any, index: number) => (
                         <FeaturedCard key={prompt._id || index} prompt={prompt} index={index} />
                     ))}
@@ -107,7 +107,7 @@ const FeaturedCard = ({ prompt, index }: { prompt: any, index: number }) => {
         createdAt,
         author = "Prompt Engineer",
         authorName,
-    } = prompt || {}; // ✅ prompt undefined হলে সমস্যা না হয়
+    } = prompt || {};
 
     const formattedDate = createdAt ? new Date(createdAt).toLocaleDateString('en-US', {
         year: 'numeric',
@@ -259,4 +259,4 @@ const FeaturedCard = ({ prompt, index }: { prompt: any, index: number }) => {
     );
 };
 
-export default FeaturedPrompt;
+export default FeaturedResources;

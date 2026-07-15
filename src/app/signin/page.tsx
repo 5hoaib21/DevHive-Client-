@@ -97,6 +97,27 @@ export default function SignInPage() {
             Sign in with Apple
           </Button>
         </div>
+
+        <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-default-200">
+          <p className="text-xs text-default-500 text-center">
+            Explore DevHive with a pre-loaded demo account
+          </p>
+          <Button
+            variant="outline"
+            className="w-full"
+            onPress={async () => {
+              await authClient.signIn.email({
+                email: "demo@devhive.io",
+                password: "DemoPass123!",
+              });
+              router.push(redirectTo);
+              toast.success("Welcome to the demo account");
+            }}
+          >
+            <Icon icon="mdi:account-wand" />
+            Demo Login
+          </Button>
+        </div>
       </Surface>
     </div>
   );

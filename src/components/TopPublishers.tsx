@@ -2,7 +2,7 @@ import React from 'react';
 import { Award, Code2, ArrowRight, Crown, Sparkles, Star, Medal, Trophy } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getTopPublishers as getTopCreators } from '@/lib/api/topCreators';
+import { getTopPublishers } from '@/lib/api/topCreators';
 
 interface Creator {
   _id: string;
@@ -12,8 +12,8 @@ interface Creator {
   totalResources: number;
 }
 
-export default async function TopCreators() {
-  const creators = await getTopCreators();
+export default async function TopPublishers() {
+  const creators = await getTopPublishers();
 
   if (!creators || creators.length === 0) return null;
 

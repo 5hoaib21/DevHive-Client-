@@ -1,10 +1,10 @@
 export const dynamic = "force-dynamic";
 import Banner from "@/components/Banner";
-import FeaturedResource from "@/components/FeaturedPrompt";
+import FeaturedResource from "@/components/FeaturedResources";
 import FeatureSection from "@/components/FeatureSection";
 import ReviewSection from "@/components/ReviewSection";
-import TopPublishers from "@/components/TopCreators";
-import WhyChooseUs from "@/components/WhyChooseUs";
+import TopPublishers from "@/components/TopPublishers";
+import WhyChooseUs from "@/components/WhyDevHive";
 import { getAllResources } from "@/lib/api/prompts";
 
 

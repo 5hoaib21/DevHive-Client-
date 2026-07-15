@@ -17,11 +17,10 @@ import {
 import { MagicWand, Compass, ChevronDown } from "@gravity-ui/icons";
 import { CloudUpload, CloudUploadIcon } from "lucide-react";
 import { imageUpload } from "@/lib/actions/imgUpload";
-import { addResource as addPrompt } from "@/lib/actions/prompts";
+import { addResource } from "@/lib/actions/prompts";
 import { useRouter } from "next/navigation";
-// import { addPrompt } from "@/lib/actions/prompts";
 
-export default function AddPromptForm() {
+export default function AddResourceForm() {
   const [mounted, setMounted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const router = useRouter()
@@ -74,20 +73,20 @@ export default function AddPromptForm() {
       status: "pending",
     };
 
-    const result: any = await addPrompt(promptPayload);
+    const result: any = await addResource(promptPayload);
     
     if (result && result.insertedId) {
       toast.success("Prompt submitted for review successfully!");
       (e.target as HTMLFormElement).reset();
       
-      // 🚀 ক্লায়েন্ট সাইড সেফ রিডাইরেকশন
+      // ক্লায়েন্ট সাইড সেফ রিডাইরেকশন
       router.push('/prompts'); 
     } else {
       toast.error(result?.error || "Failed to publish prompt asset.");
     }
   };
 
-  // ✨ Light Theme Polished Global Classes
+  // Light Theme Polished Global Classes
   const inputClass =
     "w-full text-zinc-800 bg-zinc-50 border border-zinc-200 focus:border-indigo-500 rounded-xl h-11 px-3.5 text-sm placeholder:text-zinc-400 outline-none transition-all duration-200 shadow-2xs";
   const textAreaClass =
@@ -103,7 +102,7 @@ export default function AddPromptForm() {
 
   return (
     <div className="w-full min-h-screen bg-slate-50 text-zinc-800 pt-5 pb-24 px-4 overflow-hidden relative">
-      {/* 🌌 Ambient Soft Mesh Blurs - light mode styling standard */}
+      {/* Ambient Soft Mesh Blurs - light mode styling standard */}
       <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-indigo-500/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 -left-20 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -177,7 +176,7 @@ export default function AddPromptForm() {
                 </Label>
                 <TextArea
                   name="content"
-                  placeholder="Paste your system level instructions here. Use [brackets] for user parameter variables..."
+                  content="Paste your system level instructions here. Use [brackets] for user parameter variables..."
                   rows={5}
                   className={textAreaClass}
                 />

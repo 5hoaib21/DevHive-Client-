@@ -3,7 +3,7 @@ import { Copy, Clock, ArrowRight, Sparkles, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const AllPromptsPage = async ({ resource }: { resource: any }) => {
+const AllResourcesPage = async ({ resource }: { resource: any }) => {
   
   const {
     title,
@@ -130,4 +130,4 @@ const AllPromptsPage = async ({ resource }: { resource: any }) => {
   );
 };
 
-export default AllPromptsPage;
+export default AllResourcesPage;

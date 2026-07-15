@@ -1,7 +1,7 @@
 "use client";
 
-import { DeletePrompt } from "@/components/DeletePrompt";
-import { EditPrompt } from "@/components/EditPrompt";
+import { DeleteResource } from "@/components/DeleteResource";
+import { EditResource } from "@/components/EditResource";
 import { Table, Pagination } from "@heroui/react";
 import Link from "next/link";
 
@@ -60,8 +60,8 @@ export default function MyPromptTable({ promptsData }: MyPromptTableProps) {
                 <Table.Cell>{prompt?.usageCount || 0}</Table.Cell>
                 <Table.Cell>{prompt?.ratingCount || 0}</Table.Cell>
                 <Table.Cell className="flex gap-2">
-                  <EditPrompt promptId={prompt._id} promptData={prompt} />
-                  <DeletePrompt promptId={prompt._id} />
+                  <EditResource promptId={prompt._id} promptData={prompt} />
+                  <DeleteResource promptId={prompt._id} />
                 </Table.Cell>
               </Table.Row>
             ))}

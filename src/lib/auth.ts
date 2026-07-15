@@ -8,6 +8,10 @@ import { jwt } from "better-auth/plugins";
 const client = new MongoClient(process.env.MONGODB_URI as string);
 const db = client.db("devhive");
 
+// NOTE: A demo user must exist in the database with:
+//   email: "demo@devhive.io"
+//   password: "DemoPass123!"
+// Create via sign-up or seed script before using the Demo Login button.
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client,

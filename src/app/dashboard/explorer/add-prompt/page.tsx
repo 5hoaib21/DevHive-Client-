@@ -1,5 +1,4 @@
-
-import AddPromptForm from '@/components/dashboard/AddPromptForm';
+import AddResourceForm from '@/components/dashboard/AddResourceForm';
 import React from 'react';
 import { Sparkles, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -39,7 +38,7 @@ const AddPromptPage = async () => {
                 </div>
 
                 <div className="bg-white rounded-3xl border border-zinc-200/80 p-6 sm:p-8 shadow-xs hover:border-zinc-300/80 transition-all duration-300">
-                    <AddPromptForm />
+                    <AddResourceForm />
                 </div>
 
             </div>

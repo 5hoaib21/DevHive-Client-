@@ -12,11 +12,11 @@ import {
 } from "@heroui/react";
 import { Edit, Pencil } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; // সার্ভার কম্পোনেন্ট রিফ্রেশ করার জন্য
+import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
-import { updateResource as updatePrompt } from "@/lib/actions/prompts";
+import { updateResource } from "@/lib/actions/prompts";
 
-export function EditPrompt({ promptData, promptId }: { promptData: any, promptId: string }) {
+export function EditResource({ promptData, promptId }: { promptData: any, promptId: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -54,7 +54,7 @@ export function EditPrompt({ promptData, promptId }: { promptData: any, promptId
     }));
   };
 
-  // ✅ HeroUI-এর Set অবজেক্ট থেকে পুরো string-টি বের করার জন্য ফাংশনটি ফিক্স করা হলো
+  // HeroUI-এর Set অবজেক্ট থেকে পুরো string-টি বের করার জন্য ফাংশনটি ফিক্স করা হলো
   const handleSelectChange = (field: string, keys: string | number | null) => {
     const selectedValue = keys != null ? String(keys) : "";
     setFormData(prev => ({
@@ -85,12 +85,12 @@ export function EditPrompt({ promptData, promptId }: { promptData: any, promptId
       }
 
       // এপিআই কল এবং রেসপন্স হ্যান্ডলিং
-      const response = await updatePrompt(promptId, formValues);
+      const response = await updateResource(promptId, formValues);
       
       if (response.success) {
         toast.success("Resource updated successfully!");
-        setIsOpen(false); // মডাল বন্ধ হবে
-        router.refresh(); // টেবিলের ডাটা সার্ভার থেকে রিফ্রেশ হবে
+        setIsOpen(false);
+        router.refresh();
       } else {
         toast.error(response.error || "Failed to update resource");
       }
@@ -157,7 +157,7 @@ export function EditPrompt({ promptData, promptId }: { promptData: any, promptId
                     placeholder="Select category"
                     name="category"
                     selectedKey={formData.category || ""}
-                    onSelectionChange={(keys) => handleSelectChange("category", keys)} // ✅ ফিক্সড
+                    onSelectionChange={(keys) => handleSelectChange("category", keys)}
                   >
                     <Label>Category</Label>
                     <Select.Trigger>
@@ -243,7 +243,7 @@ export function EditPrompt({ promptData, promptId }: { promptData: any, promptId
                     placeholder="Select visibility"
                     name="visibility"
                     selectedKey={formData.visibility || "public"}
-                    onSelectionChange={(keys) => handleSelectChange("visibility", keys)} // ✅ ফিক্সড
+                    onSelectionChange={(keys) => handleSelectChange("visibility", keys)}
                   >
                     <Label>Visibility</Label>
                     <Select.Trigger>

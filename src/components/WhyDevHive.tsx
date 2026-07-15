@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-const WhyChooseUs = () => {
+const WhyDevHive = () => {
   const benefits = [
     {
       icon: <Sparkles className="w-6 h-6" />,
@@ -233,7 +233,7 @@ const WhyChooseUs = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {benefits.map((benefit, index) => (
             <motion.div
@@ -291,4 +291,4 @@ const WhyChooseUs = () => {
   );
 };
 
-export default WhyChooseUs;
+export default WhyDevHive;

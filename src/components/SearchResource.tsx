@@ -1,10 +1,10 @@
-// components/SearchPrompt.jsx
+// components/SearchResource.tsx
 'use client';
 import { Button, Input } from '@heroui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
-const SearchPrompt = () => {
+const SearchResource = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState(searchParams?.get('search') || '');
@@ -42,44 +42,4 @@ const SearchPrompt = () => {
   );
 };
 
-export default SearchPrompt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 'use client';
-// import { Button, Input } from '@heroui/react';
-// import { redirect } from 'next/navigation';
-
-
-// const SearchPrompt = () => {
-//     const onSearch = (e) => {
-//         e.preventDefault();
-//         redirect(`/resources?search=${e.target.search.value}`);
-//     }
-//     return (
-//         <div className="flex items-center justify-center gap-2">
-//            <form onSubmit={onSearch}>
-//              <Input name='search' type='search' placeholder='Search resources...' />
-//             <Button type='submit' size='sm' variant='outline'> Search</Button>
-//            </form>
-//         </div>
-//     );
-// };
-
-// export default SearchPrompt;
+export default SearchResource;
