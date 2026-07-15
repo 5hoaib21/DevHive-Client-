@@ -33,7 +33,7 @@ export default function AnalyticsDashboardView({ stats, languageData }: { stats:
             <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Total Resources</p>
             <h3 className="text-xl font-bold text-zinc-900 mt-1">{stats.totalResources}</h3>
           </div>
-          <div className="p-2.5 bg-purple-50 text-purple-600 rounded-xl"><FileText size={18} /></div>
+          <div className="p-2.5 bg-teal-50 text-teal-600 rounded-xl"><FileText size={18} /></div>
         </div>
 
         {/* TOTAL REVIEWS */}

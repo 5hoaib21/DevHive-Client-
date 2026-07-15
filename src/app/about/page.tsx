@@ -38,9 +38,9 @@ const features = [
     title: "Community Vetted",
     description:
       "Resources are upvoted, reviewed, and tested by a global community of developers who value quality.",
-    color: "from-purple-500 to-pink-500",
-    bgColor: "bg-purple-50",
-    iconColor: "text-purple-600",
+    color: "from-teal-500 to-indigo-500",
+    bgColor: "bg-teal-50",
+    iconColor: "text-teal-600",
   },
   {
     icon: <RefreshCw className="w-6 h-6" />,
@@ -74,7 +74,7 @@ const AboutPage = () => {
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight leading-tight mb-6">
             Empowering Developers to{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-indigo-600">
               Share & Grow
             </span>
           </h1>
@@ -97,7 +97,7 @@ const AboutPage = () => {
               </div>
               <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-6">
                 Born from a{" "}
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-indigo-600">
                   Developer Need
                 </span>
               </h2>
@@ -147,12 +147,12 @@ const AboutPage = () => {
       <section className="py-20 sm:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 text-blue-700 text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-teal-50 to-indigo-50 border border-blue-200 text-blue-700 text-sm font-medium mb-4">
               Why DevHive
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-4">
               Built for{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-indigo-600">
                 Developers
               </span>
               , by Developers
@@ -189,7 +189,7 @@ const AboutPage = () => {
       </section>
 
       {/* Stats */}
-      <section className="py-20 sm:py-24 bg-gradient-to-r from-blue-600 to-purple-700">
+      <section className="py-20 sm:py-24 bg-gradient-to-r from-indigo-600 to-orange-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
             {stats.map((stat) => (
@@ -218,7 +218,7 @@ const AboutPage = () => {
           </p>
           <Link
             href="/resources"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-8 py-3.5 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg group"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-semibold px-8 py-3.5 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg group"
           >
             Explore Resources
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

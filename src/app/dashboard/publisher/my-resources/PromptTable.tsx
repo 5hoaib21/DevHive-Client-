@@ -74,21 +74,21 @@ export default function MyPromptTable({ promptsData }: MyPromptTableProps) {
           <Pagination.Content>
             <Pagination.Item>
               <Pagination.Previous isDisabled={page === 1}>
-                <Link className="flex gap-2" href={`/dashboard/publisher/my-prompt?page=${page - 1}`}>
+                <Link className="flex gap-2" href={`/dashboard/publisher/my-resources?page=${page - 1}`}>
                   <Pagination.PreviousIcon /> Prev
                 </Link>
               </Pagination.Previous>
             </Pagination.Item>
             {pages.map((p) => (
               <Pagination.Item key={p}>
-                <Link href={`/dashboard/publisher/my-prompt?page=${p}`}>
+                <Link href={`/dashboard/publisher/my-resources?page=${p}`}>
                   <Pagination.Link isActive={p === page}>{p}</Pagination.Link>
                 </Link>
               </Pagination.Item>
             ))}
             <Pagination.Item>
               <Pagination.Next isDisabled={page === totalPages}>
-                <Link className="flex gap-2" href={`/dashboard/publisher/my-prompt?page=${page + 1}`}>
+                <Link className="flex gap-2" href={`/dashboard/publisher/my-resources?page=${page + 1}`}>
                   Next <Pagination.NextIcon />
                 </Link>
               </Pagination.Next>

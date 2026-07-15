@@ -20,10 +20,10 @@ const stats = [
     value: 2500,
     suffix: "+",
     label: "Active Developers",
-    gradient: "from-purple-500 to-pink-500",
-    bgGradient: "from-purple-50 to-pink-50",
-    iconBg: "bg-purple-100",
-    iconColor: "text-purple-600",
+    gradient: "from-teal-500 to-indigo-500",
+    bgGradient: "from-teal-50 to-indigo-50",
+    iconBg: "bg-teal-100",
+    iconColor: "text-teal-600",
   },
   {
     icon: <Globe className="w-6 h-6" />,
@@ -110,7 +110,7 @@ const StatisticsSection = () => {
             className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-4"
           >
             DevHive by the{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-indigo-600">
               Numbers
             </span>
           </motion.h2>

@@ -93,7 +93,7 @@ const AllResourcesPage = async ({ resource }: { resource: any }) => {
             <span className="text-xs font-medium text-black bg-orange-500/20 px-2.5 py-1 rounded-full">
           {category}
         </span>
-        <span className="text-xs font-medium text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full">
+        <span className="text-xs font-medium text-teal-600 bg-teal-50 px-2.5 py-1 rounded-full">
           {language}
         </span>
     </div>

@@ -143,7 +143,7 @@ export default function AdminPromptTable({ initialPrompts }: AdminPromptTablePro
                     </Table.Cell>
 
                     <Table.Cell>
-                      <span className="px-2.5 py-1 text-[11px] font-bold tracking-wider rounded-lg bg-purple-50 text-purple-600 uppercase border border-purple-100 inline-block">
+                      <span className="px-2.5 py-1 text-[11px] font-bold tracking-wider rounded-lg bg-teal-50 text-teal-600 uppercase border border-teal-100 inline-block">
                         {resource?.language || "N/A"}
                       </span>
                     </Table.Cell>

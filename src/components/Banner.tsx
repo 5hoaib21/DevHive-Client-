@@ -128,7 +128,7 @@ export default function Banner() {
             initial={{ backgroundPosition: "0% 50%" }}
             animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
             transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-            className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 via-indigo-500 to-purple-600 bg-[length:200%_auto]"
+            className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 via-indigo-500 to-orange-600 bg-[length:200%_auto]"
           >
             Developer Resources
           </motion.span>

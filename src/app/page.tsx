@@ -14,7 +14,7 @@ const Home = async () => {
   const firstResourceId = resources?.data?.[0]?._id || resources?.[0]?._id || null;
 
   return (
-    <div>
+    <div className="">
       {/* Section 1: Hero */}
       <Banner />
 

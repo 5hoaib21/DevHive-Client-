@@ -20,15 +20,15 @@ export default function Footer() {
       title: "Explore",
       links: [
         { label: "All Resources", href: "/resources" },
-        { label: "AI Tools", href: "/tools" },
-        { label: "Trending", href: "/trending" },
+        { label: "About", href: "/about" },
+        { label: "Blog", href: "/blog" },
       ],
     },
     {
       title: "Community",
       links: [
         { label: "Publishers", href: "/publishers" },
-        { label: "Leaderboard", href: "/leaderboard" },
+        { label: "Contact", href: "/contact" },
         { label: "Guidelines", href: "/guidelines" },
       ],
     },
@@ -54,9 +54,9 @@ export default function Footer() {
             <Link href="/" className="group flex items-center gap-3">
               <div className="relative">
                 <Terminal />
-                <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 blur transition-opacity group-hover:opacity-20" />
+                <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-teal-600 to-indigo-600 opacity-0 blur transition-opacity group-hover:opacity-20" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-indigo-600 bg-clip-text text-transparent">
                 DevHive
               </span>
             </Link>

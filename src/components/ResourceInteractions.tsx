@@ -187,7 +187,7 @@ export default function ResourceInteractions({
           className={`flex-1 min-w-[120px] font-medium py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 active:scale-98 cursor-pointer ${
             isLocked
               ? "bg-zinc-100 text-zinc-400 cursor-not-allowed border border-zinc-200"
-              : "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-md hover:shadow-lg"
+              : "bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white shadow-md hover:shadow-lg"
           }`}
         >
           {isLocked ? <Lock size={18} /> : <CopyCheck size={18} />}
@@ -363,7 +363,7 @@ export default function ResourceInteractions({
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium py-2.5 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                className="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-medium py-2.5 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
               >
                 <Send size={18} />
                 {isLoading ? "Submitting..." : "Submit Review"}
@@ -379,7 +379,7 @@ export default function ResourceInteractions({
               <div key={index} className="bg-gray-50 rounded-xl p-4 border border-gray-100">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold">
                       {review.userName?.charAt(0) || "U"}
                     </div>
                     <span className="text-sm font-semibold text-gray-800">

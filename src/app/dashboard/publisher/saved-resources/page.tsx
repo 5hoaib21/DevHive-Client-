@@ -53,7 +53,7 @@ export default async function UserSavedPromptPage() {
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-bold uppercase tracking-wider bg-purple-50 text-purple-700 px-2.5 py-1 rounded-full">
+                  <span className="text-xs font-bold uppercase tracking-wider bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">
                     {prompt.language}
                   </span>
                   <span className="text-xs text-gray-400 capitalize">
@@ -74,7 +74,7 @@ export default async function UserSavedPromptPage() {
                   {(Array.isArray(prompt.tags)
                     ? prompt.tags
                     : typeof prompt.tags === "string"
-                    ? prompt.tags.split(",").map((t) => t.trim())
+                    ? prompt.tags.split(",").map((t: string) => t.trim())
                     : []
                   )
                     .slice(0, 2)

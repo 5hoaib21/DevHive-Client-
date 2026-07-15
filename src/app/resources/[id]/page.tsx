@@ -112,7 +112,7 @@ const ResourceDetailPage = async ({ params }: { params: Promise<{ id: string }> 
                     </span>
                   )}
                   {resource.language && (
-                    <span className="text-xs font-medium text-purple-600 bg-purple-50 px-3 py-1 rounded-full">
+                    <span className="text-xs font-medium text-teal-600 bg-teal-50 px-3 py-1 rounded-full">
                       {resource.language}
                     </span>
                   )}
@@ -136,7 +136,7 @@ const ResourceDetailPage = async ({ params }: { params: Promise<{ id: string }> 
                 {/* Author */}
                 {resource.authorName && (
                   <div className="flex items-center gap-3 pt-6 border-t border-gray-100">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm">
                       {resource.authorName.charAt(0)}
                     </div>
                     <div>

@@ -21,7 +21,7 @@ const ReviewSection = async () => {
 
   if (!promptsWithReviews || promptsWithReviews.length === 0) {
     return (
-      <div className="max-w-4xl mx-auto p-6 text-center bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
+      <div className="max-w-4xl mx-auto p-6 text-center bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 my-10">
         <MessageCircle className="w-12 h-12 text-gray-300 mx-auto mb-3" />
         <p className="text-gray-500 text-lg font-medium">No reviews yet</p>
         <p className="text-gray-400 text-sm">Be the first to share your experience!</p>
@@ -44,9 +44,9 @@ const ReviewSection = async () => {
         </p>
       </div>
   
-      <div className="relative bg-gradient-to-r from-blue-50 via-white to-blue-50 rounded-2xl border border-gray-100 p-6 mb-8">
-        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-blue-50 to-transparent z-10 rounded-l-2xl"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-blue-50 to-transparent z-10 rounded-r-2xl"></div>
+      <div className="relative bg-gradient-to-r from-teal-50 via-white to-teal-50 rounded-2xl border border-gray-100 p-6 mb-8">
+        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-teal-50 to-transparent z-10 rounded-l-2xl"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-teal-50 to-transparent z-10 rounded-r-2xl"></div>
         
         <Marquee
           gradient={false}
@@ -92,7 +92,7 @@ const ReviewCard = ({ review }: { review: any }) => {
       {/* ইউজার ইনফো */}
       <div className="flex items-center justify-between border-t border-gray-100 pt-3">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold">
             {review.userName?.charAt(0) || 'U'}
           </div>
           <div className="text-left">
@@ -162,7 +162,7 @@ const ReviewCard = ({ review }: { review: any }) => {
 //             <div key={index} className="bg-gray-50 rounded-xl p-4 border border-gray-100">
 //               <div className="flex items-center justify-between mb-2">
 //                 <div className="flex items-center gap-2">
-//                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
+//                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold">
 //                     {review.userName?.charAt(0) || 'U'}
 //                   </div>
 //                   <span className="text-sm font-semibold text-gray-800">

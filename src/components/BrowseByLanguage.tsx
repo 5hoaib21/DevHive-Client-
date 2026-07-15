@@ -154,13 +154,13 @@ const BrowseByLanguage = async () => {
     <section className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 text-blue-700 text-xs font-semibold mb-3">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-teal-50 to-indigo-50 border border-blue-200 text-blue-700 text-xs font-semibold mb-3">
             <Layers className="w-4 h-4" />
             Browse by Language
           </div>
           <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-2">
             Browse by{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-indigo-600">
               Language
             </span>
           </h2>

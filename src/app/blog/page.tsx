@@ -85,7 +85,7 @@ const BlogPage = () => {
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight leading-tight mb-6">
             Insights for{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-indigo-600">
               Modern Developers
             </span>
           </h1>

@@ -92,7 +92,7 @@ export default async function UserProfilePage() {
 
                         {/* অ্যাকাউন্ট রোল */}
                         <div className="flex items-center gap-3.5 p-3.5 bg-gray-50 rounded-xl border border-gray-100">
-                            <div className="p-2.5 bg-purple-50 text-purple-600 rounded-lg">
+                            <div className="p-2.5 bg-teal-50 text-teal-600 rounded-lg">
                                 <Shield size={20} />
                             </div>
                             <div>

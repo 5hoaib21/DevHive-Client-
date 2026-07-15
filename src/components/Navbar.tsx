@@ -47,13 +47,16 @@ const Navbar = () => {
   const navLinks = [
     { href: "/", label: "Home", icon: Home },
     { href: "/resources", label: "All Resources", icon: TbPrompt },
+    { href: "/about", label: "About", icon: Home },
+    { href: "/blog", label: "Blog", icon: Home },
+    { href: "/contact", label: "Contact", icon: Home },
     ...(user ?[{ href: `/dashboard/${(user as any)?.role}`, label: "Dashboard", icon: RiDashboardHorizontalLine }] : []),
   ];
 
   return (
     <div>
       {/* Announcement Bar */}
-      {/* <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-2 text-center text-sm text-white">
+      {/* <div className="bg-gradient-to-r from-teal-600 to-indigo-600 p-2 text-center text-sm text-white">
         <div className="animate-pulse">
           🎉 Avail Up to 4% Extra Discount with Bank Transfer | 💳 Cash on
           Delivery Available | 🚚 Fast Delivery in 2–3 Days.
@@ -87,9 +90,9 @@ const Navbar = () => {
             <Link href="/" className="group flex items-center gap-3">
               <div className="relative">
                 <Terminal />
-                <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 blur transition-opacity group-hover:opacity-20" />
+                <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-teal-600 to-indigo-600 opacity-0 blur transition-opacity group-hover:opacity-20" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-indigo-600 bg-clip-text text-transparent">
                 DevHive
               </span>
             </Link>
@@ -105,7 +108,7 @@ const Navbar = () => {
                     href={link.href}
                     className={`relative flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
                       active
-                        ? "text-purple-600 dark:text-purple-400"
+                        ? "text-indigo-600 dark:text-indigo-400"
                         : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
                     }`}
                   >
@@ -114,7 +117,7 @@ const Navbar = () => {
                     {active && (
                       <motion.div
                         layoutId="navbar-indicator"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-600 to-blue-600"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-600 to-indigo-600"
                         transition={{ type: "spring", bounce: 0.2 }}
                       />
                     )}
@@ -132,7 +135,7 @@ const Navbar = () => {
                   href="/signin"
                   className={`rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
                     isActive("/signin")
-                      ? "text-purple-600 dark:text-purple-400"
+                      ? "text-indigo-600 dark:text-indigo-400"
                       : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
                   }`}
                 >
@@ -140,8 +143,8 @@ const Navbar = () => {
                 </Link>
                 <Link href="/signup">
                   <Button
-                    className={`bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl ${
-                      isActive("/signup") ? "ring-2 ring-purple-600 ring-offset-2" : ""
+                    className={`bg-gradient-to-r from-teal-600 to-indigo-600 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl ${
+                      isActive("/signup") ? "ring-2 ring-indigo-600 ring-offset-2" : ""
                     }`}
                   >
                     Get Started
@@ -153,7 +156,7 @@ const Navbar = () => {
                 <Dropdown.Trigger>
                   {/* Use div instead of button to avoid nested button */}
                   <div className="group relative cursor-pointer rounded-full p-0.5 transition-all duration-300 hover:scale-105">
-                    <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 blur transition-opacity group-hover:opacity-100" />
+                    <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-teal-600 to-indigo-600 opacity-0 blur transition-opacity group-hover:opacity-100" />
                     <Avatar
                       size="sm"
                       className="relative border-2 border-white dark:border-gray-800"
@@ -237,7 +240,7 @@ const Navbar = () => {
                       onClick={() => setIsMenuOpen(false)}
                       className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                         active
-                          ? "bg-purple-50 text-purple-600 dark:bg-purple-950/50 dark:text-purple-400"
+                          ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400"
                           : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
                       }`}
                     >
@@ -257,7 +260,7 @@ const Navbar = () => {
                         Log in
                       </Link>
                       <Link href="/signup" onClick={() => setIsMenuOpen(false)}>
-                        <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+                        <Button className="w-full bg-gradient-to-r from-teal-600 to-indigo-600 text-white">
                           Get Started
                         </Button>
                       </Link>

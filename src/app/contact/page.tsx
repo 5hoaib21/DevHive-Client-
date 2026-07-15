@@ -40,7 +40,7 @@ const ContactPage = () => {
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight leading-tight mb-6">
             We Would Love to{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-indigo-600">
               Hear from You
             </span>
           </h1>
@@ -91,7 +91,7 @@ const ContactPage = () => {
                 </div>
               ))}
 
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 border border-blue-100">
+              <div className="bg-gradient-to-r from-teal-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
                 <h3 className="font-bold text-gray-900 mb-2">Response Time</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">
                   We typically respond within 24 hours on business days. For

@@ -210,7 +210,7 @@ const FeaturedCard = ({ prompt, index }: { prompt: any, index: number }) => {
                         <div className="flex items-center gap-3">
                             {/* AI টুল */}
                             {language && (
-                                <span className="px-2.5 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full border border-purple-100">
+                                <span className="px-2.5 py-1 bg-teal-50 text-teal-700 text-xs font-medium rounded-full border border-teal-100">
                                     {language}
                                 </span>
                             )}

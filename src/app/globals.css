@@ -1,6 +1,13 @@
 @import "tailwindcss";
 @import "@heroui/styles"; 
 
+@theme {
+  --color-devhive-teal: #0D9488;
+  --color-devhive-indigo: #4F46E5;
+  --color-devhive-orange: #EA580C;
+  --color-devhive-neutral: #52525B;
+}
+
 @keyframes spin-slow {
     from {
         transform: rotate(0deg);

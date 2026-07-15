@@ -19,7 +19,7 @@ const WhyDevHive = () => {
       icon: <Sparkles className="w-6 h-6" />,
       title: "Premium Quality",
       description: "Curated resources by experienced developers, tested and optimized for peak performance.",
-      color: "from-blue-500 to-blue-600",
+      color: "from-indigo-500 to-indigo-600",
       bgColor: "bg-blue-50",
       iconColor: "text-blue-600"
     },
@@ -43,9 +43,9 @@ const WhyDevHive = () => {
       icon: <Users className="w-6 h-6" />,
       title: "Community Driven",
       description: "Join 10,000+ developers sharing insights and improving resources together.",
-      color: "from-purple-500 to-purple-600",
-      bgColor: "bg-purple-50",
-      iconColor: "text-purple-600"
+      color: "from-teal-500 to-teal-600",
+      bgColor: "bg-teal-50",
+      iconColor: "text-teal-600"
     },
     {
       icon: <Rocket className="w-6 h-6" />,
@@ -121,7 +121,7 @@ const WhyDevHive = () => {
       {/* ব্যাকগ্রাউন্ড ডেকোরেশন */}
       <div className="absolute inset-0 bg-grid-gray-100/50 -z-10" />
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-50/50 to-transparent -z-10" />
-      <div className="absolute bottom-0 left-0 w-1/2 h-full bg-gradient-to-r from-purple-50/50 to-transparent -z-10" />
+      <div className="absolute bottom-0 left-0 w-1/2 h-full bg-gradient-to-r from-teal-50/50 to-transparent -z-10" />
       
       {/* ফ্লোটিং এলিমেন্টস */}
       <motion.div
@@ -182,7 +182,7 @@ const WhyDevHive = () => {
             className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-4"
           >
             Built for{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-indigo-600">
               Creators
             </span>
             , by Creators
@@ -279,7 +279,7 @@ const WhyDevHive = () => {
             </span>
             <Link
               href="/resources"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg group"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg group"
             >
               Get Started Now
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

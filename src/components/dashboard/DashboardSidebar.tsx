@@ -94,7 +94,7 @@ export async function DashboardSidebar() {
             key={item.label}
             prefetch={false}
             className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default"
-            activeClassName="bg-blue-50 text-blue-600 shadow-sm"
+            activeClassName="bg-indigo-50 text-indigo-600 shadow-sm"
             inactiveClassName="text-gray-600 hover:bg-gray-50 hover:text-gray-900"
           >
             <item.icon className="size-5 text-muted" />
@@ -118,7 +118,7 @@ export async function DashboardSidebar() {
                     key={item.label}
                     prefetch={false}
                     className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default w-full"
-                    activeClassName="bg-blue-50 text-blue-600 shadow-sm"
+                    activeClassName="bg-indigo-50 text-indigo-600 shadow-sm"
                     inactiveClassName="text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   >
                     <item.icon className="size-5 text-muted" />

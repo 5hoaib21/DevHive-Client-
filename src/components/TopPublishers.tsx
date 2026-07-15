@@ -49,7 +49,7 @@ export default async function TopPublishers() {
               'from-slate-400 to-slate-600',
               'from-amber-600 to-amber-800',
               'from-blue-400 to-blue-600',
-              'from-purple-400 to-purple-600',
+              'from-teal-400 to-teal-600',
               'from-pink-400 to-pink-600',
             ];
 
@@ -132,7 +132,7 @@ export default async function TopPublishers() {
                   <div className={`mt-4 w-full h-1 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left
                     ${isTop3 
                       ? 'bg-gradient-to-r from-amber-500 to-orange-500' 
-                      : 'bg-gradient-to-r from-blue-400 to-purple-400'
+                      : 'bg-gradient-to-r from-teal-400 to-indigo-400'
                     }`} 
                   />
                 </div>
