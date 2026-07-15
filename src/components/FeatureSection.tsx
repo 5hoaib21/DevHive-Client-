@@ -1,121 +1,86 @@
-// components/FeatureSection.jsx
 "use client";
 
-import { motion } from "framer-motion";
-import { 
-  Zap, 
-  Shield, 
-  Globe, 
-  Database, 
-  Layers, 
+import {
+  Zap,
+  Shield,
+  Globe,
+  Database,
+  Layers,
   RefreshCw,
-  CheckCircle2,
-  ArrowRight
 } from "lucide-react";
-import Link from "next/link";
 
 const features = [
   {
     icon: <Zap className="w-6 h-6" />,
     title: "Lightning Fast",
     description: "Get your resources in milliseconds with our optimized delivery system.",
-    color: "from-amber-500 to-orange-500",
-    bgColor: "bg-amber-50",
-    iconColor: "text-amber-600"
+    bgClass: "bg-amber-50",
+    iconClass: "text-amber-600"
   },
   {
     icon: <Shield className="w-6 h-6" />,
     title: "Enterprise Security",
     description: "Bank-grade encryption and security protocols to protect your data.",
-    color: "from-emerald-500 to-teal-500",
-    bgColor: "bg-emerald-50",
-    iconColor: "text-emerald-600"
+    bgClass: "bg-emerald-50",
+    iconClass: "text-emerald-600"
   },
   {
     icon: <Globe className="w-6 h-6" />,
     title: "Global Community",
     description: "Connect with creators from 100+ countries sharing insights daily.",
-    color: "from-blue-500 to-cyan-500",
-    bgColor: "bg-blue-50",
-    iconColor: "text-blue-600"
+    bgClass: "bg-blue-50",
+    iconClass: "text-blue-600"
   },
   {
     icon: <Database className="w-6 h-6" />,
     title: "Rich Library",
     description: "Access 5,000+ curated resources across 50+ categories and niches.",
-    color: "from-teal-500 to-indigo-500",
-    bgColor: "bg-teal-50",
-    iconColor: "text-teal-600"
+    bgClass: "bg-teal-50",
+    iconClass: "text-dh-teal"
   },
   {
     icon: <Layers className="w-6 h-6" />,
     title: "Smart Filtering",
     description: "Find exactly what you need with advanced search and filtering options.",
-    color: "from-rose-500 to-red-500",
-    bgColor: "bg-rose-50",
-    iconColor: "text-rose-600"
+    bgClass: "bg-rose-50",
+    iconClass: "text-rose-600"
   },
   {
     icon: <RefreshCw className="w-6 h-6" />,
     title: "Weekly Updates",
     description: "Stay ahead with fresh resources added every week based on trends.",
-    color: "from-indigo-500 to-teal-500",
-    bgColor: "bg-indigo-50",
-    iconColor: "text-indigo-600"
+    bgClass: "bg-indigo-50",
+    iconClass: "text-indigo-600"
   }
 ];
 
 const FeatureSection = () => {
   return (
-    <section className="py-20 sm:py-28 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* হেডার */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-teal-50 to-indigo-50 border border-blue-200 text-blue-700 text-sm font-medium mb-4">
-            <Zap className="w-4 h-4" />
-            Powerful Features
-          </div>
+    <section className="py-20 sm:py-24 bg-white">
+      <div className="dh-container">
+        <div className="text-center max-w-3xl mx-auto mb-14">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-4">
             Everything You Need to{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-indigo-600">
-              Succeed
-            </span>
+            <span className="text-dh-teal">Succeed</span>
           </h2>
           <p className="text-gray-500 text-lg leading-relaxed">
             Packed with powerful tools and features to help you build better projects faster.
           </p>
-        </motion.div>
+        </div>
 
-        {/* ফিচার গ্রিড */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -8, transition: { type: "spring", stiffness: 300 } }}
-              className="group bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300"
-            >
-              <div className={`w-14 h-14 rounded-2xl ${feature.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                <div className={feature.iconColor}>
-                  {feature.icon}
-                </div>
+            <div key={index} className="dh-card p-5">
+              <div className={'w-12 h-12 rounded-lg ' + feature.bgClass + ' flex items-center justify-center mb-3'}>
+                <div className={feature.iconClass}>{feature.icon}</div>
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">
+              <h3 className="text-base font-bold text-gray-900 mb-1.5">
                 {feature.title}
               </h3>
               <p className="text-gray-500 text-sm leading-relaxed">
                 {feature.description}
               </p>
-              <div className={`mt-4 w-12 h-1 bg-gradient-to-r ${feature.color} rounded-full group-hover:w-16 transition-all duration-300`} />
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

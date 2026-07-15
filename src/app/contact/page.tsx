@@ -31,18 +31,14 @@ const ContactPage = () => {
   return (
     <div>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-white border-b border-gray-100 py-20 sm:py-24">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.08),transparent_50%)]" />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-sm font-medium mb-4">
-            <MessageSquare className="w-4 h-4" />
-            Get in Touch
+      <section className="bg-white border-b border-gray-100 py-20 sm:py-24">
+        <div className="dh-container text-center max-w-4xl">
+          <div className="w-12 h-12 rounded-lg bg-dh-teal/10 flex items-center justify-center mx-auto mb-4">
+            <MessageSquare className="w-6 h-6 text-dh-teal" />
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight leading-tight mb-6">
             We Would Love to{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-indigo-600">
-              Hear from You
-            </span>
+            <span className="text-dh-teal">Hear from You</span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
             Have a question, feedback, or a collaboration idea? Reach out and
@@ -52,13 +48,13 @@ const ContactPage = () => {
       </section>
 
       {/* Form + Info */}
-      <section className="py-20 sm:py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <section className="py-20 sm:py-24 bg-dh-surface">
+        <div className="dh-container">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Form */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              <div className="dh-card p-8">
+                <h2 className="text-xl font-bold text-gray-900 mb-6">
                   Send Us a Message
                 </h2>
                 <ContactForm />
@@ -66,23 +62,17 @@ const ContactPage = () => {
             </div>
 
             {/* Info sidebar */}
-            <div className="space-y-6">
+            <div className="space-y-5">
               {contactInfo.map((item) => (
-                <div
-                  key={item.label}
-                  className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 mb-3">
+                <div key={item.label} className="dh-card p-5">
+                  <div className="w-10 h-10 rounded-lg bg-dh-teal/10 flex items-center justify-center text-dh-teal mb-3">
                     {item.icon}
                   </div>
-                  <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
+                  <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
                     {item.label}
                   </h3>
                   {item.href ? (
-                    <a
-                      href={item.href}
-                      className="text-gray-900 font-medium hover:text-blue-600 transition-colors"
-                    >
+                    <a href={item.href} className="text-gray-900 font-medium hover:text-dh-teal transition-colors">
                       {item.value}
                     </a>
                   ) : (
@@ -91,11 +81,10 @@ const ContactPage = () => {
                 </div>
               ))}
 
-              <div className="bg-gradient-to-r from-teal-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
-                <h3 className="font-bold text-gray-900 mb-2">Response Time</h3>
+              <div className="dh-card p-5 bg-dh-teal/5 border-dh-teal/20">
+                <h3 className="font-bold text-gray-900 mb-1">Response Time</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">
-                  We typically respond within 24 hours on business days. For
-                  urgent matters, reach out via our community Discord server.
+                  We typically respond within 24 hours on business days.
                 </p>
               </div>
             </div>

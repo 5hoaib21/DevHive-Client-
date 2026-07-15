@@ -76,18 +76,11 @@ const BlogPage = () => {
   return (
     <div>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-white border-b border-gray-100 py-20 sm:py-24">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.08),transparent_50%)]" />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-sm font-medium mb-4">
-            <BookOpen className="w-4 h-4" />
-            DevHive Blog
-          </div>
+      <section className="bg-white border-b border-gray-100 py-20 sm:py-24">
+        <div className="dh-container text-center max-w-4xl">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight leading-tight mb-6">
             Insights for{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-indigo-600">
-              Modern Developers
-            </span>
+            <span className="text-dh-teal">Modern Developers</span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
             Tutorials, best practices, and deep dives into the tools and
@@ -97,13 +90,13 @@ const BlogPage = () => {
       </section>
 
       {/* Posts */}
-      <section className="py-20 sm:py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <section className="py-20 sm:py-24 bg-dh-surface">
+        <div className="dh-container">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {posts.map((post) => (
               <article
                 key={post.title}
-                className="group bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300"
+                className="dh-card p-5"
               >
                 <div className="flex items-center gap-4 text-xs text-gray-400 mb-3">
                   <span className="inline-flex items-center gap-1">
@@ -115,18 +108,18 @@ const BlogPage = () => {
                     {post.author}
                   </span>
                 </div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                  <Link href={post.slug}>{post.title}</Link>
+                <h2 className="text-lg font-bold text-gray-900 mb-2">
+                  <Link href={post.slug} className="hover:text-dh-teal transition-colors">{post.title}</Link>
                 </h2>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">
                   {post.excerpt}
                 </p>
                 <Link
                   href={post.slug}
-                  className="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors group/link"
+                  className="inline-flex items-center gap-1 text-sm font-semibold text-dh-teal hover:text-dh-teal-dark transition-colors"
                 >
                   Read More
-                  <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </article>
             ))}

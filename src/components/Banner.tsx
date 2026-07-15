@@ -1,28 +1,17 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Search, Sparkles, ArrowRight } from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation"; // ✅ useRouter যোগ করলাম
-import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const ALL_TAGS = [
   "JavaScript", "TypeScript", "Python", "React",
   "Docker"
 ];
 
-const animations = {
-  slow: { duration: 0.8, ease: "easeOut" as const },
-  medium: { duration: 0.5, ease: "easeInOut" as const },
-  fast: { duration: 0.3, ease: "easeOut" as const },
-  spring: { type: "spring" as const, stiffness: 300, damping: 20 },
-  springSoft: { type: "spring" as const, stiffness: 200, damping: 25 },
-  springHard: { type: "spring" as const, stiffness: 500, damping: 15 },
-  delay: (ms: number) => ({ delay: ms / 1000 })
-};
-
 export default function Banner() {
-  const router = useRouter(); // ✅ router যোগ করলাম
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [trendingTags, setTrendingTags] = useState<string[]>([]);
 
@@ -31,17 +20,13 @@ export default function Banner() {
     setTrendingTags(shuffled.slice(0, 4));
   }, []);
 
-  // ✅ সার্চ হ্যান্ডলার - রিডাইরেক্ট করবে /prompts?search=query
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
-    
-    // URL এ encode করে রিডাইরেক্ট
     const encodedQuery = encodeURIComponent(searchQuery.trim());
     router.push(`/resources?search=${encodedQuery}`);
   };
 
-  // ✅ ট্যাগ ক্লিক করলেও সার্চ করবে
   const handleTagClick = (tag: string) => {
     setSearchQuery(tag);
     const encodedQuery = encodeURIComponent(tag);
@@ -49,216 +34,89 @@ export default function Banner() {
   };
 
   return (
-    <motion.div 
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-      className="relative overflow-hidden bg-white border-b border-gray-100 py-20 sm:py-24"
-    >
-      {/* ব্যাকগ্রাউন্ড ব্লাব */}
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          rotate: [0, 5, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        className="absolute top-0 left-1/2 -z-10 h-[400px] w-[800px] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.1),transparent_50%)]"
-      />
+    <section className="relative overflow-hidden bg-white border-b border-gray-100">
+      <div className="dh-container">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-16 sm:py-20 lg:py-24">
+          {/* Left: Content */}
+          <div className="max-w-xl">
+            <h1 className="text-4xl sm:text-5xl lg:text-5xl font-black text-gray-900 tracking-tight leading-[1.1]">
+              Discover & Share{" "}
+              <span className="text-dh-teal">Developer Resources</span>
+            </h1>
 
-      {/* ফ্লোটিং পার্টিকেল */}
-      <motion.div
-        animate={{
-          y: [0, -20, 0],
-          x: [0, 10, 0],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        className="absolute top-10 left-10 text-4xl opacity-20 hidden sm:block"
-      >
-        ✨
-      </motion.div>
+            <p className="mt-4 text-base sm:text-lg text-gray-500 leading-relaxed">
+              Skip the guesswork. Access community-vetted code snippets, configs, and templates for your next project.
+            </p>
 
-      <motion.div
-        animate={{
-          y: [0, 15, 0],
-          x: [0, -10, 0],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1
-        }}
-        className="absolute bottom-10 right-10 text-4xl opacity-20 hidden sm:block"
-      >
-        🚀
-      </motion.div>
+            <form onSubmit={handleSearchSubmit} className="mt-8">
+              <div className="flex items-center gap-2 p-1.5 rounded-lg bg-white border border-dh-border focus-within:border-dh-teal focus-within:ring-2 focus-within:ring-teal-100 transition-all">
+                <div className="pl-3 text-gray-400">
+                  <Search size={18} />
+                </div>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search code snippets, configs, templates..."
+                  className="flex-1 py-2.5 bg-transparent text-sm text-gray-900 outline-none placeholder-gray-400"
+                />
+                <button
+                  type="submit"
+                  className="dh-btn dh-btn-primary"
+                >
+                  Search
+                </button>
+              </div>
+            </form>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-        {/* টপ ব্যাজ */}
-        <motion.div
-          variants={itemVariants}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-medium mb-6"
-        >
-          <motion.span
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <Sparkles size={13} className="text-amber-500 fill-amber-500" />
-          </motion.span>
-          The Developer Resource Hub
-        </motion.div>
-
-        {/* মেইন হেডলাইন */}
-        <motion.h1
-          variants={itemVariants}
-          className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight leading-tight max-w-3xl mx-auto"
-        >
-          Discover & Share{" "}
-          <motion.span
-            initial={{ backgroundPosition: "0% 50%" }}
-            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-            className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 via-indigo-500 to-orange-600 bg-[length:200%_auto]"
-          >
-            Developer Resources
-          </motion.span>
-        </motion.h1>
-        
-        {/* ডেসক্রিপশন */}
-        <motion.p 
-          variants={itemVariants}
-          className="mt-4 text-base sm:text-lg text-gray-500 max-w-xl mx-auto leading-relaxed"
-        >
-          Skip the guesswork. Access community-vetted code snippets, configs, and templates for your next project
-        </motion.p>
-
-        {/* 🔍 সার্চ বার - এখন কাজ করবে */}
-        <motion.div 
-          variants={itemVariants}
-          className="mt-10 max-w-2xl mx-auto"
-        >
-          <motion.form 
-            onSubmit={handleSearchSubmit} 
-            className="relative flex items-center p-2 rounded-2xl bg-white border border-gray-200 shadow-md focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-100 transition-all duration-300"
-            whileHover={{ scale: 1.01 }}
-            transition={animations.springSoft}
-          >
-            <div className="flex items-center pl-3 pointer-events-none text-gray-400">
-              <Search size={20} />
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="text-xs font-semibold text-gray-400">Trending:</span>
+              {trendingTags.map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => handleTagClick(tag)}
+                  className="text-xs bg-gray-50 hover:bg-gray-100 text-gray-600 px-2.5 py-1 rounded-sm border border-gray-200 transition-colors cursor-pointer"
+                >
+                  #{tag}
+                </button>
+              ))}
             </div>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search for code snippets, configs, templates..."
-              className="w-full pl-3 pr-4 py-3 bg-transparent text-sm text-gray-900 outline-none placeholder-gray-400"
-            />
-            <motion.button
-              type="submit"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={animations.spring}
-              className="bg-zinc-950 hover:bg-zinc-800 text-white font-semibold text-sm px-6 py-3 rounded-xl transition-all shadow-sm cursor-pointer"
-            >
-              Search
-            </motion.button>
-          </motion.form>
-        </motion.div>
 
-        {/* ট্রেন্ডিং ট্যাগস - ক্লিক করলেও সার্চ হবে */}
-        <motion.div 
-          variants={itemVariants}
-          className="mt-5 flex flex-wrap items-center justify-center gap-2 max-w-2xl mx-auto"
-        >
-          <span className="text-xs font-semibold text-gray-400 mr-1">Trending:</span>
-          <AnimatePresence mode="popLayout">
-            {trendingTags.map((tag, index) => (
-              <motion.button
-                key={tag}
-                initial={{ opacity: 0, scale: 0.8, y: -10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.8, y: 10 }}
-                transition={{ 
-                  ...animations.medium,
-                  delay: index * 0.05
-                }}
-                whileHover={{ 
-                  scale: 1.05, 
-                  backgroundColor: "#f3f4f6",
-                  y: -2
-                }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => handleTagClick(tag)} // ✅ ট্যাগ ক্লিক করলেও সার্চ
-                className="text-xs bg-gray-50 hover:bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg border border-gray-200 transition-all cursor-pointer"
+            <div className="mt-10">
+              <Link
+                href="/resources"
+                className="dh-btn dh-btn-primary gap-2"
               >
-                #{tag}
-              </motion.button>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                Explore Resources
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
 
-        {/* CTA বাটনস */}
-        <motion.div 
-          variants={itemVariants}
-          className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <motion.div
-            whileHover={{ scale: 1.03, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            transition={animations.springSoft}
-          >
-            <Link
-              href="/resources"
-              className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group"
-            >
-              Explore Resources
-              <motion.span
-                animate={{ x: [0, 5, 0] }}
-                transition={{ 
-                  ...animations.slow,
-                  repeat: Infinity 
-                }}
-              >
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </motion.span>
-            </Link>
-          </motion.div>
-          
-        </motion.div>
-
+          {/* Right: Terminal Mockup */}
+          <div className="hidden lg:block">
+            <div className="bg-[#1A1D26] rounded-xl border border-gray-700/30 overflow-hidden shadow-2xl">
+              <div className="flex items-center gap-1.5 px-4 py-3 bg-[#252830] border-b border-gray-700/30">
+                <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                <span className="text-xs text-gray-500 ml-2 font-mono">bash — devhive@cli:~/resources</span>
+              </div>
+              <div className="p-5 font-mono text-sm leading-relaxed space-y-1">
+                <p><span className="text-green-400">$</span> <span className="text-gray-200">git clone devhive/resources</span></p>
+                <p className="text-gray-400">Cloning into &apos;resources&apos;...</p>
+                <p className="text-gray-400">remote: Counting objects: 5000, done.</p>
+                <p className="text-gray-400">Receiving objects: 100% (5000/5000), 12.5 MiB | 2.3 MiB/s, done.</p>
+                <p className="mt-3"><span className="text-green-400">$</span> <span className="text-gray-200">npm start</span></p>
+                <p className="text-cyan-300">&gt; devhive@1.0.0 start</p>
+                <p className="text-gray-200">✓ Ready on <span className="text-dh-teal">http://localhost:3000</span></p>
+                <p className="text-gray-400">&gt; 5000+ resources loaded</p>
+                <p className="text-gray-500 animate-pulse mt-2">█</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </motion.div>
+    </section>
   );
 }
-
-// ভেরিয়েন্টস
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
-      ...animations.medium
-    }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: animations.medium
-  }
-};

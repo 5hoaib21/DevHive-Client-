@@ -1,20 +1,17 @@
-import { Button } from "@heroui/react";
-import { Copy, Clock, ArrowRight, Sparkles, User } from "lucide-react";
+import { Copy, Clock, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 const AllResourcesPage = async ({ resource }: { resource: any }) => {
-  
+
   const {
     title,
     description,
     category,
     language,
-    difficulty,
     image,
     usageCount,
     createdAt,
-    visibility,
     status,
   } = resource;
 
@@ -24,105 +21,73 @@ const AllResourcesPage = async ({ resource }: { resource: any }) => {
     day: "numeric",
   });
 
-  const difficultyColors = {
-    beginner: "bg-emerald-500",
-    intermediate: "bg-amber-500",
-    advanced: "bg-rose-500",
+  const statusStyles: Record<string, string> = {
+    approved: "dh-badge-status-approved",
+    pending: "dh-badge-status-pending",
+    rejected: "dh-badge-status-rejected",
+    draft: "dh-badge-status-pending",
   };
 
-  const statusStyles = {
-    approved: "text-emerald-600 bg-emerald-50 border-emerald-100",
-    pending: "text-amber-600 bg-amber-50 border-amber-100",
-    rejected: "text-rose-600 bg-rose-50 border-rose-100",
-    draft: "text-zinc-500 bg-zinc-50 border-zinc-200"
-  };
-
-  const currentStyle = statusStyles[status?.toLowerCase() as keyof typeof statusStyles] || statusStyles.draft;
+  const statusClass = statusStyles[status?.toLowerCase()] || statusStyles.draft;
 
   return (
-    <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] border border-gray-100 flex flex-col h-full">
-      {/* Image Section */}
-      
-      <div className="relative w-full h-52 overflow-hidden">
-        {image ? (
+    <div className="dh-card flex flex-col h-full">
+      {image && (
+        <div className="relative w-full h-40 overflow-hidden bg-gray-50">
           <Image
             src={image}
             alt={title}
             fill
-            className="object-cover group-hover:scale-110 transition-transform duration-700"
+            className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-        ) : (
-          <div className="flex items-center justify-center h-full bg-gradient-to-br from-indigo-500 to-pink-500">
-            <Sparkles className="text-white w-12 h-12 animate-spin-slow" />
-          </div>
-        )}
+        </div>
+      )}
 
-        {/* Gradient Overlay on Hover */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-        {/* Difficulty Bar - Bottom */}
-        <div
-          className={`absolute bottom-0 left-0 right-0 h-1 ${difficultyColors[difficulty as keyof typeof difficultyColors]} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left`}
-        ></div>
-      </div>
-
-      {/* Content */}
-      <div className="p-5 flex flex-col flex-grow">
-        {/* Header: Category + Date */}
-        <div className="flex items-center justify-between mb-3">
-          <span className={`text-xs font-bold border px-3 py-1 rounded-full capitalize transition-colors duration-200 ${currentStyle}`}>
-      {status || "Draft"}
-    </span>
+      <div className="p-4 flex flex-col flex-grow">
+        <div className="flex items-center justify-between mb-2.5">
+          <span className={`dh-badge ${statusClass}`}>
+            {status || "Draft"}
+          </span>
           <span className="text-xs text-gray-400 flex items-center gap-1">
             <Clock size={12} />
             {formattedDate}
           </span>
         </div>
 
-        {/* Title */}
-        <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-1">
+        <h3 className="text-base font-bold text-gray-800 mb-1.5 line-clamp-1">
           {title}
         </h3>
 
-        {/* Description */}
-        <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2 flex-grow">
+        <p className="text-gray-500 text-sm leading-relaxed mb-3 line-clamp-2 flex-grow">
           {description}
         </p>
-    <div className="flex items-center gap-2 mb-4">
-            <span className="text-xs font-medium text-black bg-orange-500/20 px-2.5 py-1 rounded-full">
-          {category}
-        </span>
-        <span className="text-xs font-medium text-teal-600 bg-teal-50 px-2.5 py-1 rounded-full">
-          {language}
-        </span>
-    </div>
 
-        {/* Bottom Section: Language + Usage + Button */}
-        <div className="flex items-center justify-between gap-3 pt-3 border-t border-gray-100">
-          <div className="flex items-center gap-3">
-            <span className={`text-xs font-medium ${visibility === "public" ? "text-green-600 bg-green-50" : "text-red-400 bg-red-100"} px-2.5 py-1 rounded-full flex items-center gap-1`}>
-              
-              {visibility === "public" ? "Public" : "Private"}
+        <div className="flex items-center gap-1.5 mb-3">
+          {category && (
+            <span className="dh-badge dh-badge-category">
+              {category}
             </span>
-            <span className="text-xs text-gray-400 flex items-center gap-1">
-              <Copy size={12} />
-              {usageCount}
+          )}
+          {language && (
+            <span className="dh-badge dh-badge-language">
+              {language}
             </span>
-          </div>
+          )}
+        </div>
 
-          <Link href={`/resources/${resource._id}`}>
-              <Button
-            variant="outline"
-            className="group/btn relative inline-flex gap-1.5 text-blue-600 hover:text-blue-700 font-semibold text-sm transition-all duration-300 flex items-center"
+        <div className="flex items-center justify-between gap-3 pt-3 border-t border-dh-border">
+          <span className="text-xs text-gray-400 flex items-center gap-1">
+            <Copy size={12} />
+            {usageCount || 0}
+          </span>
+
+          <Link
+            href={`/resources/${resource._id}`}
+            className="text-xs font-semibold text-dh-teal hover:text-dh-teal-dark transition-colors flex items-center gap-1"
           >
-            <span>Step Inside</span>
-            <ArrowRight
-              size={16}
-              className="transform group-hover/btn:translate-x-1 transition-transform duration-300"
-            />
-            <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-blue-600 group-hover/btn:w-full transition-all duration-300"></span>
-          </Button>
+            View Details
+            <ArrowRight size={12} />
           </Link>
         </div>
       </div>

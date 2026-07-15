@@ -10,6 +10,7 @@ import {
   CopyCheck,
   BookmarkCheck,
   Lock,
+  Copy,
 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { MdReport } from "react-icons/md";
@@ -26,8 +27,6 @@ import {
   Input,
   Label,
   Modal,
-  Select,
-  ListBox,
   TextField,
 } from "@heroui/react";
 
@@ -39,7 +38,7 @@ export default function ResourceInteractions({
   reviews,
   bookmarks = [],
   currentUserId,
-  isLocked = false, 
+  isLocked = false,
   user,
 }: {
   promptId: string;
@@ -72,7 +71,7 @@ export default function ResourceInteractions({
           <Star
             key={i}
             size={16}
-            className={i < fullStars ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}
+            className={i < fullStars ? "text-dh-star fill-dh-star" : "text-gray-300"}
           />
         ))}
       </div>
@@ -91,7 +90,6 @@ export default function ResourceInteractions({
       const response = await incrementCopyCount(promptId);
       if (response.success) {
         router.refresh();
-      } else {
       }
     } catch (err) {
       toast.error("Failed to copy resource.");
@@ -180,52 +178,42 @@ export default function ResourceInteractions({
 
   return (
     <div className="space-y-6">
-      {/* Action Buttons Grid */}
+      {/* Action Buttons */}
       <div className="flex flex-wrap gap-3">
         <button
           onClick={handleCopy}
-          className={`flex-1 min-w-[120px] font-medium py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 active:scale-98 cursor-pointer ${
-            isLocked
-              ? "bg-zinc-100 text-zinc-400 cursor-not-allowed border border-zinc-200"
-              : "bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white shadow-md hover:shadow-lg"
-          }`}
+          className={'flex-1 min-w-[120px] dh-btn ' + (isLocked ? 'dh-btn-ghost text-gray-400 cursor-not-allowed' : 'dh-btn-primary')}
         >
-          {isLocked ? <Lock size={18} /> : <CopyCheck size={18} />}
+          {isLocked ? <Lock size={16} /> : <CopyCheck size={16} />}
           Copy Resource
         </button>
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex-1 min-w-[120px] bg-white hover:bg-gray-50 text-gray-700 font-medium py-3 px-6 rounded-xl transition-all duration-300 border border-gray-200 flex items-center justify-center gap-2 cursor-pointer"
+          className="flex-1 min-w-[120px] dh-btn dh-btn-secondary"
         >
-          <MdReport size={18} className="text-red-500" />
+          <MdReport size={16} className="text-dh-danger" />
           Report
         </button>
 
         <button
           onClick={handleSaveToggle}
-          className={`flex-1 min-w-[120px] font-medium py-3 px-6 rounded-xl transition-all duration-300 border flex items-center justify-center gap-2 active:scale-98 cursor-pointer ${
-            isLocked
-              ? "bg-zinc-100 text-zinc-400 cursor-not-allowed border border-zinc-200"
-              : isSaved
-                ? "bg-indigo-50 border-indigo-200 text-indigo-600 font-semibold"
-                : "bg-white hover:bg-zinc-50 text-zinc-700 border-zinc-200"
-          }`}
+          className={'flex-1 min-w-[120px] dh-btn ' + (isLocked ? 'dh-btn-ghost text-gray-400 cursor-not-allowed' : isSaved ? 'dh-btn-primary' : 'dh-btn-secondary')}
         >
-          {isLocked ? <Lock size={18} /> : isSaved ? <BookmarkCheck size={18} /> : <Bookmark size={18} />}
+          {isLocked ? <Lock size={16} /> : isSaved ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
           {isSaved && !isLocked ? "Saved" : "Save"}
         </button>
       </div>
 
-      {/* HEROUI REPORT MODAL */}
+      {/* Report Modal */}
       <Modal isOpen={isModalOpen} onOpenChange={setIsModalOpen}>
         <Modal.Backdrop>
           <Modal.Container placement="center">
-            <Modal.Dialog className="sm:max-w-md bg-white p-6 rounded-2xl border border-gray-100 shadow-xl">
+            <Modal.Dialog className="sm:max-w-md bg-white p-6 rounded-xl border border-dh-border shadow-lg">
               <Modal.CloseTrigger onClick={() => setIsModalOpen(false)} />
 
               <Modal.Header>
-                <Modal.Heading className="flex items-center gap-2 text-red-600 font-bold text-xl">
+                <Modal.Heading className="flex items-center gap-2 text-dh-danger font-bold text-xl">
                   <MdReport size={24} /> Report Resource
                 </Modal.Heading>
                 <p className="mt-1.5 text-sm leading-5 text-gray-500">
@@ -242,29 +230,13 @@ export default function ResourceInteractions({
                     <select
                       value={reportReason}
                       onChange={(e) => setReportReason(e.target.value)}
-                      className="w-full border border-gray-200 bg-white rounded-xl py-2.5 px-3 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 appearance-none cursor-pointer"
-                      style={{
-                        backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>")`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "right 12px center",
-                        backgroundSize: "16px",
-                      }}
+                      className="dh-input appearance-none cursor-pointer"
                     >
-                      <option value="" disabled className="text-gray-400">
-                        Choose a reason
-                      </option>
-                      <option value="Inappropriate Content" className="text-gray-900 py-2">
-                        Inappropriate Content
-                      </option>
-                      <option value="Spam" className="text-gray-900 py-2">
-                        Spam
-                      </option>
-                      <option value="Copyright Violation" className="text-gray-900 py-2">
-                        Copyright Violation
-                      </option>
-                      <option value="Other" className="text-gray-900 py-2">
-                        Other
-                      </option>
+                      <option value="" disabled>Choose a reason</option>
+                      <option value="Inappropriate Content">Inappropriate Content</option>
+                      <option value="Spam">Spam</option>
+                      <option value="Copyright Violation">Copyright Violation</option>
+                      <option value="Other">Other</option>
                     </select>
                   </div>
                   <TextField className="w-full" name="description" variant="secondary">
@@ -275,23 +247,23 @@ export default function ResourceInteractions({
                       placeholder="Provide additional details or proof..."
                       value={reportDescription}
                       onChange={(e) => setReportDescription(e.target.value)}
-                      className="w-full border border-gray-200 bg-white rounded-xl py-2 px-4 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-red-500"
+                      className="dh-input"
                     />
                   </TextField>
 
-                  <Modal.Footer className="flex justify-end gap-2 pt-4 border-t border-gray-100">
+                  <Modal.Footer className="flex justify-end gap-2 pt-4 border-t border-dh-border">
                     <Button
                       type="button"
                       variant="secondary"
                       onClick={() => setIsModalOpen(false)}
-                      className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-xl font-medium"
+                      className="dh-btn dh-btn-ghost"
                     >
                       Cancel
                     </Button>
                     <Button
                       type="submit"
                       isDisabled={isReporting}
-                      className="px-4 py-2 text-sm bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl shadow-sm"
+                      className="dh-btn dh-btn-danger"
                     >
                       {isReporting ? "Submitting..." : "Submit Report"}
                     </Button>
@@ -303,11 +275,11 @@ export default function ResourceInteractions({
         </Modal.Backdrop>
       </Modal>
 
-      {/* Community Reviews Layout Container */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-            <MessageCircle size={20} className="text-blue-600" />
+      {/* Reviews Section */}
+      <div>
+        <div className="flex items-center justify-between mb-5">
+          <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
+            <MessageCircle size={18} className="text-dh-teal" />
             Community Reviews
           </h3>
           <div className="flex items-center gap-2">
@@ -316,11 +288,10 @@ export default function ResourceInteractions({
           </div>
         </div>
 
-        <div className="border border-gray-200 rounded-xl overflow-hidden mb-5">
-          
-          <div className="bg-gray-50 p-5">
+        <div className="border border-dh-border rounded-xl overflow-hidden mb-5">
+          <div className="bg-dh-surface p-5">
             <h4 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
-              <Star size={16} className="text-yellow-400 fill-yellow-400" />
+              <Star size={16} className="text-dh-star fill-dh-star" />
               Write a Review
             </h4>
 
@@ -338,52 +309,49 @@ export default function ResourceInteractions({
                     >
                       <Star
                         size={24}
-                        className={`transition-colors duration-200 ${star <= rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+                        className={'transition-colors duration-200 ' + (star <= rating ? 'text-dh-star fill-dh-star' : 'text-gray-300')}
                       />
                     </button>
                   ))}
                 </div>
                 <span className="text-sm font-bold text-gray-700 ml-2">
-                  {rating > 0 ? `${rating}.0` : "0.0"}
+                  {rating > 0 ? rating + '.0' : '0.0'}
                 </span>
               </div>
 
-              <div>
-                <textarea
-                  value={comment}
-                  disabled={isLoading}
-                  onChange={(e) => setComment(e.target.value)}
-                  placeholder="Write your review here. What worked? How did you test it?"
-                  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none text-sm outline-none"
-                  rows={3}
-                  required
-                />
-              </div>
+              <textarea
+                value={comment}
+                disabled={isLoading}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Write your review here. What worked? How did you test it?"
+                className="dh-input resize-none"
+                rows={3}
+                required
+              />
 
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-medium py-2.5 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                className="dh-btn dh-btn-primary w-full"
               >
-                <Send size={18} />
+                <Send size={16} />
                 {isLoading ? "Submitting..." : "Submit Review"}
               </button>
             </form>
           </div>
         </div>
 
-        {/* Reviews Iteration Layer */}
         {reviews && reviews.length > 0 ? (
-          <div className="space-y-4 mb-6">
+          <div className="space-y-3">
             {reviews.map((review: any, index: number) => (
-              <div key={index} className="bg-gray-50 rounded-xl p-4 border border-gray-100">
+              <div key={index} className="bg-dh-surface rounded-xl p-4 border border-dh-border">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold">
-                      {review.userName?.charAt(0) || "U"}
+                    <div className="w-8 h-8 rounded-full bg-dh-teal flex items-center justify-center text-white text-xs font-bold">
+                      {review.userName?.charAt(0) || 'U'}
                     </div>
                     <span className="text-sm font-semibold text-gray-800">
-                      {review.userName || "Anonymous"}
+                      {review.userName || 'Anonymous'}
                     </span>
                   </div>
                   {renderStarsStatic(review.rating)}
@@ -396,7 +364,7 @@ export default function ResourceInteractions({
             ))}
           </div>
         ) : (
-          <div className="text-center py-8 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 mb-6">
+          <div className="text-center py-8 bg-dh-surface rounded-xl border-2 border-dashed border-dh-border">
             <MessageCircle size={40} className="text-gray-300 mx-auto mb-2" />
             <p className="text-gray-400 text-sm">
               No reviews yet. Be the first to review!

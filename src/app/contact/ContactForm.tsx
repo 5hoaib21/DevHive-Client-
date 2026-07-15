@@ -18,7 +18,6 @@ const ContactForm = () => {
       return;
     }
     setSending(true);
-    // Simulate network delay
     await new Promise((r) => setTimeout(r, 1000));
     toast.success("Message sent successfully! We will get back to you soon.");
     setName("");
@@ -32,11 +31,8 @@ const ContactForm = () => {
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700 mb-1.5"
-          >
-            Name <span className="text-red-500">*</span>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1.5">
+            Name <span className="text-dh-danger">*</span>
           </label>
           <input
             id="name"
@@ -44,15 +40,12 @@ const ContactForm = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Your name"
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-900 outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 placeholder-gray-400"
+            className="dh-input"
           />
         </div>
         <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700 mb-1.5"
-          >
-            Email <span className="text-red-500">*</span>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">
+            Email <span className="text-dh-danger">*</span>
           </label>
           <input
             id="email"
@@ -60,15 +53,12 @@ const ContactForm = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-900 outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 placeholder-gray-400"
+            className="dh-input"
           />
         </div>
       </div>
       <div>
-        <label
-          htmlFor="subject"
-          className="block text-sm font-medium text-gray-700 mb-1.5"
-        >
+        <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1.5">
           Subject
         </label>
         <input
@@ -77,15 +67,12 @@ const ContactForm = () => {
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
           placeholder="How can we help?"
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-900 outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 placeholder-gray-400"
+          className="dh-input"
         />
       </div>
       <div>
-        <label
-          htmlFor="message"
-          className="block text-sm font-medium text-gray-700 mb-1.5"
-        >
-          Message <span className="text-red-500">*</span>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1.5">
+          Message <span className="text-dh-danger">*</span>
         </label>
         <textarea
           id="message"
@@ -93,13 +80,13 @@ const ContactForm = () => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Tell us more about your inquiry..."
-          className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-900 outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-200 placeholder-gray-400 resize-y"
+          className="dh-input resize-y"
         />
       </div>
       <button
         type="submit"
         disabled={sending}
-        className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-semibold px-8 py-3.5 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+        className="dh-btn dh-btn-primary"
       >
         {sending ? (
           <>

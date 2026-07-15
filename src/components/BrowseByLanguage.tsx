@@ -9,7 +9,6 @@ import {
   Server,
   Cpu,
   FileCode,
-  Layers,
 } from 'lucide-react';
 import { getAllResources } from '@/lib/api/prompts';
 
@@ -21,75 +20,55 @@ interface LanguageItem {
 
 interface LanguageConfig {
   icon: React.ReactNode;
-  emoji: string;
-  gradient: string;
-  bgLight: string;
-  iconBg: string;
+  bgClass: string;
+  iconClass: string;
 }
 
 const languageConfigs: Record<string, LanguageConfig> = {
   javascript: {
     icon: <Braces className="w-5 h-5" />,
-    emoji: '⚡',
-    gradient: 'from-yellow-400 to-amber-500',
-    bgLight: 'bg-yellow-50',
-    iconBg: 'bg-yellow-100 text-yellow-600',
+    bgClass: 'bg-yellow-50',
+    iconClass: 'text-yellow-600',
   },
   typescript: {
     icon: <FileCode className="w-5 h-5" />,
-    emoji: '🔷',
-    gradient: 'from-blue-500 to-indigo-600',
-    bgLight: 'bg-blue-50',
-    iconBg: 'bg-blue-100 text-blue-600',
+    bgClass: 'bg-blue-50',
+    iconClass: 'text-blue-600',
   },
   python: {
     icon: <Terminal className="w-5 h-5" />,
-    emoji: '🐍',
-    gradient: 'from-blue-400 to-cyan-500',
-    bgLight: 'bg-cyan-50',
-    iconBg: 'bg-cyan-100 text-cyan-600',
+    bgClass: 'bg-cyan-50',
+    iconClass: 'text-cyan-600',
   },
   go: {
     icon: <Code2 className="w-5 h-5" />,
-    emoji: '🔵',
-    gradient: 'from-cyan-400 to-teal-500',
-    bgLight: 'bg-teal-50',
-    iconBg: 'bg-teal-100 text-teal-600',
+    bgClass: 'bg-teal-50',
+    iconClass: 'text-teal-600',
   },
   rust: {
     icon: <Cpu className="w-5 h-5" />,
-    emoji: '🦀',
-    gradient: 'from-orange-500 to-red-500',
-    bgLight: 'bg-orange-50',
-    iconBg: 'bg-orange-100 text-orange-600',
+    bgClass: 'bg-orange-50',
+    iconClass: 'text-orange-600',
   },
   java: {
     icon: <Globe className="w-5 h-5" />,
-    emoji: '☕',
-    gradient: 'from-orange-400 to-red-400',
-    bgLight: 'bg-red-50',
-    iconBg: 'bg-red-100 text-red-600',
+    bgClass: 'bg-red-50',
+    iconClass: 'text-red-600',
   },
   'c++': {
     icon: <FileCode className="w-5 h-5" />,
-    emoji: '⚙️',
-    gradient: 'from-blue-600 to-indigo-700',
-    bgLight: 'bg-indigo-50',
-    iconBg: 'bg-indigo-100 text-indigo-600',
+    bgClass: 'bg-indigo-50',
+    iconClass: 'text-indigo-600',
   },
   ruby: {
     icon: <Terminal className="w-5 h-5" />,
-    emoji: '💎',
-    gradient: 'from-red-500 to-rose-600',
-    bgLight: 'bg-rose-50',
-    iconBg: 'bg-rose-100 text-rose-600',
+    bgClass: 'bg-rose-50',
+    iconClass: 'text-rose-600',
   },
   default: {
     icon: <FileJson className="w-5 h-5" />,
-    emoji: '📄',
-    gradient: 'from-gray-400 to-gray-600',
-    bgLight: 'bg-gray-50',
-    iconBg: 'bg-gray-100 text-gray-600',
+    bgClass: 'bg-gray-50',
+    iconClass: 'text-gray-600',
   },
 };
 
@@ -151,61 +130,39 @@ const BrowseByLanguage = async () => {
   const displayItems = isLiveData ? items : fallbackLanguages;
 
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-teal-50 to-indigo-50 border border-blue-200 text-blue-700 text-xs font-semibold mb-3">
-            <Layers className="w-4 h-4" />
-            Browse by Language
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-2">
-            Browse by{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-indigo-600">
-              Language
-            </span>
-          </h2>
-          <p className="text-gray-500">
+    <section className="py-16 sm:py-20 bg-white">
+      <div className="dh-container">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <h2 className="dh-section-heading">Browse by Language</h2>
+          <p className="dh-section-subtitle mt-1">
             Find resources in your preferred programming language
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {displayItems.map((item) => {
             const config = languageConfigs[item.slug] ?? languageConfigs.default;
             return (
               <Link
                 key={item.slug}
                 href={`/resources?language=${item.slug}`}
-                className="group relative bg-white rounded-2xl border border-gray-100 p-6 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:border-blue-200 overflow-hidden"
+                className="dh-card dh-card-hover p-4 flex items-center gap-3"
               >
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${config.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
-                />
-
-                <div className="flex items-start justify-between mb-4">
-                  <div
-                    className={`w-12 h-12 rounded-xl ${config.iconBg} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    <span>{config.icon}</span>
-                  </div>
-                  <span className="text-2xl opacity-80">{config.emoji}</span>
+                <div className={`w-10 h-10 rounded-lg ${config.bgClass} flex items-center justify-center shrink-0`}>
+                  <span className={config.iconClass}>{config.icon}</span>
                 </div>
-
-                <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
-                  {item.label}
-                </h3>
-
-                {isLiveData ? (
-                  <p className="text-sm text-gray-500 mt-1">
-                    {item.count} {item.count === 1 ? 'resource' : 'resources'}
-                  </p>
-                ) : (
-                  <p className="text-sm text-gray-400 mt-1">Browse resources</p>
-                )}
-
-                <div
-                  className={`mt-4 w-12 h-1 bg-gradient-to-r ${config.gradient} rounded-full group-hover:w-full transition-all duration-300`}
-                />
+                <div className="min-w-0">
+                  <h3 className="text-sm font-bold text-gray-900">
+                    {item.label}
+                  </h3>
+                  {isLiveData ? (
+                    <p className="text-xs text-gray-500">
+                      {item.count} {item.count === 1 ? 'resource' : 'resources'}
+                    </p>
+                  ) : (
+                    <p className="text-xs text-gray-400">Browse resources</p>
+                  )}
+                </div>
               </Link>
             );
           })}

@@ -1,7 +1,16 @@
-
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import { X } from 'lucide-react';
+
+const categories = ['development', 'design', 'marketing', 'writing', 'education', 'business'];
+const languages = ['javascript', 'python', 'typescript', 'go', 'rust'];
+const difficulties = ['beginner', 'intermediate', 'advanced'];
+const sortOptions = [
+  { value: 'latest', label: 'Latest' },
+  { value: 'popular', label: 'Most Popular' },
+  { value: 'copied', label: 'Most Copied' },
+];
 
 const FilterAndSort = () => {
   const router = useRouter();
@@ -14,7 +23,7 @@ const FilterAndSort = () => {
     } else {
       params.delete(key);
     }
-    router.push(params.toString() ? `/resources?${params.toString()}` : '/resources');
+    router.push('/resources?' + params.toString());
   };
 
   const currentCategory = searchParams.get('category') || '';
@@ -22,7 +31,7 @@ const FilterAndSort = () => {
   const currentDifficulty = searchParams.get('difficulty') || '';
   const currentSort = searchParams.get('sort') || 'latest';
 
-  const activeFilters = [];
+  const activeFilters: { key: string; label: string }[] = [];
   if (currentCategory) activeFilters.push({ key: 'category', label: currentCategory });
   if (currentLanguage) activeFilters.push({ key: 'language', label: currentLanguage });
   if (currentDifficulty) activeFilters.push({ key: 'difficulty', label: currentDifficulty });
@@ -36,57 +45,41 @@ const FilterAndSort = () => {
         <select
           value={currentCategory}
           onChange={(e) => updateFilters('category', e.target.value)}
-          className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="dh-input w-auto min-w-[140px]"
         >
           <option value="">All Categories</option>
-          <option value="development">Development</option>
-          <option value="design">Design</option>
-          <option value="marketing">Marketing</option>
-          <option value="writing">Writing</option>
-          <option value="education">Education</option>
-          <option value="business">Business</option>
+          {categories.map((c) => <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>)}
         </select>
 
         <select
           value={currentLanguage}
           onChange={(e) => updateFilters('language', e.target.value)}
-          className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="dh-input w-auto min-w-[140px]"
         >
           <option value="">All Languages</option>
-          <option value="javascript">JavaScript</option>
-          <option value="python">Python</option>
-          <option value="typescript">TypeScript</option>
-          <option value="go">Go</option>
-          <option value="rust">Rust</option>
+          {languages.map((l) => <option key={l} value={l}>{l.charAt(0).toUpperCase() + l.slice(1)}</option>)}
         </select>
 
         <select
           value={currentDifficulty}
           onChange={(e) => updateFilters('difficulty', e.target.value)}
-          className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="dh-input w-auto min-w-[140px]"
         >
           <option value="">All Levels</option>
-          <option value="beginner">Beginner</option>
-          <option value="intermediate">Intermediate</option>
-          <option value="advanced">Advanced</option>
+          {difficulties.map((d) => <option key={d} value={d}>{d.charAt(0).toUpperCase() + d.slice(1)}</option>)}
         </select>
 
         <select
           value={currentSort}
           onChange={(e) => updateFilters('sort', e.target.value)}
-          className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="dh-input w-auto min-w-[140px]"
         >
-          <option value="latest">Latest</option>
-          <option value="popular">Most Popular</option>
-          <option value="copied">Most Copied</option>
+          {sortOptions.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
         </select>
 
         {activeFilters.length > 0 && (
-          <button
-            onClick={clearAll}
-            className="px-3 py-1.5 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
-          >
-            Clear All
+          <button onClick={clearAll} className="dh-btn dh-btn-ghost text-xs text-dh-danger">
+            <X size={14} /> Clear
           </button>
         )}
       </div>
@@ -94,17 +87,9 @@ const FilterAndSort = () => {
       {activeFilters.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
           {activeFilters.map((filter) => (
-            <span
-              key={filter.key}
-              className="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 text-blue-700 text-xs rounded-full"
-            >
+            <span key={filter.key} className="dh-badge dh-badge-category">
               {filter.label}
-              <button
-                onClick={() => updateFilters(filter.key, '')}
-                className="hover:text-red-500 ml-0.5"
-              >
-                ×
-              </button>
+              <button onClick={() => updateFilters(filter.key, '')} className="ml-1 hover:text-dh-danger">x</button>
             </span>
           ))}
         </div>
