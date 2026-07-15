@@ -5,10 +5,12 @@ export const dynamic = "force-dynamic";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen mt-20">
+    <div className="min-h-screen bg-[#F8F9FC] pt-14">
       <div className="flex">
         <DashboardSidebar />
-        <main className="m-10"> {children}</main>
+        <main className="flex-1 md:ml-56 p-6">
+          {children}
+        </main>
       </div>
     </div>
   );

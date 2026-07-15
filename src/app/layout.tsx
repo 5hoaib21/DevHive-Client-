@@ -20,12 +20,11 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${inter.className} h-full antialiased`}>
-      <body>
+      <body className="bg-[#F8F9FC]">
         <Navbar />
-        <main className="max-w-7xl mx-auto px-2 min-h-screen">
+        <main className="min-h-screen">
           {children}
         </main>
-
         <Footer />
         <Toaster />
       </body>

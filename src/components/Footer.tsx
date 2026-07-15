@@ -2,125 +2,56 @@
 
 import React from "react";
 import Link from "next/link";
-import { 
-  Terminal, 
-  ArrowUpRight,
-  Heart
-} from "lucide-react";
-import { FiGithub } from "react-icons/fi";
-import { CiLinkedin } from "react-icons/ci";
-import { FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // 🚀 ডাইনামিক লিংক মেনু ডাটা
-  const footerLinks = [
-    {
-      title: "Explore",
-      links: [
-        { label: "All Resources", href: "/resources" },
-        { label: "About", href: "/about" },
-        { label: "Blog", href: "/blog" },
-      ],
-    },
-    {
-      title: "Community",
-      links: [
-        { label: "Publishers", href: "/publishers" },
-        { label: "Contact", href: "/contact" },
-        { label: "Guidelines", href: "/guidelines" },
-      ],
-    },
-    {
-      title: "Legal",
-      links: [
-        { label: "Privacy Policy", href: "/privacy" },
-        { label: "Terms of Service", href: "/terms" },
-        { label: "Cookie Policy", href: "/cookies" },
-      ],
-    },
-  ];
-
   return (
-    <footer className="w-full bg-white border-t border-zinc-100 text-zinc-600 font-sans">
-      <div className="max-w-7xl mx-auto px-6 py-12 md:py-16">
-        
-        {/* 📐 টপ সেকশন: গ্রিড লেআউট */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 md:gap-8 pb-12 border-b border-zinc-100">
-          
-          {/* ব্র্যান্ড ইনফো (২ কলাম জুড়ে থাকবে ডেস্কটপে) */}
-          <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="group flex items-center gap-3">
-              <div className="relative">
-                <Terminal />
-                <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-teal-600 to-indigo-600 opacity-0 blur transition-opacity group-hover:opacity-20" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-indigo-600 bg-clip-text text-transparent">
-                DevHive
-              </span>
-            </Link>
-            <p className="text-sm text-zinc-400 max-w-sm leading-relaxed">
-              A community-driven hub for developers to share, discover, and reuse code snippets, configs, and dev resources.
-            </p>
-            
-            {/* সোশ্যাল আইকনস */}
-            <div className="flex items-center gap-4 pt-2">
-              <a href="#" className="p-2 text-zinc-400 hover:text-zinc-950 hover:bg-zinc-50 rounded-lg transition-colors" title="GitHub">
-                <FiGithub size={18} />
-              </a>
-              <a href="#" className="p-2 text-zinc-400 hover:text-zinc-950 hover:bg-zinc-50 rounded-lg transition-colors" title="Twitter">
-                <FaXTwitter size={18} />
-              </a>
-              <a href="#" className="p-2 text-zinc-400 hover:text-zinc-950 hover:bg-zinc-50 rounded-lg transition-colors" title="LinkedIn">
-                <CiLinkedin size={18} />
-              </a>
-            </div>
-          </div>
-
-          {/* ডাইনামিক লিংক ক্যাটাগরিগুলো */}
-          {footerLinks.map((category) => (
-            <div key={category.title} className="space-y-4">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900">
-                {category.title}
-              </h4>
-              <ul className="space-y-2.5">
-                {category.links.map((link) => (
-                  <li key={link.label}>
-                    <Link 
-                      href={link.href} 
-                      className="text-sm text-zinc-500 hover:text-zinc-950 transition-colors inline-flex items-center gap-0.5 group"
-                    >
-                      {link.label}
-                      <ArrowUpRight size={12} className="opacity-0 -translate-y-0.5 translate-x-0 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0.5 transition-all duration-200" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
+    <footer className="w-full bg-[#1A1D26] text-[#9CA3AF]">
+      <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
+        {/* Top: brand row */}
+        <div className="max-w-lg">
+          <Link href="/" className="inline-flex items-center gap-2">
+            <span className="text-lg font-bold text-white">DevHive</span>
+          </Link>
+          <p className="mt-3 text-sm leading-relaxed text-[#6B7280]">
+            A community-driven platform for developers to share, discover, and reuse
+            code snippets, configs, and dev resources.
+          </p>
         </div>
 
-        {/* 📐 বটম সেকশন: কপিরাইট ও ক্রেডিট */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-xs text-zinc-400">
+        {/* Bottom: link columns */}
+        <div className="mt-10 grid grid-cols-2 gap-8 border-t border-white/10 pt-10 md:grid-cols-3">
           <div>
-            &copy; {currentYear} <span className="font-semibold text-zinc-700">DevHive</span>. All rights reserved.
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-white">Resources</h4>
+            <ul className="mt-4 space-y-2">
+              <li><Link href="/resources" className="text-sm text-[#6B7280] hover:text-white transition-colors">All Resources</Link></li>
+              <li><Link href="/about" className="text-sm text-[#6B7280] hover:text-white transition-colors">About</Link></li>
+              <li><Link href="/blog" className="text-sm text-[#6B7280] hover:text-white transition-colors">Blog</Link></li>
+            </ul>
           </div>
-          
-          <div className="flex items-center gap-1">
-            <span>Built with</span>
-            <Heart size={12} className="text-rose-500 fill-rose-500 animate-pulse" />
-            <span>by</span>
-            <a 
-              href="#" 
-              className="font-medium text-zinc-700 hover:text-zinc-950 transition-colors underline underline-offset-4"
-            >
-              Shoaib
-            </a>
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-white">Company</h4>
+            <ul className="mt-4 space-y-2">
+              <li><Link href="/contact" className="text-sm text-[#6B7280] hover:text-white transition-colors">Contact</Link></li>
+              <li><Link href="/guidelines" className="text-sm text-[#6B7280] hover:text-white transition-colors">Guidelines</Link></li>
+              <li><Link href="/publishers" className="text-sm text-[#6B7280] hover:text-white transition-colors">Publishers</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-white">Legal</h4>
+            <ul className="mt-4 space-y-2">
+              <li><Link href="/privacy" className="text-sm text-[#6B7280] hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="text-sm text-[#6B7280] hover:text-white transition-colors">Terms of Service</Link></li>
+              <li><Link href="/cookies" className="text-sm text-[#6B7280] hover:text-white transition-colors">Cookie Policy</Link></li>
+            </ul>
           </div>
         </div>
 
+        {/* Copyright */}
+        <div className="mt-10 border-t border-white/10 pt-6 text-center text-xs text-[#6B7280]">
+          &copy; {currentYear} DevHive. All rights reserved.
+        </div>
       </div>
     </footer>
   );
