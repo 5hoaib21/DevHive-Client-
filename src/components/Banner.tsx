@@ -7,8 +7,8 @@ import { useRouter } from "next/navigation"; // ✅ useRouter যোগ কর�
 import { motion, AnimatePresence } from "framer-motion";
 
 const ALL_TAGS = [
-  "ChatGPT", "Gemini", "Claude", "Midjourney",
-  "Stable Diffusion"
+  "JavaScript", "TypeScript", "Python", "React",
+  "Docker"
 ];
 
 const animations = {
@@ -107,7 +107,7 @@ export default function Banner() {
           variants={itemVariants}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-xs text-zinc-600 font-medium mb-6"
+          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-medium mb-6"
         >
           <motion.span
             animate={{ scale: [1, 1.2, 1] }}
@@ -115,7 +115,7 @@ export default function Banner() {
           >
             <Sparkles size={13} className="text-amber-500 fill-amber-500" />
           </motion.span>
-          The Ultimate Developer Resource Hub
+          The Developer Resource Hub
         </motion.div>
 
         {/* মেইন হেডলাইন */}
@@ -128,7 +128,7 @@ export default function Banner() {
             initial={{ backgroundPosition: "0% 50%" }}
             animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
             transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-            className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-[length:200%_auto]"
+            className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 via-indigo-500 to-purple-600 bg-[length:200%_auto]"
           >
             Developer Resources
           </motion.span>
@@ -149,7 +149,7 @@ export default function Banner() {
         >
           <motion.form 
             onSubmit={handleSearchSubmit} 
-            className="relative flex items-center p-2 rounded-2xl bg-white border border-gray-200 shadow-md focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-100 transition-all duration-300"
+            className="relative flex items-center p-2 rounded-2xl bg-white border border-gray-200 shadow-md focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-100 transition-all duration-300"
             whileHover={{ scale: 1.01 }}
             transition={animations.springSoft}
           >
@@ -219,7 +219,7 @@ export default function Banner() {
           >
             <Link
               href="/resources"
-              className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group"
+              className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group"
             >
               Explore Resources
               <motion.span
