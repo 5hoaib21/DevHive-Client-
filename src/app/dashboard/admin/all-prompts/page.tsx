@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 import React from 'react';
 import { Sparkles } from 'lucide-react';
-import { promptManagementByAdmin } from '@/lib/api/prompts';
+import { resourceManagementByAdmin as promptManagementByAdmin } from '@/lib/api/prompts';
 import AdminPromptTable from './AdminPromptTable';
 
 
@@ -21,7 +21,7 @@ const AllPromptPage = async () => {
                         <span className="w-9 h-9 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
                             <Sparkles size={18} />
                         </span>
-                        Prompt Template Submissions Moderation
+                        Resource Template Submissions Moderation
                     </h1>
                     <p className="text-sm text-zinc-500">
                         Approve templates, reject with feedback, or tag featured highlights.
@@ -32,7 +32,7 @@ const AllPromptPage = async () => {
                 <div className="bg-white border border-zinc-200 rounded-2xl overflow-hidden shadow-xs">
                     {prompts.length === 0 ? (
                         <div className="text-center py-12 text-zinc-400 text-sm">
-                            No prompt templates submitted yet.
+                            No resources submitted yet.
                         </div>
                     ) : (
                         <AdminPromptTable initialPrompts={prompts} />

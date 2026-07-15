@@ -14,21 +14,21 @@ const FilterAndSort = () => {
     } else {
       params.delete(key);
     }
-    router.push(params.toString() ? `/prompts?${params.toString()}` : '/prompts');
+    router.push(params.toString() ? `/resources?${params.toString()}` : '/resources');
   };
 
   const currentCategory = searchParams.get('category') || '';
-  const currentAiTool = searchParams.get('aiTool') || '';
+  const currentLanguage = searchParams.get('language') || '';
   const currentDifficulty = searchParams.get('difficulty') || '';
   const currentSort = searchParams.get('sort') || 'latest';
 
   const activeFilters = [];
   if (currentCategory) activeFilters.push({ key: 'category', label: currentCategory });
-  if (currentAiTool) activeFilters.push({ key: 'aiTool', label: currentAiTool });
+  if (currentLanguage) activeFilters.push({ key: 'language', label: currentLanguage });
   if (currentDifficulty) activeFilters.push({ key: 'difficulty', label: currentDifficulty });
   if (currentSort !== 'latest') activeFilters.push({ key: 'sort', label: currentSort });
 
-  const clearAll = () => router.push('/prompts');
+  const clearAll = () => router.push('/resources');
 
   return (
     <div className="space-y-3">
@@ -48,16 +48,16 @@ const FilterAndSort = () => {
         </select>
 
         <select
-          value={currentAiTool}
-          onChange={(e) => updateFilters('aiTool', e.target.value)}
+          value={currentLanguage}
+          onChange={(e) => updateFilters('language', e.target.value)}
           className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          <option value="">All AI Tools</option>
-          <option value="chatgpt">ChatGPT</option>
-          <option value="gemini">Gemini</option>
-          <option value="claude">Claude</option>
-          <option value="midjourney">Midjourney</option>
-          <option value="stable-diffusion">Stable Diffusion</option>
+          <option value="">All Languages</option>
+          <option value="javascript">JavaScript</option>
+          <option value="python">Python</option>
+          <option value="typescript">TypeScript</option>
+          <option value="go">Go</option>
+          <option value="rust">Rust</option>
         </select>
 
         <select

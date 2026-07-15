@@ -14,10 +14,10 @@ import {
 import { toast } from "react-hot-toast";
 import { MdReport } from "react-icons/md";
 import {
-  incrementCopyCount,
-  submitPromptReview,
-  togglePromptBookmark,
-  submitPromptReport,
+  incrementUsageCount as incrementCopyCount,
+  submitResourceReview as submitPromptReview,
+  toggleResourceBookmark as togglePromptBookmark,
+  submitResourceReport as submitPromptReport,
 } from "@/lib/actions/prompts";
 import { useRouter } from "next/navigation";
 
@@ -81,12 +81,12 @@ export default function PromptInteractions({
 
   const handleCopy = async () => {
     if (isLocked) {
-      toast.error("Premium Prompt! Please upgrade your plan to unlock.");
+      toast.error("Sign in to interact with this resource.");
       return;
     }
     try {
       await navigator.clipboard.writeText(promptContent);
-      toast.success("Prompt copied to clipboard!");
+      toast.success("Resource copied to clipboard!");
 
       const response = await incrementCopyCount(promptId);
       if (response.success) {
@@ -94,13 +94,13 @@ export default function PromptInteractions({
       } else {
       }
     } catch (err) {
-      toast.error("Failed to copy prompt.");
+      toast.error("Failed to copy resource.");
     }
   };
 
   const handleSaveToggle = async () => {
     if (isLocked) {
-      toast.error("Saving private prompts requires a Pro plan.");
+      toast.error("Sign in to save resources to your bookmarks.");
       return;
     }
     try {
@@ -191,7 +191,7 @@ export default function PromptInteractions({
           }`}
         >
           {isLocked ? <Lock size={18} /> : <CopyCheck size={18} />}
-          Copy Prompt
+          Copy Resource
         </button>
 
         <button
@@ -226,10 +226,10 @@ export default function PromptInteractions({
 
               <Modal.Header>
                 <Modal.Heading className="flex items-center gap-2 text-red-600 font-bold text-xl">
-                  <MdReport size={24} /> Report Prompt
+                  <MdReport size={24} /> Report Resource
                 </Modal.Heading>
                 <p className="mt-1.5 text-sm leading-5 text-gray-500">
-                  Help us understand what's wrong with this prompt.
+                  Help us understand what's wrong with this resource.
                 </p>
               </Modal.Header>
 

@@ -22,7 +22,7 @@ const SearchPrompt = () => {
       params.delete('search');
     }
     
-    router.push(`/prompts?${params.toString()}`);
+    router.push(`/resources?${params.toString()}`);
   };
   
   return (
@@ -30,7 +30,7 @@ const SearchPrompt = () => {
       <Input 
         name="search"
         type="search" 
-        placeholder="Search prompts..." 
+        placeholder="Search resources..." 
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
         className="flex-1"
@@ -70,12 +70,12 @@ export default SearchPrompt;
 // const SearchPrompt = () => {
 //     const onSearch = (e) => {
 //         e.preventDefault();
-//         redirect(`/prompts?search=${e.target.search.value}`);
+//         redirect(`/resources?search=${e.target.search.value}`);
 //     }
 //     return (
 //         <div className="flex items-center justify-center gap-2">
 //            <form onSubmit={onSearch}>
-//              <Input name='search' type='search' placeholder='Search prompts...' />
+//              <Input name='search' type='search' placeholder='Search resources...' />
 //             <Button type='submit' size='sm' variant='outline'> Search</Button>
 //            </form>
 //         </div>

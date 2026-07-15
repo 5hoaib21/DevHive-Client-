@@ -1,24 +1,24 @@
 export const dynamic = "force-dynamic";
 import Banner from "@/components/Banner";
-import FeaturedPrompt from "@/components/FeaturedPrompt";
+import FeaturedResource from "@/components/FeaturedPrompt";
 import FeatureSection from "@/components/FeatureSection";
 import ReviewSection from "@/components/ReviewSection";
-import TopCreators from "@/components/TopCreators";
+import TopPublishers from "@/components/TopCreators";
 import WhyChooseUs from "@/components/WhyChooseUs";
-import { getAllPrompts } from "@/lib/api/prompts";
+import { getAllResources } from "@/lib/api/prompts";
 
 
 const Home = async () => {
-  const prompts = await getAllPrompts();
-  const firstPromptId = prompts[0]?._id || null;
+  const resources = await getAllResources();
+  const firstResourceId = resources?.data?.[0]?._id || resources?.[0]?._id || null;
   
   return (
     <div>
       <Banner />
-      <FeaturedPrompt />
+      <FeaturedResource />
       <WhyChooseUs />
-      {firstPromptId && <ReviewSection />}
-      <TopCreators />
+      {firstResourceId && <ReviewSection />}
+      <TopPublishers />
       <FeatureSection /> 
     </div>
   );

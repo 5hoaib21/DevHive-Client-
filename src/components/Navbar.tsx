@@ -46,7 +46,7 @@ const Navbar = () => {
 
   const navLinks = [
     { href: "/", label: "Home", icon: Home },
-    { href: "/prompts", label: "All Prompts", icon: TbPrompt },
+    { href: "/resources", label: "All Resources", icon: TbPrompt },
     ...(user ?[{ href: `/dashboard/${(user as any)?.role}`, label: "Dashboard", icon: RiDashboardHorizontalLine }] : []),
   ];
 
@@ -90,7 +90,7 @@ const Navbar = () => {
                 <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 blur transition-opacity group-hover:opacity-20" />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                PromptForge
+                DevHive
               </span>
             </Link>
           </div>

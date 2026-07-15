@@ -32,27 +32,27 @@ export async function getReportsAction() {
   }
 }
 
-export async function removeReportedPromptAction(reportId: string, promptId: string) {
+export async function removeReportedResourceAction(reportId: string, resourceId: string) {
   try {
     const token = await getTokenServer();
-    const res = await fetch(`${baseURL}/admin/reports/remove-prompt`, {
+    const res = await fetch(`${baseURL}/admin/reports/remove-resource`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ reportId, promptId }),
+      body: JSON.stringify({ reportId, resourceId }),
     });
 
     const data = await res.json();
 
     if (!res.ok) {
-      return { success: false, message: data.message || "Failed to remove prompt." };
+      return { success: false, message: data.message || "Failed to remove resource." };
     }
 
-    return { success: true, message: data.message || "Prompt removed and report cleared!" };
+    return { success: true, message: data.message || "Resource removed and report cleared!" };
   } catch (error: any) {
-    console.error("Error in removeReportedPromptAction:", error);
+    console.error("Error in removeReportedResourceAction:", error);
     return { success: false, message: "Internal Server Error" };
   }
 }

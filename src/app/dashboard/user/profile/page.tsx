@@ -107,7 +107,7 @@ export default async function UserProfilePage() {
                                 <Terminal size={20} />
                             </div>
                             <div>
-                                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Prompts</p>
+                                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Resources</p>
                                 <p className="text-sm font-extrabold text-gray-950 mt-0.5">{profile.totalPrompts || 0}</p>
                             </div>
                         </div>
@@ -117,7 +117,7 @@ export default async function UserProfilePage() {
                     {/* নিচের ছোট ফুটার ইনফো লাইন */}
                     <div className="pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-400">
                         <p>Account status: <span className="text-green-500 font-semibold">Active</span></p>
-                        <p>Thank you for being part of our prompt community!</p>
+                        <p>Thank you for being part of our DevHive community!</p>
                     </div>
 
                 </div>

@@ -8,10 +8,10 @@ import Link from "next/link";
 interface Prompt {
   _id: string;
   title: string;
-  aiTool: string;
+  language: string;
   visibility: string;
   status: string;
-  copyCount: number;
+  usageCount: number;
   ratingCount: number;
 }
 
@@ -42,7 +42,7 @@ export default function MyPromptTable({ promptsData }: MyPromptTableProps) {
           <Table.Header>
             <Table.Column isRowHeader>#</Table.Column>
             <Table.Column isRowHeader>Title</Table.Column>
-            <Table.Column>Ai Engine</Table.Column>
+            <Table.Column>Language</Table.Column>
             <Table.Column>Visibility</Table.Column>
             <Table.Column>Status</Table.Column>
             <Table.Column>Copies</Table.Column>
@@ -54,10 +54,10 @@ export default function MyPromptTable({ promptsData }: MyPromptTableProps) {
               <Table.Row key={prompt._id || String(index)}>
                 <Table.Cell>{index + 1}</Table.Cell>
                 <Table.Cell>{prompt?.title}</Table.Cell>
-                <Table.Cell>{prompt?.aiTool}</Table.Cell>
+                <Table.Cell>{prompt?.language}</Table.Cell>
                 <Table.Cell>{prompt?.visibility}</Table.Cell>
                 <Table.Cell>{prompt?.status}</Table.Cell>
-                <Table.Cell>{prompt?.copyCount || 0}</Table.Cell>
+                <Table.Cell>{prompt?.usageCount || 0}</Table.Cell>
                 <Table.Cell>{prompt?.ratingCount || 0}</Table.Cell>
                 <Table.Cell className="flex gap-2">
                   <EditPrompt promptId={prompt._id} promptData={prompt} />
@@ -74,21 +74,21 @@ export default function MyPromptTable({ promptsData }: MyPromptTableProps) {
           <Pagination.Content>
             <Pagination.Item>
               <Pagination.Previous isDisabled={page === 1}>
-                <Link className="flex gap-2" href={`/dashboard/creator/my-prompt?page=${page - 1}`}>
+                <Link className="flex gap-2" href={`/dashboard/publisher/my-prompt?page=${page - 1}`}>
                   <Pagination.PreviousIcon /> Prev
                 </Link>
               </Pagination.Previous>
             </Pagination.Item>
             {pages.map((p) => (
               <Pagination.Item key={p}>
-                <Link href={`/dashboard/creator/my-prompt?page=${p}`}>
+                <Link href={`/dashboard/publisher/my-prompt?page=${p}`}>
                   <Pagination.Link isActive={p === page}>{p}</Pagination.Link>
                 </Link>
               </Pagination.Item>
             ))}
             <Pagination.Item>
               <Pagination.Next isDisabled={page === totalPages}>
-                <Link className="flex gap-2" href={`/dashboard/creator/my-prompt?page=${page + 1}`}>
+                <Link className="flex gap-2" href={`/dashboard/publisher/my-prompt?page=${page + 1}`}>
                   Next <Pagination.NextIcon />
                 </Link>
               </Pagination.Next>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Bookmark, MessageSquare, Copy, Sparkles, TrendingUp, Compass, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
-import { getUserAnalytics } from '@/lib/api/prompts';
+import { getExplorerAnalytics as getUserAnalytics } from '@/lib/api/prompts';
 
 export default async function UserDashboardHomePage() {
     
@@ -13,7 +13,7 @@ export default async function UserDashboardHomePage() {
 
     const userSummary = [
         {
-            title: "Bookmarked Prompts",
+            title: "Bookmarked Resources",
             value: analytics.totalBookmarks.toLocaleString(),
             desc: "Saved for quick access",
             icon: <Bookmark size={20} className="text-emerald-600" />,
@@ -27,9 +27,9 @@ export default async function UserDashboardHomePage() {
             bgIcon: "bg-blue-50/70 border-blue-100/50",
         },
         {
-            title: "Copied Actions",
+            title: "Resource Usage",
             value: analytics.totalCopies.toLocaleString(),
-            desc: "Prompts used in projects",
+            desc: "Resources used in projects",
             icon: <Copy size={20} className="text-purple-600" />,
             bgIcon: "bg-purple-50/70 border-purple-100/50",
         },
@@ -54,7 +54,7 @@ export default async function UserDashboardHomePage() {
                             <span className="inline-block animate-bounce origin-bottom">⚡</span>
                         </h2>
                         <p className="text-sm text-zinc-500">
-                            Explore your saved assets, platform interactions, and prompt usage history.
+                            Explore your saved assets, platform interactions, and resource usage history.
                         </p>
                     </div>
 
@@ -102,17 +102,17 @@ export default async function UserDashboardHomePage() {
                     </div>
                     <div className="space-y-1">
                         <h4 className="text-base font-bold text-zinc-900">
-                            Ready to find more high-engineered prompts?
+                            Ready to discover more developer resources?
                         </h4>
                         <p className="text-xs text-zinc-500 max-w-sm mx-auto leading-relaxed">
-                            Discover ultimate boilerplate templates, midjourney generation formulas, and ChatGPT workflows tailored for your needs.
+                            Discover ultimate boilerplate templates, midjourney generation formulas, and workflows tailored for your needs.
                         </p>
                     </div>
                     <Link 
-                        href="/prompts"
+                        href="/resources"
                         className="bg-zinc-950 hover:bg-zinc-800 text-white font-semibold text-xs px-5 py-2.5 rounded-xl shadow-xs transition-all duration-200"
                     >
-                        Browse Prompt Marketplace
+                        Browse Resource Library
                     </Link>
                 </div>
 

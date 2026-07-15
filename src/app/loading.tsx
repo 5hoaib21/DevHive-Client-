@@ -25,7 +25,7 @@ export default function LoadingPage() {
         {/* ✍️ লোডিং টেক্সট ও স্ট্যাটাস */}
         <div className="text-center space-y-1.5">
           <h3 className="text-sm font-bold text-zinc-900 tracking-tight flex items-center justify-center gap-1">
-            Forging Pipeline
+            Loading...
             {/* ডাইনামিক ৩টি ডট অ্যানিমেশন */}
             <span className="flex items-center gap-0.5 ml-0.5">
               <span className="w-1 h-1 bg-zinc-950 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
@@ -34,7 +34,7 @@ export default function LoadingPage() {
             </span>
           </h3>
           <p className="text-xs text-zinc-400 tracking-wide">
-            Compiling and fetching optimized engine blueprints...
+            Fetching developer resources...
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export default function LoadingPage() {
 
       {/* 🔮 ব্যাকগ্রাউন্ডে খুবই হালকা ওয়াটারমার্ক / ব্র্যান্ডিং নাম */}
       <div className="absolute bottom-8 text-[11px] font-medium tracking-widest text-zinc-300 uppercase">
-        PromptForge Environment
+        DevHive Environment
       </div>
 
     </div>

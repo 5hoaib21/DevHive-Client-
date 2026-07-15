@@ -7,12 +7,12 @@ export const EmptyState = () => {
             <div className="w-12 h-12 rounded-2xl bg-zinc-50 border border-zinc-100 flex items-center justify-center text-zinc-400 mb-4 shadow-xs">
                 <Terminal size={22} />
             </div>
-            <h3 className="text-base font-bold text-zinc-900 tracking-tight">No active prompts published</h3>
+            <h3 className="text-base font-bold text-zinc-900 tracking-tight">No resources published yet</h3>
             <p className="text-xs text-zinc-400 mt-1 max-w-xs leading-relaxed">
                 Your sandbox engine is clean. Build, optimize, and expose your AI asset parameters inside the community matrix.
             </p>
             <Link 
-                href="/dashboard/add-prompt" 
+                href="/dashboard/explorer/add-resource" 
                 className="mt-5 inline-flex items-center gap-1.5 text-xs font-bold text-white bg-zinc-900 hover:bg-zinc-800 transition-all px-4 py-2 rounded-xl shadow-xs cursor-pointer active:scale-95"
             >
                 <Plus size={14} /> Create First Prompt

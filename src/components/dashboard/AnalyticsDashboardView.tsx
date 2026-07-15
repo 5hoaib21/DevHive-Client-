@@ -8,9 +8,9 @@ const COLORS = ["#006FEE", "#7828C8", "#17C964", "#F5A524", "#FF4ECD"];
 
 export default function AnalyticsDashboardView({ stats, engineData }: { stats: any, engineData: any }) {
   
-  const distributionData = engineData.map((item: any) => ({
+  const distributionData = (stats.languageData || engineData || []).map((item: any) => ({
     name: item.name,
-    value: item.Prompts
+    value: item.Resources || item.Prompts
   })).filter((item: any) => item.value > 0);
 
   return (
@@ -30,8 +30,8 @@ export default function AnalyticsDashboardView({ stats, engineData }: { stats: a
         {/* TOTAL PROMPTS */}
         <div className="p-4 bg-white border border-zinc-100 rounded-2xl shadow-sm flex items-center justify-between">
           <div>
-            <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Total Prompts</p>
-            <h3 className="text-xl font-bold text-zinc-900 mt-1">{stats.totalPrompts}</h3>
+            <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Total Resources</p>
+            <h3 className="text-xl font-bold text-zinc-900 mt-1">{stats.totalResources}</h3>
           </div>
           <div className="p-2.5 bg-purple-50 text-purple-600 rounded-xl"><FileText size={18} /></div>
         </div>
@@ -49,7 +49,7 @@ export default function AnalyticsDashboardView({ stats, engineData }: { stats: a
         <div className="p-4 bg-white border border-zinc-100 rounded-2xl shadow-sm flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Total Copies</p>
-            <h3 className="text-xl font-bold text-zinc-900 mt-1">{stats.totalCopies}</h3>
+            <h3 className="text-xl font-bold text-zinc-900 mt-1">{stats.totalUsage}</h3>
           </div>
           <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl"><Copy size={18} /></div>
         </div>
@@ -63,7 +63,7 @@ export default function AnalyticsDashboardView({ stats, engineData }: { stats: a
         <div className="lg:col-span-2 bg-white border border-zinc-100 rounded-2xl p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-6">
             <TrendingUp size={16} className="text-zinc-500" />
-            <h4 className="text-sm font-bold text-zinc-800">Engine Prompts Density vs Copies</h4>
+            <h4 className="text-sm font-bold text-zinc-800">Language Resource Distribution</h4>
           </div>
           
           <div className="w-full h-[320px]">
@@ -75,7 +75,7 @@ export default function AnalyticsDashboardView({ stats, engineData }: { stats: a
                 <Tooltip contentStyle={{ backgroundColor: "#ffffff", borderColor: "#E4E4E7", borderRadius: "12px" }} />
                 <Legend iconType="circle" wrapperStyle={{ fontSize: "12px", paddingTop: "10px" }} />
                 <Bar dataKey="Copies" fill="#006FEE" radius={[6, 6, 0, 0]} barSize={26} name="Total Copies" />
-                <Bar dataKey="Prompts" fill="#7828C8" radius={[6, 6, 0, 0]} barSize={26} name="Total Prompts" />
+                <Bar dataKey="Resources" fill="#7828C8" radius={[6, 6, 0, 0]} barSize={26} name="Total Resources" />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -85,7 +85,7 @@ export default function AnalyticsDashboardView({ stats, engineData }: { stats: a
         <div className="bg-white border border-zinc-100 rounded-2xl p-5 shadow-sm flex flex-col">
           <div className="flex items-center gap-2 mb-6">
             <PieIcon size={16} className="text-zinc-500" />
-            <h4 className="text-sm font-bold text-zinc-800">Prompt Distribution Share</h4>
+            <h4 className="text-sm font-bold text-zinc-800">Resource Distribution Share</h4>
           </div>
 
           <div className="w-full h-[260px] flex-1 flex items-center justify-center">
@@ -101,7 +101,7 @@ export default function AnalyticsDashboardView({ stats, engineData }: { stats: a
                 </PieChart>
               </ResponsiveContainer>
             ) : (
-              <p className="text-xs text-zinc-400">No prompt share data available.</p>
+              <p className="text-xs text-zinc-400">No resource data available.</p>
             )}
           </div>
 
@@ -110,7 +110,7 @@ export default function AnalyticsDashboardView({ stats, engineData }: { stats: a
             {distributionData.map((entry: any, index: number) => (
               <div key={entry.name} className="flex items-center gap-1.5 text-zinc-600">
                 <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ backgroundColor: COLORS[index % COLORS.length] }}></span>
-                <span className="truncate">{entry.name} ({entry.value} prompts)</span>
+                <span className="truncate">{entry.name} ({entry.value} resources)</span>
               </div>
             ))}
           </div>

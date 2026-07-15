@@ -17,7 +17,7 @@ import {
 import { MagicWand, Compass, ChevronDown } from "@gravity-ui/icons";
 import { CloudUpload, CloudUploadIcon } from "lucide-react";
 import { imageUpload } from "@/lib/actions/imgUpload";
-import { addPrompt } from "@/lib/actions/prompts";
+import { addResource as addPrompt } from "@/lib/actions/prompts";
 import { useRouter } from "next/navigation";
 // import { addPrompt } from "@/lib/actions/prompts";
 
@@ -68,7 +68,7 @@ export default function AddPromptForm() {
     const promptPayload = {
       ...data,
       image: image?.url || "",
-      copyCount: 0,
+      usageCount: 0,
       rating: 0,      
       ratingCount: 0, 
       status: "pending",
@@ -214,11 +214,11 @@ export default function AddPromptForm() {
                 </Select>
 
                 <Select
-                  name="aiTool"
+                  name="language"
                   className="flex flex-col gap-1.5"
                 >
                   <Label className="text-zinc-700 text-xs font-semibold uppercase tracking-wider">
-                    AI Tool Target
+                    Language
                   </Label>
                   <Select.Trigger className={triggerClasses}>
                     <Select.Value />
@@ -227,11 +227,12 @@ export default function AddPromptForm() {
                   <Select.Popover className={popoverClasses}>
                     <ListBox>
                       {[
-                        "ChatGPT",
-                        "Claude",
-                        "Gemini",
-                        "Midjourney",
-                        "Stable Diffusion",
+                        "JavaScript",
+                        "TypeScript",
+                        "Python",
+                        "Go",
+                        "Rust",
+                        "Java",
                       ].map((item) => (
                         <ListBox.Item
                           key={item}

@@ -38,14 +38,14 @@ export default function Banner() {
     
     // URL এ encode করে রিডাইরেক্ট
     const encodedQuery = encodeURIComponent(searchQuery.trim());
-    router.push(`/prompts?search=${encodedQuery}`);
+    router.push(`/resources?search=${encodedQuery}`);
   };
 
   // ✅ ট্যাগ ক্লিক করলেও সার্চ করবে
   const handleTagClick = (tag: string) => {
     setSearchQuery(tag);
     const encodedQuery = encodeURIComponent(tag);
-    router.push(`/prompts?search=${encodedQuery}`);
+    router.push(`/resources?search=${encodedQuery}`);
   };
 
   return (
@@ -115,7 +115,7 @@ export default function Banner() {
           >
             <Sparkles size={13} className="text-amber-500 fill-amber-500" />
           </motion.span>
-          The Ultimate Blueprint Marketplace
+          The Ultimate Developer Resource Hub
         </motion.div>
 
         {/* মেইন হেডলাইন */}
@@ -123,14 +123,14 @@ export default function Banner() {
           variants={itemVariants}
           className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight leading-tight max-w-3xl mx-auto"
         >
-          Discover & Forge High-Engineered{" "}
+          Discover & Share{" "}
           <motion.span
             initial={{ backgroundPosition: "0% 50%" }}
             animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
             transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
             className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-[length:200%_auto]"
           >
-            AI Prompts
+            Developer Resources
           </motion.span>
         </motion.h1>
         
@@ -139,7 +139,7 @@ export default function Banner() {
           variants={itemVariants}
           className="mt-4 text-base sm:text-lg text-gray-500 max-w-xl mx-auto leading-relaxed"
         >
-          Skip the guesswork. Access premium, production-ready blueprints optimized for ChatGPT, Midjourney, and LLMs.
+          Skip the guesswork. Access community-vetted code snippets, configs, and templates for your next project
         </motion.p>
 
         {/* 🔍 সার্চ বার - এখন কাজ করবে */}
@@ -160,7 +160,7 @@ export default function Banner() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search for copywriting, coding, design blueprints..."
+              placeholder="Search for code snippets, configs, templates..."
               className="w-full pl-3 pr-4 py-3 bg-transparent text-sm text-gray-900 outline-none placeholder-gray-400"
             />
             <motion.button
@@ -218,10 +218,10 @@ export default function Banner() {
             transition={animations.springSoft}
           >
             <Link
-              href="/prompts"
+              href="/resources"
               className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group"
             >
-              Explore Blueprints
+              Explore Resources
               <motion.span
                 animate={{ x: [0, 5, 0] }}
                 transition={{ 

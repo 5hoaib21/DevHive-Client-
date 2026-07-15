@@ -12,7 +12,7 @@ interface User {
   name: string;
   email: string;
   image?: string;
-  role: "user" | "creator" | "admin";
+  role: "explorer" | "publisher" | "admin";
 }
 
 interface AdminUserTableProps {
@@ -30,7 +30,7 @@ export default function AdminUserTable({ initialUsers }: AdminUserTableProps) {
       if (res.success) {
         setUsers((prev) =>
           prev.map((u) =>
-            getIdString(u._id) === userId ? { ...u, role: newRole as "user" | "creator" | "admin" } : u
+            getIdString(u._id) === userId ? { ...u, role: newRole as "explorer" | "publisher" | "admin" } : u
           )
         );
         return res.message || `Role updated to ${newRole}!`;
@@ -135,7 +135,7 @@ export default function AdminUserTable({ initialUsers }: AdminUserTableProps) {
                     <Select
                       className="w-full max-w-[130px]"
                       placeholder="Select role"
-                      selectedKey={user?.role || "user"}
+                      selectedKey={user?.role || "explorer"}
                       onSelectionChange={(key) => handleRoleChange(userId, key)}
                     >
                       <Select.Trigger className="h-8 min-h-8 bg-zinc-50 border border-zinc-200 rounded-lg text-zinc-700 text-xs font-medium">
@@ -145,18 +145,18 @@ export default function AdminUserTable({ initialUsers }: AdminUserTableProps) {
                       <Select.Popover className="bg-white border border-zinc-200 rounded-xl shadow-lg">
                         <ListBox>
                           <ListBox.Item
-                            id="user"
-                            textValue="User"
+                            id="explorer"
+                            textValue="Explorer"
                             className="text-xs text-zinc-700 hover:bg-zinc-50 rounded-md"
                           >
-                            User
+                            Explorer
                           </ListBox.Item>
                           <ListBox.Item
-                            id="creator"
-                            textValue="Creator"
+                            id="publisher"
+                            textValue="Publisher"
                             className="text-xs text-zinc-700 hover:bg-zinc-50 rounded-md"
                           >
-                            Creator
+                            Publisher
                           </ListBox.Item>
                           <ListBox.Item
                             id="admin"

@@ -1,4 +1,4 @@
-import { getPromptReviews, getPromptsWithReviews } from '@/lib/api/review';
+import { getResourceReviews, getResourcesWithReviews as getPromptsWithReviews } from '@/lib/api/review';
 import { Star, User, Calendar, MessageCircle, Quote, Sparkles } from 'lucide-react';
 import Marquee from 'react-fast-marquee';
 
@@ -13,7 +13,7 @@ const ReviewSection = async () => {
         allReviews.push({
           ...review,
           promptTitle: prompt.title,
-          promptCategory: prompt.category
+          resourceCategory: prompt.category
         });
       });
     }
@@ -40,7 +40,7 @@ const ReviewSection = async () => {
           Community Reviews
         </h2>
         <p className="text-gray-500">
-          See what our community says about these prompts
+           See what our community says about these resources
         </p>
       </div>
   
@@ -100,7 +100,7 @@ const ReviewCard = ({ review }: { review: any }) => {
               {review.userName || 'Anonymous'}
             </p>
             <p className="text-[10px] text-gray-400">
-              {review.promptCategory || 'Prompt'}
+              {review.resourceCategory || 'Resource'}
             </p>
           </div>
         </div>

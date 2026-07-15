@@ -7,7 +7,7 @@ export interface UserSession {
   name: string | null;
   email: string;
   image: string | null;
-  role: "user" | "creator" | "admin";
+  role: "explorer" | "publisher" | "admin";
 }
 
 export const getUserSession = async (): Promise<UserSession | null> => {
@@ -18,7 +18,7 @@ export const getUserSession = async (): Promise<UserSession | null> => {
   return (session?.user as unknown as UserSession) ?? null;
 };
 
-export const requireRole = async (role: "user" | "creator" | "admin"): Promise<void> => {
+export const requireRole = async (role: "explorer" | "publisher" | "admin"): Promise<void> => {
   const user = await getUserSession();
   if (user?.role !== role) {
     redirect("/unauthorized");

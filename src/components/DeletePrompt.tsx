@@ -1,6 +1,6 @@
 "use client";
 
-import { deletePrompt } from "@/lib/actions/prompts";
+import { deleteResource } from "@/lib/actions/prompts";
 import { AlertDialog, Button } from "@heroui/react";
 import { Delete } from "lucide-react";
 import { useRouter } from "next/navigation"; // রিফ্রেশ করার জন্য ইম্পোর্ট করলাম
@@ -10,7 +10,7 @@ export function DeletePrompt({ promptId }: { promptId: string }) {
   const router = useRouter();
 
   const handleDelete = async () => {
-    const response: any = await deletePrompt(promptId);
+    const response: any = await deleteResource(promptId);
     if (response.success) {
       toast.success("সফলভাবে ডিলিট হয়েছে!");
       router.refresh(); // এটি সার্ভার কম্পোনেন্টকে বলবে নতুন ডাটা নিয়ে রিফ্রেশ হতে!
@@ -33,12 +33,12 @@ export function DeletePrompt({ promptId }: { promptId: string }) {
             <AlertDialog.Header>
               <AlertDialog.Icon status="danger" />
               <AlertDialog.Heading>
-                Delete project permanently?
+                Delete resource permanently?
               </AlertDialog.Heading>
             </AlertDialog.Header>
             <AlertDialog.Body>
               <p>
-                This will permanently delete this prompt and all of its data. This action cannot be undone.
+                This will permanently delete this resource and all of its data. This action cannot be undone.
               </p>
             </AlertDialog.Body>
             <AlertDialog.Footer>
@@ -47,7 +47,7 @@ export function DeletePrompt({ promptId }: { promptId: string }) {
               </Button>
               {/* এখানে onClick-এ handleDelete জুড়ে দেওয়া হলো */}
               <Button slot="close" variant="danger" onClick={handleDelete}>
-                Delete Project
+                Delete Resource
               </Button>
             </AlertDialog.Footer>
           </AlertDialog.Dialog>

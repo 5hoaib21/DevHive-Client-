@@ -4,13 +4,13 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Button, Input, Label, Modal, Table, TextField } from "@heroui/react";
 import { Check, X, Trash2, Eye, ShieldAlert } from "lucide-react";
 import toast from "react-hot-toast";
-import { updatePromptStatusAction, deletePromptAction } from "@/lib/actions/prompts";
+import { updateResourceStatusAction as updatePromptStatusAction, deleteResourceAction as deletePromptAction } from "@/lib/actions/prompts";
 import { getIdString } from "@/types";
 
 interface Prompt {
   _id: string | { $oid: string };
   title: string;
-  aiTool: string;
+  language: string;
   visibility: string;
   status: "approved" | "pending" | "rejected";
 }
@@ -33,14 +33,14 @@ export default function AdminPromptTable({ initialPrompts }: AdminPromptTablePro
             getIdString(p._id) === id ? { ...p, status: "approved" as const } : p
           )
         );
-        return res.message || "Prompt approved successfully!";
+        return res.message || "Resource approved successfully!";
       } else {
-        throw new Error(res.message || "Failed to approve prompt");
+        throw new Error(res.message || "Failed to approve resource");
       }
     });
 
     toast.promise(statusPromise, {
-      loading: "Approving prompt...",
+      loading: "Approving resource...",
       success: (msg) => msg,
       error: (err) => err.message,
     });
@@ -65,14 +65,14 @@ export default function AdminPromptTable({ initialPrompts }: AdminPromptTablePro
           )
         );
         setIsOpen(false);
-        return res.message || "Prompt rejected successfully!";
+        return res.message || "Resource rejected successfully!";
       } else {
-        throw new Error(res.message || "Failed to reject prompt");
+        throw new Error(res.message || "Failed to reject resource");
       }
     });
 
     toast.promise(statusPromise, {
-      loading: "Rejecting prompt...",
+      loading: "Rejecting resource...",
       success: (msg) => msg,
       error: (err) => err.message,
     });
@@ -82,14 +82,14 @@ export default function AdminPromptTable({ initialPrompts }: AdminPromptTablePro
     const deletePromise = deletePromptAction(id).then((res) => {
       if (res.success) {
         setPrompts((prev) => prev.filter((p) => getIdString(p._id) !== id));
-        return res.message || "Prompt deleted permanently.";
+        return res.message || "Resource deleted permanently.";
       } else {
-        throw new Error(res.message || "Failed to delete prompt");
+        throw new Error(res.message || "Failed to delete resource");
       }
     });
 
     toast.promise(deletePromise, {
-      loading: "Deleting prompt...",
+      loading: "Deleting resource...",
       success: (msg) => msg,
       error: (err) => err.message,
     });
@@ -103,7 +103,7 @@ export default function AdminPromptTable({ initialPrompts }: AdminPromptTablePro
 
   return (
     <>
-      <Table aria-label="Prompt Submission Table" className="bg-white text-zinc-800 shadow-none">
+      <Table aria-label="Resource Submission Table" className="bg-white text-zinc-800 shadow-none">
         <Table.ScrollContainer>
           <Table.Content className="min-w-[800px]">
             <Table.Header>
@@ -114,7 +114,7 @@ export default function AdminPromptTable({ initialPrompts }: AdminPromptTablePro
                 TEMPLATE TITLE
               </Table.Column>
               <Table.Column className="text-zinc-700 font-bold bg-zinc-50 border-b border-zinc-200">
-                AI ENGINE
+                LANGUAGE
               </Table.Column>
               <Table.Column className="text-zinc-700 font-bold bg-zinc-50 border-b border-zinc-200">
                 VISIBILITY
@@ -127,38 +127,38 @@ export default function AdminPromptTable({ initialPrompts }: AdminPromptTablePro
               </Table.Column>
             </Table.Header>
             <Table.Body>
-              {prompts.map((prompt, index) => {
-                const promptId = getIdString(prompt._id);
+              {prompts.map((resource, index) => {
+                const resourceId = getIdString(resource._id);
 
                 return (
-                  <Table.Row key={promptId} className="border-b border-zinc-100 hover:bg-zinc-50/80 transition-colors">
+                  <Table.Row key={resourceId} className="border-b border-zinc-100 hover:bg-zinc-50/80 transition-colors">
                     <Table.Cell className="text-zinc-400 font-mono text-xs">
                       {index + 1}
                     </Table.Cell>
 
                     <Table.Cell>
                       <span className="font-semibold text-zinc-900 text-sm block max-w-[280px] truncate">
-                        {prompt?.title}
+                        {resource?.title}
                       </span>
                     </Table.Cell>
 
                     <Table.Cell>
                       <span className="px-2.5 py-1 text-[11px] font-bold tracking-wider rounded-lg bg-purple-50 text-purple-600 uppercase border border-purple-100 inline-block">
-                        {prompt?.aiTool || "N/A"}
+                        {resource?.language || "N/A"}
                       </span>
                     </Table.Cell>
 
                     <Table.Cell className="text-zinc-600 text-sm capitalize">
-                      {prompt?.visibility}
+                      {resource?.visibility}
                     </Table.Cell>
 
                     <Table.Cell className="text-center">
                       <span
                         className={`inline-block px-2.5 py-0.5 text-[11px] font-bold tracking-wider rounded-full border uppercase ${
-                          statusStyleMap[prompt?.status || "pending"]
+                          statusStyleMap[resource?.status || "pending"]
                         }`}
                       >
-                        {prompt?.status || "pending"}
+                        {resource?.status || "pending"}
                       </span>
                     </Table.Cell>
 
@@ -177,8 +177,8 @@ export default function AdminPromptTable({ initialPrompts }: AdminPromptTablePro
                         size="sm"
                         variant="ghost"
                         className="bg-emerald-50 hover:bg-emerald-100 text-emerald-600 border border-emerald-100 rounded-md w-7 h-7"
-                        onClick={() => handleApprove(promptId)}
-                        isDisabled={prompt?.status === "approved"}
+                        onClick={() => handleApprove(resourceId)}
+                        isDisabled={resource?.status === "approved"}
                       >
                         <Check size={14} />
                       </Button>
@@ -188,8 +188,8 @@ export default function AdminPromptTable({ initialPrompts }: AdminPromptTablePro
                         size="sm"
                         variant="ghost"
                         className="bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-100 rounded-md w-7 h-7"
-                        onClick={() => triggerRejectModal(promptId)}
-                        isDisabled={prompt?.status === "rejected"}
+                        onClick={() => triggerRejectModal(resourceId)}
+                        isDisabled={resource?.status === "rejected"}
                       >
                         <X size={14} />
                       </Button>
@@ -199,7 +199,7 @@ export default function AdminPromptTable({ initialPrompts }: AdminPromptTablePro
                         size="sm"
                         variant="ghost"
                         className="bg-zinc-100 hover:bg-red-50 hover:text-red-600 text-zinc-400 border border-transparent rounded-md w-7 h-7 transition-all"
-                        onClick={() => handleDelete(promptId)}
+                        onClick={() => handleDelete(resourceId)}
                       >
                         <Trash2 size={14} />
                       </Button>
@@ -229,7 +229,7 @@ export default function AdminPromptTable({ initialPrompts }: AdminPromptTablePro
                   Rejection Feedback
                 </Modal.Heading>
                 <p className="mt-1.5 text-sm leading-5 text-zinc-500">
-                  Please provide constructive feedback explaining why this prompt structure or metadata
+                   Please provide constructive feedback explaining why this resource structure or metadata
                   was rejected.
                 </p>
               </Modal.Header>

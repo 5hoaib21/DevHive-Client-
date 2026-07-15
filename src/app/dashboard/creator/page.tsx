@@ -10,7 +10,7 @@ import {
   ArrowUpRight,
   AlertCircle
 } from "lucide-react";
-import { getCreatorAnalytics } from "@/lib/api/prompts";
+import { getPublisherAnalytics as getCreatorAnalytics } from "@/lib/api/prompts";
 
 
 export default async function CreatorDashboardHomePage() {
@@ -23,7 +23,7 @@ export default async function CreatorDashboardHomePage() {
   // 📊 ডাইনামিক ডেটা অ্যারে ম্যাপ
   const analyticsSummary = [
     {
-      title: "Total Prompts",
+      title: "Total Resources",
       value: analytics.totalPrompts.toLocaleString(),
       change: "Live from store",
       icon: <Terminal size={20} className="text-blue-600" />,
@@ -60,7 +60,7 @@ export default async function CreatorDashboardHomePage() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-zinc-100 pb-6">
           <div className="space-y-1">
             <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-zinc-950 flex items-center gap-2">
-              Welcome back, Creator!
+              Welcome back, Publisher!
               <span className="inline-block animate-bounce origin-bottom">
                 👋
               </span>
@@ -73,7 +73,7 @@ export default async function CreatorDashboardHomePage() {
           {/* Pro Account Status Chip */}
           <div className="flex items-center gap-2 bg-zinc-50 border border-zinc-200/60 rounded-xl px-3 py-1.5 text-xs font-semibold text-zinc-700 w-fit">
             <Sparkles size={14} className="text-amber-500 fill-amber-400" />
-            Verified Prompt Architect
+            Verified Publisher
           </div>
         </div>
 

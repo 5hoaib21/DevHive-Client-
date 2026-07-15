@@ -18,7 +18,7 @@ const WhyChooseUs = () => {
     {
       icon: <Sparkles className="w-6 h-6" />,
       title: "Premium Quality",
-      description: "Hand-crafted prompts by industry experts, tested and optimized for maximum performance.",
+      description: "Curated resources by experienced developers, tested and optimized for peak performance.",
       color: "from-blue-500 to-blue-600",
       bgColor: "bg-blue-50",
       iconColor: "text-blue-600"
@@ -26,7 +26,7 @@ const WhyChooseUs = () => {
     {
       icon: <Zap className="w-6 h-6" />,
       title: "Instant Access",
-      description: "Get immediate access to our entire library of high-converting prompts and templates.",
+      description: "Get immediate access to our entire library of production-ready code and templates.",
       color: "from-amber-500 to-amber-600",
       bgColor: "bg-amber-50",
       iconColor: "text-amber-600"
@@ -34,7 +34,7 @@ const WhyChooseUs = () => {
     {
       icon: <Shield className="w-6 h-6" />,
       title: "Verified Quality",
-      description: "Every prompt is rigorously tested and verified by our quality assurance team.",
+      description: "Every resource is community-vetted and verified by our quality assurance team.",
       color: "from-emerald-500 to-emerald-600",
       bgColor: "bg-emerald-50",
       iconColor: "text-emerald-600"
@@ -42,7 +42,7 @@ const WhyChooseUs = () => {
     {
       icon: <Users className="w-6 h-6" />,
       title: "Community Driven",
-      description: "Join 10,000+ creators sharing insights and improving prompts together.",
+      description: "Join 10,000+ developers sharing insights and improving resources together.",
       color: "from-purple-500 to-purple-600",
       bgColor: "bg-purple-50",
       iconColor: "text-purple-600"
@@ -58,7 +58,7 @@ const WhyChooseUs = () => {
     {
       icon: <Award className="w-6 h-6" />,
       title: "Expert Support",
-      description: "Get dedicated support from our team of AI specialists and prompt engineers.",
+      description: "Get dedicated support from our team of experienced developers and engineers.",
       color: "from-indigo-500 to-indigo-600",
       bgColor: "bg-indigo-50",
       iconColor: "text-indigo-600"
@@ -67,7 +67,7 @@ const WhyChooseUs = () => {
 
   const stats = [
     { number: "10K+", label: "Active Users" },
-    { number: "5K+", label: "Premium Prompts" },
+    { number: "5K+", label: "Premium Resources" },
     { number: "98%", label: "Satisfaction Rate" },
     { number: "24/7", label: "Support Available" }
   ];
@@ -171,7 +171,7 @@ const WhyChooseUs = () => {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-sm font-medium mb-4"
           >
             <Sparkles className="w-4 h-4" />
-            Why Choose Us
+            Why DevHive
           </motion.div>
           
           <motion.h2
@@ -278,7 +278,7 @@ const WhyChooseUs = () => {
               Ready to transform your workflow?
             </span>
             <Link
-              href="/prompts"
+              href="/resources"
               className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg group"
             >
               Get Started Now

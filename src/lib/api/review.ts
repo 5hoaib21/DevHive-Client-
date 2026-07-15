@@ -1,31 +1,30 @@
 "use server";
 
-import { getAllPrompts } from "./prompts";
+import { getAllResources } from "./prompts";
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
-export async function getPromptsWithReviews() {
+export async function getResourcesWithReviews() {
   try {
-    const prompts = await getAllPrompts();
+    const result = await getAllResources({ limit: '100' });
+    const resources = result?.data || result || [];
     
-    // ফিল্টার: যেসব প্রম্পটে reviews array আছে এবং খালি না
-    const promptsWithReviews = prompts.filter((prompt: any) => 
-      prompt.reviews && 
-      prompt.reviews.length > 0
+    const resourcesWithReviews = resources.filter((resource: any) => 
+      resource.reviews && 
+      resource.reviews.length > 0
     );
     
-    return promptsWithReviews;
+    return resourcesWithReviews;
     
   } catch (error: any) {
-    console.error("❌ Error fetching prompts with reviews:", error);
+    console.error("Error fetching resources with reviews:", error);
     return [];
   }
 }
 
-// নির্দিষ্ট প্রম্পটের রিভিউ fetch করা
-export async function getPromptReviews(promptId: string) {
+export async function getResourceReviews(resourceId: string) {
   try {
-    const res = await fetch(`${baseURL}/prompts/${promptId}/reviews`, {
+    const res = await fetch(`${baseURL}/resources/${resourceId}/reviews`, {
       cache: 'no-store'
     });
     
@@ -37,7 +36,7 @@ export async function getPromptReviews(promptId: string) {
     return data;
     
   } catch (error: any) {
-    console.error("❌ Error fetching reviews:", error);
+    console.error("Error fetching reviews:", error);
     return {
       success: false,
       error: error.message,

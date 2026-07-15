@@ -1,13 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowRight, Sparkles, Tag } from "lucide-react";
-import { getMySavedPrompts } from "@/lib/api/prompts";
+import { getMySavedResources as getMySavedPrompts } from "@/lib/api/prompts";
 import { Button } from "@heroui/react";
 
 interface SavedPrompt {
   _id: string;
   title: string;
-  aiTool: string;
+  language: string;
   category: string;
   description: string;
   tags: string[] | string;
@@ -28,20 +28,20 @@ export default async function UserSavedPromptPage() {
           My Saved Collections
         </h1>
         <p className="text-sm text-gray-500">
-          All the prompts you have bookmarked for quick access.
+          All the resources you have bookmarked for quick access.
         </p>
       </div>
 
       {savedPrompts.length === 0 ? (
         <div className="text-center py-12 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
           <p className="text-gray-500 mb-4">
-            You haven`t saved any prompts yet.
+            You haven`t saved any resources yet.
           </p>
           <Link
-            href="/prompts"
+            href="/resources"
             className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition"
           >
-            Explore Prompts <ArrowRight size={16} />
+            Explore Resources <ArrowRight size={16} />
           </Link>
         </div>
       ) : (
@@ -54,7 +54,7 @@ export default async function UserSavedPromptPage() {
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-bold uppercase tracking-wider bg-purple-50 text-purple-700 px-2.5 py-1 rounded-full">
-                    {prompt.aiTool}
+                    {prompt.language}
                   </span>
                   <span className="text-xs text-gray-400 capitalize">
                     {prompt.category}
@@ -87,7 +87,7 @@ export default async function UserSavedPromptPage() {
                       </span>
                     ))}
                 </div>
-                <Link href={`/prompts/${prompt._id}`}>
+                <Link href={`/resources/${prompt._id}`}>
                   <Button
                     variant="outline"
                     size="sm"

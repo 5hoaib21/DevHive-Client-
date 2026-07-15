@@ -19,7 +19,7 @@ export default function Footer() {
     {
       title: "Explore",
       links: [
-        { label: "All Prompts", href: "/prompts" },
+        { label: "All Resources", href: "/resources" },
         { label: "AI Tools", href: "/tools" },
         { label: "Trending", href: "/trending" },
       ],
@@ -27,7 +27,7 @@ export default function Footer() {
     {
       title: "Community",
       links: [
-        { label: "Creators", href: "/creators" },
+        { label: "Publishers", href: "/publishers" },
         { label: "Leaderboard", href: "/leaderboard" },
         { label: "Guidelines", href: "/guidelines" },
       ],
@@ -57,11 +57,11 @@ export default function Footer() {
                 <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 blur transition-opacity group-hover:opacity-20" />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                PromptForge
+                DevHive
               </span>
             </Link>
             <p className="text-sm text-zinc-400 max-w-sm leading-relaxed">
-              Forge your productivity with high-engineered AI prompts. Discover, copy, and share optimized pipelines for top AI engines.
+              A community-driven hub for developers to share, discover, and reuse code snippets, configs, and dev resources.
             </p>
             
             {/* সোশ্যাল আইকনস */}
@@ -105,7 +105,7 @@ export default function Footer() {
         {/* 📐 বটম সেকশন: কপিরাইট ও ক্রেডিট */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-xs text-zinc-400">
           <div>
-            &copy; {currentYear} <span className="font-semibold text-zinc-700">PromptForge</span>. All rights reserved.
+            &copy; {currentYear} <span className="font-semibold text-zinc-700">DevHive</span>. All rights reserved.
           </div>
           
           <div className="flex items-center gap-1">

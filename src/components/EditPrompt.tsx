@@ -14,7 +14,7 @@ import { Edit, Pencil } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // সার্ভার কম্পোনেন্ট রিফ্রেশ করার জন্য
 import { toast } from "react-hot-toast";
-import { updatePrompt } from "@/lib/actions/prompts";
+import { updateResource as updatePrompt } from "@/lib/actions/prompts";
 
 export function EditPrompt({ promptData, promptId }: { promptData: any, promptId: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +26,7 @@ export function EditPrompt({ promptData, promptId }: { promptData: any, promptId
     title: "",
     content: "",
     category: "",
-    aiTool: "",
+    language: "",
     visibility: "public",
     tags: "",
   });
@@ -38,7 +38,7 @@ export function EditPrompt({ promptData, promptId }: { promptData: any, promptId
         title: promptData.title || "",
         content: promptData.content || "",
         category: promptData.category || "",
-        aiTool: promptData.aiTool || "",
+        language: promptData.language || "",
         visibility: promptData.visibility || "public",
         tags: Array.isArray(promptData.tags) ? promptData.tags.join(", ") : (promptData.tags || ""),
       });
@@ -72,7 +72,7 @@ export function EditPrompt({ promptData, promptId }: { promptData: any, promptId
         title: formData.title,
         content: formData.content,
         category: formData.category,
-        aiTool: formData.aiTool,
+        language: formData.language,
         visibility: formData.visibility,
         tags: formData.tags?.split(",").map(tag => tag.trim()).filter(tag => tag) || [],
       };
@@ -88,15 +88,15 @@ export function EditPrompt({ promptData, promptId }: { promptData: any, promptId
       const response = await updatePrompt(promptId, formValues);
       
       if (response.success) {
-        toast.success("Prompt updated successfully!");
+        toast.success("Resource updated successfully!");
         setIsOpen(false); // মডাল বন্ধ হবে
         router.refresh(); // টেবিলের ডাটা সার্ভার থেকে রিফ্রেশ হবে
       } else {
-        toast.error(response.error || "Failed to update prompt");
+        toast.error(response.error || "Failed to update resource");
       }
 
     } catch (error: any) {
-      toast.error(error.message || "Failed to save prompt");
+      toast.error(error.message || "Failed to save resource");
     } finally {
       setIsLoading(false);
     }
@@ -117,10 +117,10 @@ export function EditPrompt({ promptData, promptId }: { promptData: any, promptId
                 <Pencil className="size-5" />
               </Modal.Icon>
               <Modal.Heading>
-                {promptId ? "Edit Your Prompt" : "Create New Prompt"}
+                {promptId ? "Edit Your Resource" : "Create New Resource"}
               </Modal.Heading>
               <p className="mt-1.5 text-sm leading-5 text-muted">
-                Fill out the form below to {promptId ? "update" : "create"} your prompt.
+                Fill out the form below to {promptId ? "update" : "create"} your resource.
               </p>
             </Modal.Header>
             
@@ -131,7 +131,7 @@ export function EditPrompt({ promptData, promptId }: { promptData: any, promptId
                   <TextField className="w-full" name="title" type="text" variant="secondary">
                     <Label>Title *</Label>
                     <Input 
-                      placeholder="Enter prompt title" 
+                      placeholder="Enter resource title" 
                       name="title"
                       value={formData.title}
                       onChange={handleInputChange}
@@ -143,7 +143,7 @@ export function EditPrompt({ promptData, promptId }: { promptData: any, promptId
                   <TextField className="w-full" name="content" type="text" variant="secondary">
                     <Label>Content *</Label>
                     <Input 
-                      placeholder="Enter your prompt content" 
+                      placeholder="Enter your resource content" 
                       name="content"
                       value={formData.content}
                       onChange={handleInputChange}
@@ -194,39 +194,43 @@ export function EditPrompt({ promptData, promptId }: { promptData: any, promptId
                     </Select.Popover>
                   </Select>
 
-                  {/* AI Tool */}
+                  {/* Language */}
                   <Select 
                     className="w-full" 
-                    placeholder="Select AI tool"
-                    name="aiTool"
-                    selectedKey={formData.aiTool || ""}
-                    onSelectionChange={(keys) => handleSelectChange("aiTool", keys)} // ✅ ফিক্সড
+                    placeholder="Select Language"
+                    name="language"
+                    selectedKey={formData.language || ""}
+                    onSelectionChange={(keys) => handleSelectChange("language", keys)}
                   >
-                    <Label>AI Tool</Label>
+                    <Label>Language</Label>
                     <Select.Trigger>
                       <Select.Value />
                       <Select.Indicator />
                     </Select.Trigger>
                     <Select.Popover>
                       <ListBox>
-                        <ListBox.Item id="chatgpt" textValue="ChatGPT">
-                          🤖 ChatGPT
+                        <ListBox.Item id="javascript" textValue="JavaScript">
+                          JavaScript
                           <ListBox.ItemIndicator />
                         </ListBox.Item>
-                        <ListBox.Item id="gemini" textValue="Gemini">
-                          🌟 Gemini
+                        <ListBox.Item id="python" textValue="Python">
+                          Python
                           <ListBox.ItemIndicator />
                         </ListBox.Item>
-                        <ListBox.Item id="claude" textValue="Claude">
-                          🧠 Claude
+                        <ListBox.Item id="typescript" textValue="TypeScript">
+                          TypeScript
                           <ListBox.ItemIndicator />
                         </ListBox.Item>
-                        <ListBox.Item id="midjourney" textValue="Midjourney">
-                          🎨 Midjourney
+                        <ListBox.Item id="go" textValue="Go">
+                          Go
                           <ListBox.ItemIndicator />
                         </ListBox.Item>
-                        <ListBox.Item id="stable-diffusion" textValue="Stable Diffusion">
-                          🖼️ Stable Diffusion
+                        <ListBox.Item id="rust" textValue="Rust">
+                          Rust
+                          <ListBox.ItemIndicator />
+                        </ListBox.Item>
+                        <ListBox.Item id="java" textValue="Java">
+                          Java
                           <ListBox.ItemIndicator />
                         </ListBox.Item>
                       </ListBox>

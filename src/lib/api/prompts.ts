@@ -3,64 +3,64 @@ import { getTokenServer } from "../getTokenServer";
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
-export const getPrompts = async (page: number = 1) => {
+export const getMyResources = async (page: number = 1) => {
   const token = await getTokenServer();
-  const res = await fetch(`${baseURL}/api/prompts?page=${page}`, {
+  const res = await fetch(`${baseURL}/api/resources?page=${page}`, {
     headers: {
       authorization: `Bearer ${token}`,
     },
   });
   if (!res.ok) {
-    throw new Error("Failed to fetch prompts");
+    throw new Error("Failed to fetch resources");
   }
   const data = await res.json();
   return data;
 };
 
-// export const getAllPrompts = async (search, status = 'approved') => {
-//   const res = await fetch(`${baseURL}/prompts?search=${search}&status=${status}`);
-//   if (!res.ok) {
-//     throw new Error("Failed to fetch all prompts");
-//   }
-//   const data = await res.json();
-//   return data;
-// };
-
-export const getAllPrompts = async ({search = "",status = "approved", category = "", aiTool = "",difficulty = "",sort = "latest",} = {}) => {
+export const getAllResources = async ({search = "", status = "approved", category = "", language = "", difficulty = "", sort = "latest", page = "1", limit = "12"} = {}) => {
    const params = new URLSearchParams();
 
   if (search) params.append("search", search);
   if (status) params.append("status", status);
   if (category) params.append("category", category);
-  if (aiTool) params.append("aiTool", aiTool);
+  if (language) params.append("language", language);
   if (difficulty) params.append("difficulty", difficulty);
   if (sort) params.append("sort", sort);
+  if (page) params.append("page", page);
+  if (limit) params.append("limit", limit);
 
-  const url = `${baseURL}/prompts?${params.toString()}`;
-  // console.log("📤 Fetching URL:", url);
+  const url = `${baseURL}/resources?${params.toString()}`;
 
   const res = await fetch(url);
-  // console.log("📡 Status:", res.status);
   if (!res.ok) {
-    throw new Error("Failed to fetch all prompts");
+    throw new Error("Failed to fetch all resources");
   }
 
   const data = await res.json();
-  // console.log("📦 Data:", data?.length || 0);
   return data;
 };
 
-export const getPromptById = async (id: string) => {
-  const res = await fetch(`${baseURL}/prompts/${id}`);
+export const getResourceById = async (id: string) => {
+  const res = await fetch(`${baseURL}/resources/${id}`);
   if (!res.ok) {
-    throw new Error("Failed to fetch prompt by ID");
+    throw new Error("Failed to fetch resource by ID");
   }
   const data = await res.json();
   return data;
 };
 
+export const getRelatedResources = async (id: string) => {
+  try {
+    const res = await fetch(`${baseURL}/resources/related/${id}`, { cache: 'no-store' });
+    if (!res.ok) return { success: true, data: [] };
+    const data = await res.json();
+    return data;
+  } catch {
+    return { success: true, data: [] };
+  }
+};
 
-export const getMySavedPrompts = async () => {
+export const getMySavedResources = async () => {
   try {
     const token = await getTokenServer();
     const res = await fetch(`${baseURL}/api/my-bookmarks`, {
@@ -98,11 +98,6 @@ export const getMyReviews = async () => {
   }
 };
 
-// const getTokenServer = async () => {
-//   const cookieStore = await cookies();
-//   return cookieStore.get("token")?.value;
-// };
-
 export const getMyProfile = async () => {
   try {
     const token = await getTokenServer();
@@ -130,7 +125,7 @@ export const getMyProfile = async () => {
     const result = await res.json();
     return result;
   } catch (error: any) {
-    console.error("❌ Error in getMyProfile action:", error);
+    console.error("Error in getMyProfile action:", error);
     return {
       success: false,
       error: "Something went wrong connection to server.",
@@ -138,7 +133,7 @@ export const getMyProfile = async () => {
   }
 };
 
-export const getCreatorAnalytics = async () => {
+export const getPublisherAnalytics = async () => {
   try {
     const token = await getTokenServer();
 
@@ -147,7 +142,7 @@ export const getCreatorAnalytics = async () => {
     }
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:5000"}/api/creator-analytics`,
+      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:5000"}/api/publisher-analytics`,
       {
         method: "GET",
         headers: {
@@ -169,7 +164,7 @@ export const getCreatorAnalytics = async () => {
     const result = await res.json();
     return result;
   } catch (error: any) {
-    console.error("❌ Error in getCreatorAnalytics action:", error);
+    console.error("Error in getPublisherAnalytics action:", error);
     return {
       success: false,
       error: "Something went wrong connecting to server.",
@@ -177,7 +172,7 @@ export const getCreatorAnalytics = async () => {
   }
 };
 
-export const getUserAnalytics = async () => {
+export const getExplorerAnalytics = async () => {
   try {
     const token = await getTokenServer();
 
@@ -186,7 +181,7 @@ export const getUserAnalytics = async () => {
     }
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:5000"}/api/user-analytics`,
+      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:5000"}/api/explorer-analytics`,
       {
         method: "GET",
         headers: {
@@ -201,14 +196,14 @@ export const getUserAnalytics = async () => {
       const errorData = await res.json();
       return {
         success: false,
-        error: errorData.error || "Failed to fetch user analytics",
+        error: errorData.error || "Failed to fetch explorer analytics",
       };
     }
 
     const result = await res.json();
     return result;
   } catch (error: any) {
-    console.error("❌ Error in getUserAnalytics action:", error);
+    console.error("Error in getExplorerAnalytics action:", error);
     return {
       success: false,
       error: "Something went wrong connecting to server.",
@@ -216,12 +211,11 @@ export const getUserAnalytics = async () => {
   }
 };
 
-
-export const promptManagementByAdmin = async () => {
+export const resourceManagementByAdmin = async () => {
   try {
     const token = await getTokenServer()
 
-    const res = await fetch(`${baseURL}/admin/prompts`, {
+    const res = await fetch(`${baseURL}/admin/resources`, {
       headers: {
         'content-type': 'application/json',
         authorization: `Bearer ${token}`
@@ -229,7 +223,7 @@ export const promptManagementByAdmin = async () => {
 
     })
     if(!res.ok){
-      throw new Error("Failed to fetch all prompt");
+      throw new Error("Failed to fetch all resources");
     }
     const data = await res.json()
     return data;
@@ -237,7 +231,6 @@ export const promptManagementByAdmin = async () => {
     return { success: false, error: error.message };
   }
 };
-
 
 export const usersManagementByAdmin = async () => {
   try {
@@ -251,7 +244,7 @@ export const usersManagementByAdmin = async () => {
 
     })
     if(!res.ok){
-      throw new Error("Failed to fetch all prompt");
+      throw new Error("Failed to fetch all users");
     }
     const data = await res.json()
     return data;
@@ -260,11 +253,9 @@ export const usersManagementByAdmin = async () => {
   }
 };
 
-
-
-export async function getFeaturedPrompts() {
+export async function getFeaturedResources() {
     try {
-        const res = await fetch(`${baseURL}/prompts/featured`, {
+        const res = await fetch(`${baseURL}/resources/featured`, {
             cache: 'no-store'
         });
         
@@ -274,20 +265,18 @@ export async function getFeaturedPrompts() {
         
         const data = await res.json();
         
-        // ✅ ডেটা চেক করা - array নাকি object
         if (Array.isArray(data)) {
             return data;
-        } else if (data?.prompts && Array.isArray(data.prompts)) {
-            return data.prompts;
+        } else if (data?.resources && Array.isArray(data.resources)) {
+            return data.resources;
         } else if (data?.data && Array.isArray(data.data)) {
             return data.data;
         } else {
-            // যদি ডেটা array না হয়, তাহলে খালি array return
             return [];
         }
         
     } catch (error: any) {
-        console.error("❌ Error fetching featured prompts:", error);
+        console.error("Error fetching featured resources:", error);
         return [];
     }
 }

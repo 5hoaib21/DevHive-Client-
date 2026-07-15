@@ -4,18 +4,18 @@ import { serverDelete, serverMutation } from "../core/server";
 import { getTokenServer } from "../getTokenServer";
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
-export const addPrompt = async (data: any) => {
-  return serverMutation(`/api/prompts`, data);
+export const addResource = async (data: any) => {
+  return serverMutation(`/api/resources`, data);
 };
 
-export const deletePrompt = async (id: string) => {
-  return serverDelete(`/api/prompts/${id}`);
+export const deleteResource = async (id: string) => {
+  return serverDelete(`/api/resources/${id}`);
 };
 
-export const updatePrompt = async (id: string, data: any) => {
+export const updateResource = async (id: string, data: any) => {
   try {
     const token = await getTokenServer();
-    const res = await fetch(`${baseURL}/api/prompts/${id}`, {
+    const res = await fetch(`${baseURL}/api/resources/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -31,12 +31,10 @@ export const updatePrompt = async (id: string, data: any) => {
   }
 };
 
-//details page interactions:
-//for copy
-export const incrementCopyCount = async (id: string) => {
+export const incrementUsageCount = async (id: string) => {
   try {
     const token = await getTokenServer();
-    const res = await fetch(`${baseURL}/api/prompts/${id}/copy`, {
+    const res = await fetch(`${baseURL}/api/resources/${id}/copy`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -51,10 +49,10 @@ export const incrementCopyCount = async (id: string) => {
   }
 };
 
-export const submitPromptReview = async (id: string, reviewData: any) => {
+export const submitResourceReview = async (id: string, reviewData: any) => {
   try {
     const token = await getTokenServer();
-    const res = await fetch(`${baseURL}/api/prompts/${id}/review`, {
+    const res = await fetch(`${baseURL}/api/resources/${id}/review`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,10 +68,10 @@ export const submitPromptReview = async (id: string, reviewData: any) => {
   }
 };
 
-export const togglePromptBookmark = async (id: string) => {
+export const toggleResourceBookmark = async (id: string) => {
   try {
     const token = await getTokenServer();
-    const res = await fetch(`${baseURL}/api/prompts/${id}/bookmark`, {
+    const res = await fetch(`${baseURL}/api/resources/${id}/bookmark`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -88,10 +86,10 @@ export const togglePromptBookmark = async (id: string) => {
   }
 };
 
-export const submitPromptReport = async (id: string, reportData: any) => {
+export const submitResourceReport = async (id: string, reportData: any) => {
   try {
     const token = await getTokenServer();
-    const res = await fetch(`${baseURL}/api/prompts/${id}/report`, {
+    const res = await fetch(`${baseURL}/api/resources/${id}/report`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -108,17 +106,15 @@ export const submitPromptReport = async (id: string, reportData: any) => {
     
     return result;
   } catch (error: any) {
-    console.error("Error in submitPromptReport action:", error);
+    console.error("Error in submitResourceReport action:", error);
     return { success: false, error: error.message };
   }
 };
 
-
-
-export async function updatePromptStatusAction(promptId: string, newStatus: string) {
+export async function updateResourceStatusAction(resourceId: string, newStatus: string) {
   const token = await getTokenServer();
   try {
-    const res = await fetch(`${baseURL}/admin/prompts/status/${promptId}`, {
+    const res = await fetch(`${baseURL}/admin/resources/status/${resourceId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -132,26 +128,24 @@ export async function updatePromptStatusAction(promptId: string, newStatus: stri
     if (!res.ok) {
       return {
         success: false,
-        message: data.message || "Failed to update prompt status",
+        message: data.message || "Failed to update resource status",
       };
     }
 
     return {
       success: true,
-      message: data.message || `Prompt ${newStatus} successfully!`,
+      message: data.message || `Resource ${newStatus} successfully!`,
     };
   } catch (error: any) {
-    console.error("Error in updatePromptStatusAction:", error);
+    console.error("Error in updateResourceStatusAction:", error);
     return { success: false, message: "Internal Server Error" };
   }
 }
 
-
-
-export async function deletePromptAction(promptId: string) {
+export async function deleteResourceAction(resourceId: string) {
   const token = await getTokenServer();
   try {
-    const res = await fetch(`${baseURL}/admin/prompts/${promptId}`, {
+    const res = await fetch(`${baseURL}/admin/resources/${resourceId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -164,17 +158,16 @@ export async function deletePromptAction(promptId: string) {
     if (!res.ok) {
       return {
         success: false,
-        message: data.message || "Failed to delete prompt from server",
+        message: data.message || "Failed to delete resource from server",
       };
     }
 
     return {
       success: true,
-      message: data.message || "Prompt deleted successfully!",
+      message: data.message || "Resource deleted successfully!",
     };
   } catch (error: any) {
-    console.error("Error in deletePromptAction:", error);
+    console.error("Error in deleteResourceAction:", error);
     return { success: false, message: "Internal Server Error" };
   }
 }
-

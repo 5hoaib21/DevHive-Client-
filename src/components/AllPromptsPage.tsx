@@ -3,20 +3,20 @@ import { Copy, Clock, ArrowRight, Sparkles, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const AllPromptsPage = async ({ prompt }: { prompt: any }) => {
+const AllPromptsPage = async ({ resource }: { resource: any }) => {
   
   const {
     title,
     description,
     category,
-    aiTool,
+    language,
     difficulty,
     image,
-    copyCount,
+    usageCount,
     createdAt,
     visibility,
     status,
-  } = prompt;
+  } = resource;
 
   const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
     year: "numeric",
@@ -94,11 +94,11 @@ const AllPromptsPage = async ({ prompt }: { prompt: any }) => {
           {category}
         </span>
         <span className="text-xs font-medium text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full">
-          {aiTool}
+          {language}
         </span>
     </div>
 
-        {/* Bottom Section: AI Tool + Copies + Button */}
+        {/* Bottom Section: Language + Usage + Button */}
         <div className="flex items-center justify-between gap-3 pt-3 border-t border-gray-100">
           <div className="flex items-center gap-3">
             <span className={`text-xs font-medium ${visibility === "public" ? "text-green-600 bg-green-50" : "text-red-400 bg-red-100"} px-2.5 py-1 rounded-full flex items-center gap-1`}>
@@ -107,11 +107,11 @@ const AllPromptsPage = async ({ prompt }: { prompt: any }) => {
             </span>
             <span className="text-xs text-gray-400 flex items-center gap-1">
               <Copy size={12} />
-              {copyCount}
+              {usageCount}
             </span>
           </div>
 
-          <Link href={`/prompts/${prompt._id}`}>
+          <Link href={`/resources/${resource._id}`}>
               <Button
             variant="outline"
             className="group/btn relative inline-flex gap-1.5 text-blue-600 hover:text-blue-700 font-semibold text-sm transition-all duration-300 flex items-center"

@@ -13,8 +13,8 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "PromptForge",
-  description: "AI Prompt Sharing & Marketplace Platform",
+  title: "DevHive",
+  description: "Developer Resource Sharing Platform",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

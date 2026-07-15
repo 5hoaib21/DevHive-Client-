@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Table, Button, Chip } from "@heroui/react";
 import { Trash2, ShieldAlert, CheckCircle } from "lucide-react";
 import toast from "react-hot-toast";
-import { dismissReportAction, removeReportedPromptAction, warnCreatorAction } from "@/lib/api/reports";
+import { dismissReportAction, removeReportedResourceAction, warnCreatorAction } from "@/lib/api/reports";
 import { getIdString, MongoId } from "@/types";
 
 interface Reporter {
@@ -30,18 +30,18 @@ interface AdminReportTableProps {
 export default function AdminReportTable({ initialReports }: AdminReportTableProps) {
   const [reports, setReports] = useState<Report[]>(initialReports);
 
-  const handleRemovePrompt = async (reportId: string, promptId: string) => {
-    const promise = removeReportedPromptAction(reportId, promptId).then((res) => {
+  const handleRemoveResource = async (reportId: string, resourceId: string) => {
+    const promise = removeReportedResourceAction(reportId, resourceId).then((res) => {
       if (res.success) {
         setReports((prev) => prev.filter((r) => getIdString(r._id) !== reportId));
-        return res.message || "Prompt removed and report cleared!";
+        return res.message || "Resource removed and report cleared!";
       } else {
-        throw new Error(res.message || "Failed to remove prompt");
+        throw new Error(res.message || "Failed to remove resource");
       }
     });
 
     toast.promise(promise, {
-      loading: "Removing prompt from database...",
+      loading: "Removing resource from database...",
       success: (msg) => msg,
       error: (err) => err.message,
     });
@@ -84,12 +84,12 @@ export default function AdminReportTable({ initialReports }: AdminReportTablePro
 
   return (
     <div className="w-full bg-white rounded-xl border border-zinc-100 p-4">
-      <Table aria-label="Reported Prompts Table" className="bg-white text-zinc-800 shadow-none">
+      <Table aria-label="Reported Resources Table" className="bg-white text-zinc-800 shadow-none">
         <Table.ScrollContainer className="bg-white">
           <Table.Content className="min-w-[900px] bg-white">
             <Table.Header>
               <Table.Column isRowHeader className="text-zinc-700 font-bold bg-zinc-50 border-b border-zinc-200">
-                PROMPT TITLE
+                RESOURCE TITLE
               </Table.Column>
               <Table.Column className="text-zinc-700 font-bold bg-zinc-50 border-b border-zinc-200">
                 REPORTER INFO
@@ -118,7 +118,7 @@ export default function AdminReportTable({ initialReports }: AdminReportTablePro
                   <Table.Row key={reportId} className="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors bg-white">
                     <Table.Cell className="bg-white">
                       <span className="font-semibold text-zinc-900 text-sm block max-w-[220px] truncate">
-                        {report?.promptTitle || "Untitled Prompt"}
+                        {report?.promptTitle || "Untitled Resource"}
                       </span>
                     </Table.Cell>
 
@@ -189,7 +189,7 @@ export default function AdminReportTable({ initialReports }: AdminReportTablePro
                           size="sm"
                           variant="ghost"
                           className="bg-red-50 hover:bg-red-100 text-red-600 rounded-lg text-xs font-semibold px-2.5 h-8 border border-red-100"
-                          onClick={() => handleRemovePrompt(reportId, promptId)}
+                          onClick={() => handleRemoveResource(reportId, promptId)}
                         >
                           <Trash2 size={14} className="mr-1 inline" />
                           Remove

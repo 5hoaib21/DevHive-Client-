@@ -2,14 +2,14 @@ import React from 'react';
 import { Award, Code2, ArrowRight, Crown, Sparkles, Star, Medal, Trophy } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getTopCreators } from '@/lib/api/topCreators';
+import { getTopPublishers as getTopCreators } from '@/lib/api/topCreators';
 
 interface Creator {
   _id: string;
   authorName: string;
   authorEmail: string;
   authorImage: string;
-  totalPrompts: number;
+  totalResources: number;
 }
 
 export default async function TopCreators() {
@@ -28,7 +28,7 @@ export default async function TopCreators() {
               <div className="p-2 bg-amber-100 rounded-xl">
                 <Crown size={18} className="text-amber-600" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900">Top Creators</h2>
+              <h2 className="text-2xl font-bold text-gray-900">Top Publishers</h2>
             </div>
             <p className="text-sm text-gray-500 ml-1">The masterminds behind trending blueprints</p>
           </div>
@@ -120,8 +120,8 @@ export default async function TopCreators() {
                   <div className="flex items-center gap-4 text-xs w-full justify-center">
                     <div className="flex items-center gap-1.5 bg-blue-50 px-3 py-1.5 rounded-full">
                       <Code2 size={13} className="text-blue-500" />
-                      <span className="font-semibold text-gray-700">{creator.totalPrompts}</span>
-                      <span className="text-gray-400 text-[10px]">prompts</span>
+                      <span className="font-semibold text-gray-700">{creator.totalResources}</span>
+                      <span className="text-gray-400 text-[10px]">resources</span>
                     </div>
                     <div className="flex items-center gap-1.5 bg-amber-50 px-3 py-1.5 rounded-full">
                       <Star size={13} className="fill-amber-400 text-amber-400" />

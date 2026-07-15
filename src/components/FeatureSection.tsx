@@ -18,7 +18,7 @@ const features = [
   {
     icon: <Zap className="w-6 h-6" />,
     title: "Lightning Fast",
-    description: "Get your prompts in milliseconds with our optimized delivery system.",
+    description: "Get your resources in milliseconds with our optimized delivery system.",
     color: "from-amber-500 to-orange-500",
     bgColor: "bg-amber-50",
     iconColor: "text-amber-600"
@@ -42,7 +42,7 @@ const features = [
   {
     icon: <Database className="w-6 h-6" />,
     title: "Rich Library",
-    description: "Access 5,000+ curated prompts across 50+ categories and niches.",
+    description: "Access 5,000+ curated resources across 50+ categories and niches.",
     color: "from-purple-500 to-pink-500",
     bgColor: "bg-purple-50",
     iconColor: "text-purple-600"
@@ -58,7 +58,7 @@ const features = [
   {
     icon: <RefreshCw className="w-6 h-6" />,
     title: "Weekly Updates",
-    description: "Stay ahead with fresh prompts added every week based on trends.",
+    description: "Stay ahead with fresh resources added every week based on trends.",
     color: "from-indigo-500 to-blue-500",
     bgColor: "bg-indigo-50",
     iconColor: "text-indigo-600"
@@ -87,7 +87,7 @@ const FeatureSection = () => {
             </span>
           </h2>
           <p className="text-gray-500 text-lg leading-relaxed">
-            Packed with powerful tools and features to help you create better prompts faster.
+            Packed with powerful tools and features to help you build better projects faster.
           </p>
         </motion.div>
 

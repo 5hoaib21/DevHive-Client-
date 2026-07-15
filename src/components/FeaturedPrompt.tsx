@@ -14,7 +14,7 @@ import {
   Eye,
   Flame
 } from 'lucide-react';
-import { getFeaturedPrompts } from '@/lib/api/prompts';
+import { getFeaturedResources as getFeaturedPrompts } from '@/lib/api/prompts';
 
 const FeaturedPrompt = async () => {
     const data = await getFeaturedPrompts();
@@ -29,8 +29,8 @@ const FeaturedPrompt = async () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
                     <div className="bg-white rounded-2xl p-12 border-2 border-dashed border-gray-200">
                         <Sparkles className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-gray-700 mb-2">No Featured Prompts</h3>
-                        <p className="text-gray-400">Check back soon for featured prompts!</p>
+                        <h3 className="text-xl font-semibold text-gray-700 mb-2">No Featured Resources</h3>
+                        <p className="text-gray-400">Check back soon for featured resources!</p>
                     </div>
                 </div>
             </section>
@@ -45,22 +45,22 @@ const FeaturedPrompt = async () => {
                     <div>
                         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 text-amber-700 text-xs font-semibold mb-3">
                             <Flame className="w-4 h-4" />
-                            Featured Prompts
+                            Featured Resources
                         </div>
                         <h2 className="text-3xl sm:text-4xl font-black text-gray-900">
                             Handpicked{" "}
                             <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-orange-600">
-                                Premium
+                                Featured
                             </span>{" "}
-                            Prompts
+                            Resources
                         </h2>
                         <p className="text-gray-500 mt-2">
-                            Curated selection of the best prompts from our community
+                            Curated selection of the best resources from our community
                         </p>
                     </div>
                     
                     <Link 
-                        href="/prompts" 
+                        href="/resources" 
                         className="hidden sm:inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold group"
                     >
                         View All
@@ -78,10 +78,10 @@ const FeaturedPrompt = async () => {
                 {/* মোবাইলে View All */}
                 <div className="text-center mt-8 sm:hidden">
                     <Link 
-                        href="/prompts" 
+                        href="/resources" 
                         className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold group"
                     >
-                        View All Prompts
+                        View All Resources
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </div>
@@ -97,11 +97,11 @@ const FeaturedCard = ({ prompt, index }: { prompt: any, index: number }) => {
         title,
         description,
         category,
-        aiTool,
+        language,
         difficulty,
         tags,
         image,
-        copyCount,
+        usageCount,
         rating = 0,
         totalReviews = 0,
         createdAt,
@@ -209,9 +209,9 @@ const FeaturedCard = ({ prompt, index }: { prompt: any, index: number }) => {
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             {/* AI টুল */}
-                            {aiTool && (
+                            {language && (
                                 <span className="px-2.5 py-1 bg-purple-50 text-purple-700 text-xs font-medium rounded-full border border-purple-100">
-                                    {aiTool}
+                                    {language}
                                 </span>
                             )}
                             
@@ -226,7 +226,7 @@ const FeaturedCard = ({ prompt, index }: { prompt: any, index: number }) => {
                         {/* কপি কাউন্ট */}
                         <div className="flex items-center gap-1 text-gray-400 text-xs">
                             <Copy className="w-3 h-3" />
-                            <span>{copyCount || 0}</span>
+                            <span>{usageCount || 0}</span>
                         </div>
                     </div>
                 </div>
@@ -247,7 +247,7 @@ const FeaturedCard = ({ prompt, index }: { prompt: any, index: number }) => {
                     </div>
                     
                     <Link
-                        href={`/prompts/${_id}`}
+                        href={`/resources/${_id}`}
                         className="inline-flex items-center gap-1.5 text-amber-600 hover:text-amber-700 font-medium text-sm group/btn transition-colors duration-300"
                     >
                         Inside

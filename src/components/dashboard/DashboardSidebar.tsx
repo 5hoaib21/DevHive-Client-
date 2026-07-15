@@ -29,38 +29,38 @@ export async function DashboardSidebar() {
   if(!user){
     redirect('/signin')
   }
-  const role = (user as any)?.role || 'creator';
+  const role = (user as any)?.role || 'explorer';
   
   const dashboardItems = {
-    user: [
+    explorer: [
       {
         icon: User,
         label: "My Profile",
-        link: "/dashboard/user/profile",
+        link: "/dashboard/explorer/profile",
       },
-      { icon: BiAddToQueue, label: "Add Prompt", link: "/dashboard/user/add-prompt" },
+      { icon: BiAddToQueue, label: "Add Resource", link: "/dashboard/explorer/add-resource" },
       {
         icon: TbAsset,
-        label: "My Prompt",
-        link: "/dashboard/user/my-prompt",
+        label: "My Resources",
+        link: "/dashboard/explorer/my-resources",
       },
-      { icon: Gear, label: "Saved Prompts", link: "/dashboard/user/saved-prompt" },
-      { icon: Gear, label: "My Reviews", link: "/dashboard/user/my-review" },
+      { icon: Gear, label: "Saved Resources", link: "/dashboard/explorer/saved-resources" },
+      { icon: Gear, label: "My Reviews", link: "/dashboard/explorer/my-reviews" },
     ],
-    creator: [
+    publisher: [
       {
         icon: User,
         label: "My Profile",
-        link: "/dashboard/creator/profile",
+        link: "/dashboard/publisher/profile",
       },
-      { icon: BiAddToQueue, label: "Add Prompt", link: "/dashboard/creator/add-prompt" },
+      { icon: BiAddToQueue, label: "Add Resource", link: "/dashboard/publisher/add-resource" },
       {
         icon: TbAsset,
-        label: "My Prompts",
-        link: "/dashboard/creator/my-prompt",
+        label: "My Resources",
+        link: "/dashboard/publisher/my-resources",
       },
-      { icon: CiSaveDown1, label: "Saved Prompts", link: "/dashboard/creator/saved-prompt" },
-      { icon: Comment, label: "My Reviews", link: "/dashboard/creator/my-review" },
+      { icon: CiSaveDown1, label: "Saved Resources", link: "/dashboard/publisher/saved-resources" },
+      { icon: Comment, label: "My Reviews", link: "/dashboard/publisher/my-reviews" },
     ],
     admin: [
       {
@@ -70,8 +70,8 @@ export async function DashboardSidebar() {
       },
       { 
         icon: User, 
-        label: "Prompts Management", 
-        link: "/dashboard/admin/all-prompts" 
+        label: "Resources Management", 
+        link: "/dashboard/admin/all-resources" 
       },
 
       { icon: MdReport, label: "Reports", link: "/dashboard/admin/reports" },

@@ -6,7 +6,7 @@ import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { jwt } from "better-auth/plugins";
 
 const client = new MongoClient(process.env.MONGODB_URI as string);
-const db = client.db("tech-bazaar");
+const db = client.db("devhive");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
@@ -25,7 +25,7 @@ export const auth = betterAuth({
     additionalFields: {
       role: {
         type: "string",
-        defaultValue: "user" as const,
+        defaultValue: "explorer" as const,
       },
     },
   },

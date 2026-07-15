@@ -5,7 +5,7 @@ import { getMyReviews } from '@/lib/api/prompts';
 
 interface Review {
   _id: string;
-  aiTool: string;
+  language: string;
   category: string;
   promptTitle: string;
   myRating: number;
@@ -49,12 +49,12 @@ export default async function UserMyReviewPage() {
 
       {myReviews.length === 0 ? (
         <div className="text-center py-12 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
-          <p className="text-gray-500 mb-4">You haven`t reviewed any prompts yet.</p>
+          <p className="text-gray-500 mb-4">You haven`t reviewed any resources yet.</p>
           <Link
-            href="/prompts"
+            href="/resources"
             className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-700 transition"
           >
-            Explore Prompts & Share Feedback <ArrowRight size={16} />
+            Explore Resources & Share Feedback <ArrowRight size={16} />
           </Link>
         </div>
       ) : (
@@ -67,7 +67,7 @@ export default async function UserMyReviewPage() {
               <div className="space-y-2 flex-1">
                 <div className="flex flex-wrap items-center gap-2 text-xs">
                   <span className="font-bold uppercase tracking-wider bg-blue-50 text-blue-700 px-2.5 py-0.5 rounded-full">
-                    {review.aiTool}
+                    {review.language}
                   </span>
                   <span className="text-gray-400 capitalize">{review.category}</span>
                   <span className="text-gray-300">|</span>
@@ -78,7 +78,7 @@ export default async function UserMyReviewPage() {
                 </div>
 
                 <h3 className="text-lg font-bold text-gray-900 group">
-                  <Link href={`/prompts/${review._id}`} className="hover:text-blue-600 transition">
+                  <Link href={`/resources/${review._id}`} className="hover:text-blue-600 transition">
                     {review.promptTitle}
                   </Link>
                 </h3>
@@ -95,10 +95,10 @@ export default async function UserMyReviewPage() {
 
               <div className="flex md:self-center">
                 <Link
-                  href={`/prompts/${review._id}`}
+                  href={`/resources/${review._id}`}
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-600 hover:text-blue-600 border border-gray-200 bg-white px-3 py-2 rounded-xl shadow-sm hover:border-blue-200 transition"
                 >
-                  View Prompt
+                  View Resource
                   <ArrowRight size={14} />
                 </Link>
               </div>

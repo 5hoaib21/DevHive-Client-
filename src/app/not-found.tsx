@@ -31,7 +31,7 @@ export default function NotFoundPage() {
         <h1 className="text-6xl font-black text-zinc-950 tracking-tighter">404</h1>
         <h2 className="text-xl font-bold text-zinc-900 tracking-tight">Pipeline compilation failed!</h2>
         <p className="text-sm text-zinc-400 leading-relaxed">
-          The prompt blueprint or page you are looking for doesn`t exist or has been permanently deleted from <span className="font-semibold text-zinc-600">PromptForge</span>.
+          The resource or page you are looking for doesn`t exist or has been permanently deleted from <span className="font-semibold text-zinc-600">DevHive</span>.
         </p>
       </div>
 

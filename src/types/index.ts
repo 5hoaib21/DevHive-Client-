@@ -4,10 +4,10 @@ export function getIdString(id: MongoId): string {
   return typeof id === 'string' ? id : id.$oid;
 }
 
-export type UserRole = "user" | "creator" | "admin";
-export type PromptStatus = "pending" | "approved" | "rejected" | "draft";
-export type PromptDifficulty = "beginner" | "intermediate" | "advanced";
-export type PromptVisibility = "public" | "private";
+export type UserRole = "explorer" | "publisher" | "admin";
+export type ResourceStatus = "pending" | "approved" | "rejected";
+export type ResourceDifficulty = "beginner" | "intermediate" | "advanced";
+export type ResourceVisibility = "public" | "private";
 export type ReportStatus = "pending" | "warned" | "dismissed";
 
 export interface User {
@@ -20,26 +20,31 @@ export interface User {
   updatedAt?: Date;
 }
 
-export interface Prompt {
+export interface Resource {
   _id: MongoId;
   title: string;
+  shortDescription?: string;
   content: string;
-  aiTool: string;
-  difficulty: PromptDifficulty;
+  language: string;
+  difficulty: ResourceDifficulty;
   category: string;
-  visibility: PromptVisibility;
+  visibility: ResourceVisibility;
   tags: string[];
   userId: string;
   authorName: string;
   authorEmail: string;
   authorImage: string;
-  status: PromptStatus;
+  status: ResourceStatus;
   rating: number;
   ratingCount: number;
   totalReviews: number;
-  copyCount: number;
+  usageCount: number;
   bookmarks: string[];
   reviews: Review[];
+  estimatedTime?: string;
+  documentationUrl?: string;
+  image?: string;
+  framework?: string;
   createdAt: Date;
   updatedAt?: Date;
 }
@@ -54,8 +59,8 @@ export interface Review {
 
 export interface Report {
   _id: MongoId;
-  promptId: MongoId;
-  promptTitle: string;
+  resourceId: MongoId;
+  resourceTitle: string;
   userId: string;
   reason: string;
   description: string;
@@ -68,35 +73,35 @@ export interface Report {
   };
 }
 
-export interface TopCreator {
+export interface TopPublisher {
   _id: MongoId;
   authorName: string;
   authorEmail: string;
   authorImage: string;
-  totalPrompts: number;
+  totalResources: number;
 }
 
-export interface CreatorAnalytics {
-  totalPrompts: number;
-  totalCopies: number;
+export interface PublisherAnalytics {
+  totalResources: number;
+  totalUsage: number;
   totalBookmarks: number;
 }
 
-export interface UserAnalytics {
+export interface ExplorerAnalytics {
   totalBookmarks: number;
   totalReviews: number;
-  totalCopies: number;
 }
 
 export interface AdminStats {
   totalUsers: number;
-  totalPrompts: number;
+  totalResources: number;
   totalReviews: number;
-  totalCopies: number;
+  totalUsage: number;
+  languageData: LanguageData[];
 }
 
-export interface EngineData {
+export interface LanguageData {
   name: string;
-  Prompts: number;
-  Copies: number;
+  Usage: number;
+  Resources: number;
 }

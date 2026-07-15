@@ -30,10 +30,10 @@ const AddPromptPage = async () => {
                             <span className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
                                 <Sparkles size={18} className="fill-blue-50/50" />
                             </span>
-                            Forge New AI Prompt
+                            Forge New Resource
                         </h1>
                         <p className="text-sm text-zinc-500 max-w-xl">
-                            Create and optimize high-quality prompt configurations.
+                            Create and optimize high-quality developer resources.
                         </p>
                     </div>
                 </div>

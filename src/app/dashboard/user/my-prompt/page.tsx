@@ -1,4 +1,4 @@
-import { getPrompts } from "@/lib/api/prompts";
+import { getMyResources as getPrompts } from "@/lib/api/prompts";
 import React from "react";
 import MyPromptTable from "../../creator/my-prompt/PromptTable";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -17,7 +17,7 @@ interface Prompt {
   _id: string;
   title: string;
   content: string;
-  aiTool: string;
+  language: string;
   difficulty: string;
   category: string;
   visibility: string;
@@ -30,7 +30,7 @@ interface Prompt {
   rating: number;
   ratingCount: number;
   totalReviews: number;
-  copyCount: number;
+  usageCount: number;
   bookmarks: string[];
   reviews: Review[];
   createdAt: string;
@@ -52,7 +52,7 @@ const MyPromptPage = async ({ searchParams }: { searchParams: Promise<SearchPara
 
   return (
     <div>
-      <div>Prompts Management page</div>
+      <div>Resources Management page</div>
       <div className="w-10/12 mx-auto">
         {prompts.data.length === 0 && <EmptyState />}
       </div>
