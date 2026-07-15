@@ -2,10 +2,10 @@
 
 import { authClient } from "@/lib/auth-client";
 import { Avatar, Button, Dropdown } from "@heroui/react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BiLogOut } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { MdDashboard } from "react-icons/md";
@@ -14,13 +14,26 @@ import { RiDashboardHorizontalLine } from "react-icons/ri";
 import { FiMenu, FiX } from "react-icons/fi";
 import { Home } from "lucide-react";
 
+const mobileMenuVariants = {
+  hidden: { opacity: 0, y: -16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.2, ease: "easeOut" as const } },
+  exit: { opacity: 0, y: -16, transition: { duration: 0.15, ease: "easeIn" as const } },
+};
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSignOut = async () => {
     await authClient.signOut();
@@ -44,7 +57,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b border-[#E8ECF4]">
+    <nav className={"fixed top-0 left-0 right-0 z-50 h-14 bg-white border-b transition-shadow duration-300 " + (scrolled ? "border-[#E8ECF4] shadow-sm" : "border-[#E8ECF4]")}>
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Left: hamburger + logo */}
         <div className="flex items-center gap-4">
@@ -52,6 +65,7 @@ const Navbar = () => {
             className="rounded-lg p-2 transition-colors hover:bg-[#F1F3F9] md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
           >
             {isMenuOpen ? <FiX className="h-5 w-5" /> : <FiMenu className="h-5 w-5" />}
           </button>
@@ -78,7 +92,11 @@ const Navbar = () => {
                   {link.icon && <link.icon className="h-4 w-4" />}
                   {link.label}
                   {active && (
-                    <span className="absolute -bottom-[5px] left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-[#0D9488]" />
+                    <motion.span
+                      layoutId="nav-active-dot"
+                      className="absolute -bottom-[5px] left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-[#0D9488]"
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                    />
                   )}
                 </Link>
               </li>
@@ -169,7 +187,14 @@ const Navbar = () => {
       {/* Mobile menu */}
       <AnimatePresence>
         {isMenuOpen && (
-          <div className="border-t border-[#E8ECF4] bg-white md:hidden">
+          <motion.div
+            key="mobile-menu"
+            variants={mobileMenuVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="border-t border-[#E8ECF4] bg-white md:hidden shadow-lg"
+          >
             <div className="space-y-1 p-4">
               {navLinks.map((link) => {
                 const active = isActive(link.href);
@@ -219,7 +244,7 @@ const Navbar = () => {
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </nav>

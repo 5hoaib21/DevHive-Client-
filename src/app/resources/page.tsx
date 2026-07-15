@@ -1,6 +1,6 @@
-import AllResourcesPage from '@/components/AllResourcesPage';
 import FilterAndSort from '@/components/FilterAndSort';
 import SearchResource from '@/components/SearchResource';
+import ResourceGridWrapper from '@/components/ResourceGridWrapper';
 import { getAllResources } from '@/lib/api/prompts';
 import Link from 'next/link';
 
@@ -50,7 +50,7 @@ const PublicResourcesPage = async ({ searchParams }: { searchParams: Promise<Rec
           </p>
         </div>
 
-        <div className="mb-8 space-y-4">
+        <div className="mb-8 space-y-6">
           <SearchResource />
           <FilterAndSort />
         </div>
@@ -62,11 +62,7 @@ const PublicResourcesPage = async ({ searchParams }: { searchParams: Promise<Rec
             <p className="dh-empty-text">Try adjusting your search or filters</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {resources.map((resource: any) => (
-              <AllResourcesPage key={resource._id} resource={resource} />
-            ))}
-          </div>
+          <ResourceGridWrapper resources={resources} />
         )}
 
         {totalPages > 1 && (

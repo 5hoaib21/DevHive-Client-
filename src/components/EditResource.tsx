@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, ChangeEvent, FormEvent, MouseEvent } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { Pencil, X, Upload, Image as ImageIcon } from "lucide-react";
 import { updateResource } from "@/lib/actions/prompts";
@@ -115,11 +116,30 @@ export default function EditResource({ promptId, promptData }: EditResourceProps
         <Pencil size={14} />
       </button>
 
-      {isModalOpen && (
-        <>
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={closeModal} />
-            <div className="relative bg-white border border-dh-border rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto z-10">
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            <motion.div
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              onClick={closeModal}
+            />
+            <motion.div
+              className="relative bg-white border border-dh-border rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto z-10"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+            >
               <div className="flex items-center justify-between p-6 border-b border-dh-border">
                 <h3 className="text-lg font-bold text-gray-900">Edit Resource</h3>
                 <button onClick={closeModal} className="p-1 rounded-md text-gray-400 hover:bg-gray-100 hover:text-gray-600">
@@ -200,10 +220,10 @@ export default function EditResource({ promptId, promptData }: EditResourceProps
                   </button>
                 </div>
               </form>
-            </div>
-          </div>
-        </>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

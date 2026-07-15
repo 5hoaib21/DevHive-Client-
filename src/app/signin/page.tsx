@@ -1,6 +1,7 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
 import { Icon } from "@iconify/react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
@@ -45,7 +46,12 @@ export default function SignInPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left Panel - Brand */}
-      <div className="hidden lg:flex lg:w-2/5 bg-[#1A1D26] flex-col items-center justify-center p-12 relative overflow-hidden">
+      <motion.div
+        className="hidden lg:flex lg:w-2/5 bg-[#1A1D26] flex-col items-center justify-center p-12 relative overflow-hidden"
+        initial={{ opacity: 0, x: -40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] as const }}
+      >
         <div className="absolute inset-0 opacity-[0.03]"
           style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, white 2px, white 4px), repeating-linear-gradient(90deg, transparent, transparent 2px, white 2px, white 4px)', backgroundSize: '40px 40px' }}
         />
@@ -56,10 +62,15 @@ export default function SignInPage() {
           <h1 className="text-3xl font-bold text-white mb-2">DevHive</h1>
           <p className="text-gray-400 text-sm max-w-xs">The developer resource platform</p>
         </div>
-      </div>
+      </motion.div>
 
       {/* Right Panel - Form */}
-      <div className="flex-1 bg-dh-surface flex items-center justify-center p-6">
+      <motion.div
+        className="flex-1 bg-dh-surface flex items-center justify-center p-6"
+        initial={{ opacity: 0, x: 40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] as const }}
+      >
         <div className="w-full max-w-md">
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-gray-900">Welcome back</h1>
@@ -128,7 +139,7 @@ export default function SignInPage() {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

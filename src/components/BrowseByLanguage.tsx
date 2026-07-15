@@ -11,6 +11,7 @@ import {
   FileCode,
 } from 'lucide-react';
 import { getAllResources } from '@/lib/api/prompts';
+import { StaggerGrid, StaggerItem } from '@/components/motion/StaggerGrid';
 
 interface LanguageItem {
   slug: string;
@@ -139,12 +140,12 @@ const BrowseByLanguage = async () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {displayItems.map((item) => {
             const config = languageConfigs[item.slug] ?? languageConfigs.default;
             return (
+              <StaggerItem key={item.slug}>
               <Link
-                key={item.slug}
                 href={`/resources?language=${item.slug}`}
                 className="dh-card dh-card-hover p-4 flex items-center gap-3"
               >
@@ -164,9 +165,10 @@ const BrowseByLanguage = async () => {
                   )}
                 </div>
               </Link>
+              </StaggerItem>
             );
           })}
-        </div>
+        </StaggerGrid>
       </div>
     </section>
   );

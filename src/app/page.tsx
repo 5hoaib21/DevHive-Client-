@@ -7,6 +7,7 @@ import WhyDevHive from "@/components/WhyDevHive";
 import StatisticsSection from "@/components/StatisticsSection";
 import TopPublishers from "@/components/TopPublishers";
 import ReviewSection from "@/components/ReviewSection";
+import SectionReveal from "@/components/motion/SectionReveal";
 import { getAllResources } from "@/lib/api/prompts";
 
 const Home = async () => {
@@ -19,23 +20,23 @@ const Home = async () => {
       <Banner />
 
       {/* Section 2: Featured Resources */}
-      <FeaturedResources />
+      <SectionReveal><FeaturedResources /></SectionReveal>
 
       {/* Section 3: Browse by Language */}
-      <BrowseByLanguage />
+      <SectionReveal delay={0.05}><BrowseByLanguage /></SectionReveal>
 
       {/* Section 4: Top Picks This Week */}
-      <TopPicks />
+      <SectionReveal delay={0.1}><TopPicks /></SectionReveal>
 
       {/* Section 5: Why DevHive */}
-      <WhyDevHive />
+      <SectionReveal delay={0.15}><WhyDevHive /></SectionReveal>
 
       {/* Section 6: Statistics */}
-      <StatisticsSection />
+      <SectionReveal delay={0.2}><StatisticsSection /></SectionReveal>
 
       {/* Section 7: Publisher Leaderboard + Testimonials */}
-      <TopPublishers />
-      {firstResourceId && <ReviewSection />}
+      <SectionReveal delay={0.25}><TopPublishers /></SectionReveal>
+      {firstResourceId && <SectionReveal delay={0.3}><ReviewSection /></SectionReveal>}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { useState } from 'react';
 
 const SearchResource = () => {
@@ -19,23 +19,43 @@ const SearchResource = () => {
     router.push(`/resources?${params.toString()}`);
   };
 
+  const clearSearch = () => {
+    setSearchValue('');
+    const params = new URLSearchParams(searchParams?.toString() || '');
+    params.delete('search');
+    router.push(`/resources?${params.toString()}`);
+  };
+
   return (
-    <form onSubmit={onSearch} className="max-w-md mx-auto">
-      <div className="flex items-center gap-2 p-1.5 rounded-lg bg-white border border-dh-border focus-within:border-dh-teal focus-within:ring-2 focus-within:ring-teal-100 transition-all">
-        <div className="pl-3 text-gray-400">
-          <Search size={16} />
+    <form onSubmit={onSearch} className="w-full max-w-2xl mx-auto">
+      <div className="relative">
+        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <Search className="h-5 w-5 text-gray-400" />
         </div>
         <input
-          name="search"
           type="search"
-          placeholder="Search resources..."
+          placeholder="Search resources by title, description, or tags..."
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
-          className="flex-1 py-2 bg-transparent text-sm text-gray-900 outline-none placeholder-gray-400"
+          className="w-full pl-10 pr-24 py-3 bg-white border border-gray-200 rounded-xl focus:border-dh-teal focus:ring-2 focus:ring-dh-teal/20 outline-none transition-all duration-200 text-gray-900 placeholder-gray-400"
         />
-        <button type="submit" className="dh-btn dh-btn-primary text-xs py-1.5 px-3">
-          Search
-        </button>
+        <div className="absolute inset-y-0 right-0 flex items-center pr-2 space-x-1">
+          {searchValue && (
+            <button
+              type="button"
+              onClick={clearSearch}
+              className="p-1.5 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
+          <button
+            type="submit"
+            className="px-4 py-1.5 bg-dh-teal text-white text-sm font-medium rounded-lg hover:bg-dh-teal/90 transition-colors"
+          >
+            Search
+          </button>
+        </div>
       </div>
     </form>
   );

@@ -3,6 +3,7 @@ import { Code2, ArrowRight, Star, Quote } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getTopPublishers } from '@/lib/api/topCreators';
+import { StaggerGrid, StaggerItem } from '@/components/motion/StaggerGrid';
 
 interface Creator {
   _id: string;
@@ -41,10 +42,10 @@ export default async function TopPublishers() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left: Ranked List */}
-          <div className="space-y-3">
+          <StaggerGrid className="space-y-3">
             {creators.slice(0, 5).map((creator: Creator, index: number) => (
+              <StaggerItem key={creator._id}>
               <Link
-                key={creator._id}
                 href={`/creators/${creator._id}`}
                 className="dh-card dh-card-hover flex items-center gap-4 p-4"
               >
@@ -75,13 +76,15 @@ export default async function TopPublishers() {
                   <span className="font-semibold text-gray-700">{creator.totalResources}</span>
                 </div>
               </Link>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGrid>
 
           {/* Right: Testimonials */}
-          <div className="space-y-4">
+          <StaggerGrid className="space-y-4">
             {testimonials.map((text, i) => (
-              <div key={i} className="dh-card p-6">
+              <StaggerItem key={i}>
+              <div className="dh-card p-6">
                 <Quote size={20} className="text-dh-teal/30 mb-2" />
                 <p className="text-sm text-gray-600 leading-relaxed italic">
                   &ldquo;{text}&rdquo;
@@ -92,8 +95,9 @@ export default async function TopPublishers() {
                   ))}
                 </div>
               </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGrid>
         </div>
       </div>
     </section>

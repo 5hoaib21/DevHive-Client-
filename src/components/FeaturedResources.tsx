@@ -8,6 +8,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { getFeaturedResources } from '@/lib/api/prompts';
+import { StaggerGrid, StaggerItem } from '@/components/motion/StaggerGrid';
 
 const FeaturedResources = async () => {
     const data = await getFeaturedResources();
@@ -47,11 +48,13 @@ const FeaturedResources = async () => {
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                <StaggerGrid className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                     {prompts.map((prompt: any, index: number) => (
-                        <FeaturedCard key={prompt._id || index} prompt={prompt} />
+                        <StaggerItem key={prompt._id || index}>
+                            <FeaturedCard prompt={prompt} />
+                        </StaggerItem>
                     ))}
-                </div>
+                </StaggerGrid>
 
                 <div className="text-center mt-8 sm:hidden">
                     <Link

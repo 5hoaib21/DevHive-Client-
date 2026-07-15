@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Trash2, AlertTriangle } from "lucide-react";
 import toast from "react-hot-toast";
 import { deleteResource } from "@/lib/actions/prompts";
@@ -49,11 +50,30 @@ export default function DeleteResource({ promptId }: DeleteResourceProps) {
         <Trash2 size={14} />
       </button>
 
-      {isModalOpen && (
-        <>
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={closeModal} />
-            <div className="relative bg-white border border-dh-border rounded-lg shadow-xl w-full max-w-md p-6 z-10">
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            <motion.div
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              onClick={closeModal}
+            />
+            <motion.div
+              className="relative bg-white border border-dh-border rounded-lg shadow-xl w-full max-w-md p-6 z-10"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+            >
               <div className="flex flex-col items-center text-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-red-50 border border-red-100 flex items-center justify-center text-dh-danger">
                   <AlertTriangle size={24} />
@@ -69,10 +89,10 @@ export default function DeleteResource({ promptId }: DeleteResourceProps) {
                   </button>
                 </div>
               </div>
-            </div>
-          </div>
-        </>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

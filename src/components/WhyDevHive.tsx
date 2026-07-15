@@ -1,7 +1,10 @@
 "use client";
 
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Sparkles, Zap, Shield, Users, Rocket, Award, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { StaggerGrid, StaggerItem } from "@/components/motion/StaggerGrid";
 
 const WhyDevHive = () => {
   const benefits = [
@@ -64,43 +67,30 @@ const WhyDevHive = () => {
           </p>
         </div>
 
-        {/* Benefits grid - centered column + 2x2 layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {benefits.slice(0, 2).map((benefit, index) => (
-            <div key={index} className="dh-card p-5 lg:col-span-1">
-              <div className={`w-12 h-12 rounded-lg ${benefit.bgClass} flex items-center justify-center mb-3`}>
-                <span className={benefit.iconClass}>{benefit.icon}</span>
-              </div>
-              <h3 className="text-base font-bold text-gray-900 mb-1.5">
-                {benefit.title}
-              </h3>
-              <p className="text-gray-500 text-sm leading-relaxed">
-                {benefit.description}
-              </p>
-            </div>
-          ))}
-          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {benefits.slice(2).map((benefit, index) => (
-              <div key={index} className="dh-card p-5">
-                <div className={`w-12 h-12 rounded-lg ${benefit.bgClass} flex items-center justify-center mb-3`}>
+        {/* Benefits grid - 3 columns layout */}
+        <StaggerGrid className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {benefits.map((benefit, index) => (
+            <StaggerItem key={index}>
+              <div className="dh-card p-6 h-full flex flex-col">
+                <div className={`w-12 h-12 rounded-lg ${benefit.bgClass} flex items-center justify-center mb-4 flex-shrink-0`}>
                   <span className={benefit.iconClass}>{benefit.icon}</span>
                 </div>
-                <h3 className="text-base font-bold text-gray-900 mb-1.5">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
                   {benefit.title}
                 </h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
+                <p className="text-gray-500 text-sm leading-relaxed flex-grow">
                   {benefit.description}
                 </p>
               </div>
-            ))}
-          </div>
-        </div>
+            </StaggerItem>
+          ))}
+        </StaggerGrid>
 
         {/* CTA */}
         <div className="mt-14 text-center">
           <Link
             href="/resources"
-            className="dh-btn dh-btn-primary gap-2"
+            className="dh-btn dh-btn-primary gap-2 inline-flex items-center"
           >
             Get Started Now
             <ArrowRight className="w-4 h-4" />

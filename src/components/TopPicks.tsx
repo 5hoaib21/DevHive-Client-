@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Copy, Sparkles, ArrowRight, Star } from 'lucide-react';
 import { getAllResources } from '@/lib/api/prompts';
+import { StaggerGrid, StaggerItem } from '@/components/motion/StaggerGrid';
 
 const difficultyColors: Record<string, string> = {
   beginner: 'bg-emerald-100 text-emerald-700',
@@ -39,7 +40,7 @@ const TopPicks = async () => {
             <p className="dh-empty-text">Check back soon for trending resources!</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <StaggerGrid className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {resources.slice(0, 4).map((resource: any) => {
               const {
                 _id,
@@ -55,8 +56,8 @@ const TopPicks = async () => {
               const diffClass = difficultyColors[diffKey] ?? difficultyColors.beginner;
 
               return (
+                <StaggerItem key={_id}>
                 <div
-                  key={_id}
                   className="dh-card flex flex-col h-full"
                 >
                   <div className="p-4 flex flex-col flex-grow">
@@ -103,9 +104,10 @@ const TopPicks = async () => {
                     </div>
                   </div>
                 </div>
+                </StaggerItem>
               );
             })}
-          </div>
+          </StaggerGrid>
         )}
 
         <div className="text-center mt-8 sm:hidden">
