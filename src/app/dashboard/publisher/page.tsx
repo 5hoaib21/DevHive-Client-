@@ -10,28 +10,29 @@ import {
   ArrowUpRight,
   AlertCircle
 } from "lucide-react";
-import { getPublisherAnalytics as getCreatorAnalytics } from "@/lib/api/prompts";
+import { getPublisherAnalytics } from "@/lib/api/prompts";
+import PublisherChart from "@/components/dashboard/PublisherChart";
 
 
 export default async function CreatorDashboardHomePage() {
   
   // ১. সরাসরি সার্ভার সাইড থেকেই ডাটা ফেচ করা হচ্ছে (কোনো useEffect বা useState লাগবে না)
-  const result = await getCreatorAnalytics();
-  const analytics = result?.analytics || { totalPrompts: 0, totalCopies: 0, totalBookmarks: 0 };
+  const result = await getPublisherAnalytics();
+  const analytics = result?.analytics || { totalResources: 0, totalUsage: 0, totalBookmarks: 0 };
   const error = result?.success ? null : (result?.error || "Failed to load insights");
 
   // 📊 ডাইনামিক ডেটা অ্যারে ম্যাপ
   const analyticsSummary = [
     {
       title: "Total Resources",
-      value: analytics.totalPrompts.toLocaleString(),
+      value: analytics.totalResources.toLocaleString(),
       change: "Live from store",
       icon: <Terminal size={20} className="text-blue-600" />,
       bgIcon: "bg-blue-50/70 border-blue-100/50",
     },
     {
-      title: "Total Copies",
-      value: analytics.totalCopies.toLocaleString(),
+      title: "Total Usage",
+      value: analytics.totalUsage.toLocaleString(),
       change: "Market interactions",
       icon: <Copy size={20} className="text-violet-600" />,
       bgIcon: "bg-violet-50/70 border-violet-100/50",
@@ -44,6 +45,7 @@ export default async function CreatorDashboardHomePage() {
       bgIcon: "bg-emerald-50/70 border-emerald-100/50",
     },
   ];
+
 
   return (
     <div className="bg-white text-zinc-900 py-6 px-4 sm:px-6">
@@ -112,18 +114,8 @@ export default async function CreatorDashboardHomePage() {
           ))}
         </div>
 
-        {/* 📈 Activity Chart Canvas Area */}
-        <div className="bg-zinc-50/50 rounded-3xl p-6 border border-zinc-100 flex flex-col items-center justify-center text-center py-12">
-          <div className="w-10 h-10 rounded-xl bg-white border border-zinc-200/60 flex items-center justify-center text-zinc-400 mb-3 shadow-xs">
-            <BarChart3 size={18} />
-          </div>
-          <h4 className="text-sm font-bold text-zinc-800">
-            Engagement Timelines Integration Area
-          </h4>
-          <p className="text-xs text-zinc-400 max-w-xs mt-1 leading-relaxed">
-            Data flow matrix updates instantly when live copy signals trace active marketplace telemetry.
-          </p>
-        </div>
+        {/* 📈 Monthly Submissions Chart */}
+        <PublisherChart />
 
       </div>
     </div>

@@ -6,11 +6,11 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 
 const COLORS = ["#006FEE", "#7828C8", "#17C964", "#F5A524", "#FF4ECD"];
 
-export default function AnalyticsDashboardView({ stats, engineData }: { stats: any, engineData: any }) {
+export default function AnalyticsDashboardView({ stats, languageData }: { stats: any, languageData: any }) {
   
-  const distributionData = (stats.languageData || engineData || []).map((item: any) => ({
+  const distributionData = (languageData || []).map((item: any) => ({
     name: item.name,
-    value: item.Resources || item.Prompts
+    value: item.Resources
   })).filter((item: any) => item.value > 0);
 
   return (
@@ -45,10 +45,10 @@ export default function AnalyticsDashboardView({ stats, engineData }: { stats: a
           <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl"><MessageSquare size={18} /></div>
         </div>
 
-        {/* TOTAL COPIES */}
+        {/* TOTAL USAGE */}
         <div className="p-4 bg-white border border-zinc-100 rounded-2xl shadow-sm flex items-center justify-between">
           <div>
-            <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Total Copies</p>
+            <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Total Usage</p>
             <h3 className="text-xl font-bold text-zinc-900 mt-1">{stats.totalUsage}</h3>
           </div>
           <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl"><Copy size={18} /></div>
@@ -68,13 +68,13 @@ export default function AnalyticsDashboardView({ stats, engineData }: { stats: a
           
           <div className="w-full h-[320px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={engineData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <BarChart data={languageData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F4F4F5" />
                 <XAxis dataKey="name" stroke="#A1A1AA" fontSize={12} tickLine={false} />
                 <YAxis stroke="#A1A1AA" fontSize={12} tickLine={false} />
                 <Tooltip contentStyle={{ backgroundColor: "#ffffff", borderColor: "#E4E4E7", borderRadius: "12px" }} />
                 <Legend iconType="circle" wrapperStyle={{ fontSize: "12px", paddingTop: "10px" }} />
-                <Bar dataKey="Copies" fill="#006FEE" radius={[6, 6, 0, 0]} barSize={26} name="Total Copies" />
+                <Bar dataKey="Usage" fill="#006FEE" radius={[6, 6, 0, 0]} barSize={26} name="Total Usage" />
                 <Bar dataKey="Resources" fill="#7828C8" radius={[6, 6, 0, 0]} barSize={26} name="Total Resources" />
               </BarChart>
             </ResponsiveContainer>

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Bookmark, MessageSquare, Copy, Sparkles, TrendingUp, Compass, AlertCircle } from 'lucide-react';
+import { Bookmark, MessageSquare, Sparkles, TrendingUp, Compass, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
-import { getExplorerAnalytics as getUserAnalytics } from '@/lib/api/prompts';
+import { getExplorerAnalytics } from '@/lib/api/prompts';
 
 export default async function UserDashboardHomePage() {
     
-    const result = await getUserAnalytics();
-    const analytics = result?.analytics || { totalBookmarks: 0, totalReviews: 0, totalCopies: 0 };
+    const result = await getExplorerAnalytics();
+    const analytics = result?.analytics || { totalBookmarks: 0, totalReviews: 0 };
     const error = result?.success ? null : (result?.error || "Failed to load dashboard insights");
 
 
@@ -25,13 +25,6 @@ export default async function UserDashboardHomePage() {
             desc: "Feedback shared on tools",
             icon: <MessageSquare size={20} className="text-blue-600" />,
             bgIcon: "bg-blue-50/70 border-blue-100/50",
-        },
-        {
-            title: "Resource Usage",
-            value: analytics.totalCopies.toLocaleString(),
-            desc: "Resources used in projects",
-            icon: <Copy size={20} className="text-purple-600" />,
-            bgIcon: "bg-purple-50/70 border-purple-100/50",
         },
     ];
 
@@ -66,7 +59,7 @@ export default async function UserDashboardHomePage() {
                 </div>
 
                 {/* 📊 Analytics Grid System */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {userSummary.map((item, index) => (
                         <div
                             key={index}
@@ -105,7 +98,7 @@ export default async function UserDashboardHomePage() {
                             Ready to discover more developer resources?
                         </h4>
                         <p className="text-xs text-zinc-500 max-w-sm mx-auto leading-relaxed">
-                            Discover ultimate boilerplate templates, midjourney generation formulas, and workflows tailored for your needs.
+                            Discover code snippets, templates, configs, and tools tailored for your workflow.
                         </p>
                     </div>
                     <Link 

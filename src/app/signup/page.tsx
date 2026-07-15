@@ -25,12 +25,17 @@ export default function SignUpPage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
+    const selectedRole = formData.get('role') as string;
+    const allowedRoles = ['explorer', 'publisher'];
+    const role = allowedRoles.includes(selectedRole) ? selectedRole : 'explorer';
+
     await authClient.signUp.email({
       email: formData.get('email') as string,
       name: formData.get('name') as string,
       password: formData.get('password') as string,
       image: formData.get('image') as string || undefined,
-    });
+      role,
+    } as any);
     toast.success('welcome')
 
     redirect('/')
