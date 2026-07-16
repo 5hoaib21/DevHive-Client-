@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { Pencil, X, Upload, Image as ImageIcon } from "lucide-react";
 import { updateResource } from "@/lib/actions/prompts";
-import { imageUpload } from "@/lib/actions/imgUpload";
+import { uploadImage } from "@/lib/actions/imgUpload";
 import { getIdString, MongoId } from "@/types";
 import { useRouter } from "next/navigation";
 
@@ -33,21 +33,18 @@ export default function EditResource({ promptId, promptData }: EditResourceProps
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
-    setImageFile(null);
     setImagePreview(null);
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImageFile(file);
       setImagePreview(URL.createObjectURL(file));
     }
   };
@@ -65,14 +62,10 @@ export default function EditResource({ promptId, promptData }: EditResourceProps
       let imageUrl = promptData?.image || "";
       let ogImageUrl = promptData?.ogImage || "";
 
-      if (imageFile) {
-        const uploadResult = await imageUpload(imageFile);
-        if (uploadResult.success && uploadResult.data?.url) {
-          imageUrl = uploadResult.data.url;
-          ogImageUrl = uploadResult.data.url;
-        } else {
-          throw new Error(uploadResult.message || "Image upload failed");
-        }
+      const editFile = fileInputRef.current?.files?.[0];
+      if (editFile) {
+        imageUrl = await uploadImage(editFile);
+        ogImageUrl = imageUrl;
       }
 
       const updateData: Record<string, string> = {

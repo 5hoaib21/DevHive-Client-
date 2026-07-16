@@ -2,8 +2,7 @@
 
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import { Code, Upload } from "lucide-react";
-import { imageUpload } from "@/lib/actions/imgUpload";
+import { Code, ImageOff } from "lucide-react";
 import { addResource } from "@/lib/actions/prompts";
 import { useRouter } from "next/navigation";
 
@@ -18,23 +17,8 @@ interface Props {
 
 export default function AddResourceForm({ role = "explorer" }: Props) {
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isUploading, setIsUploading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
-
-  const handleThumbnailUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setIsUploading(true);
-    const url = URL.createObjectURL(file);
-    // Store the blob URL for later upload
-    const dt = new DataTransfer();
-    dt.items.add(file);
-    const input = e.target;
-    if (input) input.files = dt.files;
-    setIsUploading(false);
-    toast.success("Image selected");
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,15 +38,8 @@ export default function AddResourceForm({ role = "explorer" }: Props) {
       return;
     }
 
-    let imageUrl = "";
-    try {
-      const image = await imageUpload(data.image);
-      imageUrl = image?.url || "";
-    } catch {}
-
     const resourcePayload = {
       ...data,
-      image: imageUrl,
       usageCount: 0,
       rating: 0,
       ratingCount: 0,
@@ -170,10 +147,15 @@ export default function AddResourceForm({ role = "explorer" }: Props) {
       </div>
 
       <div>
-        <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-1.5">Resource Image</label>
-        <div className="flex items-center gap-4 p-4 border-2 border-dashed border-dh-border rounded-lg">
-          <input type="file" name="image" accept="image/png, image/jpeg" onChange={handleThumbnailUpload} className="text-sm text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-teal-50 file:text-dh-teal hover:file:bg-teal-100" />
-          {isUploading && <span className="text-xs text-gray-400">Uploading...</span>}
+        <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-1.5">
+          Resource Image
+          <span className="ml-2 inline-block px-1.5 py-0.5 text-[10px] font-bold text-amber-700 bg-amber-100 rounded-full leading-none align-middle">Coming Soon</span>
+        </label>
+        <div className="flex items-center gap-3 p-4 border-2 border-dashed border-gray-200 rounded-lg bg-gray-50">
+          <div className="w-8 h-8 rounded-lg bg-gray-200 flex items-center justify-center text-gray-400 shrink-0">
+            <ImageOff width={16} height={16} />
+          </div>
+          <p className="text-sm text-gray-400">Image upload is currently unavailable and will be added soon.</p>
         </div>
       </div>
 

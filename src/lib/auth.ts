@@ -25,6 +25,9 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
+  advanced: {
+    useSecureCookies: (process.env.BETTER_AUTH_URL ?? '').startsWith('https://'),
+  },
   user: {
     additionalFields: {
       role: {
